@@ -37,7 +37,7 @@ describe("fnC returns random between 1 and 4", function() {
 		expect(wumpus.fnC()).toBeGreaterThan(0);
 	});
 	it("and is smaller than 5", function() {
-		expect(wumpus.fnC()).toBeLessThan(4);
+		expect(wumpus.fnC()).toBeLessThan(5);
 	});
 	it("and is a whole number", function() {
 		expect(wumpus.fnC()).toBeAnInteger();

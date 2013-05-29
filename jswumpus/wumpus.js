@@ -16,39 +16,41 @@ var fnC=function() {
 	return Math.floor(Math.random() * 4 + 1);
 };
 
-var currentLine = 0;
+var currentLine = 5;
 var returnLine = [];
 var nextLine = 0;
+var i$ = '\0';
+var s = [[0,0,0,0],
+[0,2,5,8],		[0,1,3,10],		[0,2,4,12],		[0,3,5,14],		[0,1,4,6],
+[0,5,7,15],		[0,6,8,17],		[0,1,7,9],		[0,8,10,18],	[0,2,9,11],
+[0,10,12,19],	[0,3,11,13],	[0,12,14,20],	[0,4,13,15],	[0,6,14,16],
+[0,15,17,20],	[0,7,16,18],	[0,9,17,19],	[0,11,18,20],	[0,13,16,19]];
+var l = [0,0,0,0,0,0,0];
+var m = [0,0,0,0,0,0,0];
+var p = [0,0,0,0,0,0];
+var aa = 5;
+var ll = aa;
+var o = 1;
+var f = 0;
+
+var j = 0;
+var k = 0;
+var k1 = 0;
+var j9 = 0;
+var i$='';
+var input=function(value){i$ = value; currentLine = nextLine; exports.main();};
+var line='';
+var readInt=function(value){line = value; line = parseInt(line, 10); currentLine = nextLine; exports.main();};
 
 exports.main = function() {
 	try {
-		var currentLine = 5;
-		var i$ = '\0';
-		var s = [[0,0,0,0],
-		[0,2,5,8],		[0,1,3,10],		[0,2,4,12],		[0,3,5,14],		[0,1,4,6],
-		[0,5,7,15],		[0,6,8,17],		[0,1,7,9],		[0,8,10,18],	[0,2,9,11],
-		[0,10,12,19],	[0,3,11,13],	[0,12,14,20],	[0,4,13,15],	[0,6,14,16],
-		[0,15,17,20],	[0,7,16,18],	[0,9,17,19],	[0,11,18,20],	[0,13,16,19]];
-		var l = [0,0,0,0,0,0,0];
-		var m = [0,0,0,0,0,0,0];
-		var p = [0,0,0,0,0,0];
-		var aa = 5;
-		var ll = aa;
-		var o = 1;
-		var f = 0;
-		
-		var j = 0;
-		var k = 0;
-		var k1 = 0;
-		var j9 = 0;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
 			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
 			case 10: break;				 																	// 10 dim p(5)
 			case 15: console.log("INSTRUCTIONS (Y-N) "); break;												// 15 print "INSTRUCTIONS (Y-N)";
-			case 20: i$=''; rl.question("Ahhhhh", function(value){$i = value;}); break; 					// 20 input i$
-			case 22: if (i$ == '') nextLine = 22; break;
+			case 20: i$=''; rl.question("", input); return;													// 20 input i$
 			case 25: if (i$ == 'N' || i$ =='n') nextLine = 35; break;										// 25 if (i$ = "N") or (i$ = "n") then 35
 			case 30: gosub(375, 35); break;																	// 30 gosub 375
 			case 35: nextLine = 80; break;																	// 35 goto 80
@@ -108,7 +110,7 @@ exports.main = function() {
 			case 345: l[j] = m[j]; break;																	// 345 l(j) = m(j)
 			case 350: ++j; if (j <= 6) nextLine = 345; break;												// 350 next j
 			case 355: console.log("SAME SETUP (Y-N)"); break;												// 355 print "SAME SETUP (Y-N)";
-			case 360: rl.question("", function(value){$i = value;}); break;									// 360 input i$
+			case 360: rl.question("", input); return;														// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 375: break;																				// 375 rem *** INSTRUCTIONS ***
@@ -130,7 +132,7 @@ exports.main = function() {
 			case 430: console.log(																			// 430 print
 					"     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"); break;					// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
 			case 435: console.log("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"); break;				// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-			case 440: console.log("HIT RETURN TO CONTINUE"); rl.question("", function(value){}); break;		// 440 input "HIT RETURN TO CONTINUE";a$
+			case 440: console.log("HIT RETURN TO CONTINUE"); rl.question("", input); return;				// 440 input "HIT RETURN TO CONTINUE";a$
 			case 445: console.log("     WUMPUS:"); break;													// 445 print "     WUMPUS:"
 			case 450: console.log(																			// 450 print
 					" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"); break;						// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
@@ -159,7 +161,7 @@ exports.main = function() {
 			case 525: console.log("   AT RANDOM TO THE NEXT ROOM."); break;									// 525 print "   AT RANDOM TO THE NEXT ROOM."
 			case 530: console.log("     IF THE ARROW HITS THE WUMPUS, YOU WIN."); break;					// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
 			case 535: console.log("     IF THE ARROW HITS YOU, YOU LOSE."); break;							// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-			case 540: console.log("HIT RETURN TO CONTINUE"); rl.question("", function(value){}); break;		// 540 input "HIT RETURN TO CONTINUE";a$
+			case 540: console.log("HIT RETURN TO CONTINUE"); rl.question("", input); return;				// 540 input "HIT RETURN TO CONTINUE";a$
 			case 545: console.log("    WARNINGS:"); break;													// 545 print "    WARNINGS:"
 			case 550: console.log(																			// 550 print
 					"     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"); break;						// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
@@ -190,13 +192,13 @@ exports.main = function() {
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
 			case 650: console.log("YOUR ARE IN ROOM "); console.log(l[1]); break;							// 650 print "YOU ARE IN ROOM ";l(1)
 			case 655: console.log("TUNNELS LEAD TO "); console.log(s[ll][1]);								// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-						console.log(" "); console.log(s[ll][2]); 
-						console.log(" "); console.log(s[ll][3]); break;
+						console.log(s[ll][2]); 
+						console.log(s[ll][3]); break;
 			case 660: console.log(""); break;																// 660 print
 			case 665: returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: console.log("SHOOT OR MOVE (S-M) "); break;											// 675 print "SHOOT OR MOVE (S-M)";
-			case 680: rl.question("", function(value){$i = value;}); break;									// 680 input i$
+			case 680: rl.question("", input); return;														// 680 input i$
 			case 685: if (i$ != 'S' && i$ != 's') nextLine = 700; break;									// 685 if (i$ <> "S") and (i$ <> "s") then 700
 			case 690: o = 1; break;																			// 690 o = 1
 			case 695: returnFromGosub(); break;																// 695 return
@@ -207,12 +209,14 @@ exports.main = function() {
 			case 720: f = 0; break;																			// 720 f = 0
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
 			case 735: console.log("NO. OF ROOMS (1-5) "); break;											// 735 print "NO. OF ROOMS (1-5)";
-			case 740: j9 = readInt(); break;																// 740 input j9
+			case 740: rl.question("", readInt); return;														// 740 input j9
+			case 741: j9 = line; break;
 			case 745: if (j9 < 1) nextLine = 735; break;													// 745 if j9 < 1 then 735
 			case 750: if (j9 > 5) nextLine = 735; break;													// 750 if j9 > 5 then 735
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
 			case 760: console.log("ROOM # "); break;														// 760 print "ROOM #";
-			case 765: p[k] = readInt(); break;																// 765 input p(k)
+			case 765: rl.question("", readInt); return;														// 765 input p(k)
+			case 766: p[k] = line; break;
 			case 770: if (k <= 2) nextLine = 790; break;													// 770 if k <= 2 then 790
 			case 775: if (p[k] != p[k-2]) nextLine = 790; break;											// 775 if p(k) <> p(k-2) then 790
 			case 780: console.log("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"); break;					// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
@@ -257,7 +261,8 @@ exports.main = function() {
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985: console.log("WHERE TO "); break;														// 985 print "WHERE TO";
-			case 990: ll = readInt(); break;																// 990 input l
+			case 990: rl.question("", readInt); return;														// 990 input l
+			case 991: ll = line; break;
 			case 995: if (ll < 1) nextLine = 985; break;													// 995 if l < 1 then 985
 			case 1000: if (ll > 20) nextLine = 985; break;													// 1000 if l > 20 then 985
 			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
@@ -308,11 +313,6 @@ var returnFromGosub=function() {
 		nextLine = returnLine.pop();
 };
 
-var readInt=function() {
-	var line = "";
-	rl.question("", function(value){$i = value;});
-	return parseInt(line, 10);
-};
 exports.fnA = fnA;
 exports.fnB = fnB;
 exports.fnC = fnC;
