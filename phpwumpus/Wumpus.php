@@ -201,7 +201,7 @@ class Wumpus
 				case 760: print("ROOM # "); break;																// 760 print "ROOM #";
 				case 765: $p[$k] = self::readInt(); break;														// 765 input p(k)
 				case 770: if ($k <= 2) self::$nextLine = 790; break;											// 770 if k <= 2 then 790
-				case 775: if ($p[$k] != $p[k-2]) self::$nextLine = 790; break;									// 775 if p(k) <> p(k-2) then 790
+				case 775: if ($p[$k] != $p[$k-2]) self::$nextLine = 790; break;									// 775 if p(k) <> p(k-2) then 790
 				case 780: print("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM\n"); break;						// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
 				case 785: self::$nextLine = 760; break;															// 785 goto 760
 				case 790: ++$k; if ($k <= $j9) self::$nextLine = 760; break;									// 790 next k
@@ -261,7 +261,7 @@ class Wumpus
 				case 1060: print("... OOPS! BUMPED A WUMPUS!\n"); break;										// 1060 print "... OOPS! BUMPED A WUMPUS!"
 				case 1065: break;																				// 1065 rem *** MOVE WUMPUS ***
 				case 1070: self::gosub(940, 1075); break;														// 1070 gosub 940
-				case 1075: if (f == 0) self::$nextLine = 1090; break;											// 1075 if f = 0 then 1090
+				case 1075: if ($f == 0) self::$nextLine = 1090; break;											// 1075 if f = 0 then 1090
 				case 1080: self::returnFromGosub(); break;														// 1080 return
 				case 1085: break;																				// 1085 rem *** PIT ***
 				case 1090: if ($ll == $l[3]) self::$nextLine = 1100; break;										// 1090 if l = l(3) then 1100
