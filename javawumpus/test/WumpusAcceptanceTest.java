@@ -228,7 +228,6 @@ public class WumpusAcceptanceTest {
 		, testObj.output.toString());
 	}
 
-	// pit 8 and 10, bat in 14, wumpus in 9
 	@Test
 	public void testCrookedArrow() throws Exception {
 		int[] intInput = {5, 5, 6, 7, 6, 8, 9};
@@ -264,4 +263,33 @@ public class WumpusAcceptanceTest {
 					+ "SAME SETUP (Y-N)\n"
 		, testObj.output.toString());
 	}
+
+	// pit 8 and 10, bat in 14, wumpus in 9
+	@Test
+	public void testShootSelf() throws Exception {
+		int[] intInput = {5, 2, 3, 4, 5, 1};
+		TestableWumpus testObj = new TestableWumpus("N\rs\r", intInput);
+		runGame(testObj);
+		assertEquals("INSTRUCTIONS (Y-N) \n" 
+					+ "\n"
+					+ "HUNT THE WUMPUS\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "OUCH! ARROW GOT YOU!\n"
+					+ "HA HA HA - YOU LOSE!\n"
+					+ "SAME SETUP (Y-N)\n"
+		, testObj.output.toString());
+	}
+
 }
