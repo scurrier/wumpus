@@ -206,7 +206,6 @@ public class WumpusAcceptanceTest {
 		, testObj.output.toString());
 	}
 
-	// pit 8 and 10, bat in 14, wumpus in 9
 	@Test
 	public void testFallInPit() throws Exception {
 		int[] intInput = {8};
@@ -231,9 +230,9 @@ public class WumpusAcceptanceTest {
 
 	// pit 8 and 10, bat in 14, wumpus in 9
 	@Test
-	public void testLongShot() throws Exception {
-		int[] intInput = {2, 8, 9};
-		TestableWumpus testObj = new TestableWumpus("N\rs\r", intInput);
+	public void testCrookedArrow() throws Exception {
+		int[] intInput = {5, 5, 6, 7, 6, 8, 9};
+		TestableWumpus testObj = new TestableWumpus("N\rm\rs\r", intInput);
 		runGame(testObj);
 		assertEquals("INSTRUCTIONS (Y-N) \n" 
 					+ "\n"
@@ -245,7 +244,19 @@ public class WumpusAcceptanceTest {
                     + "\n"
 					+ "SHOOT OR MOVE (S-M) \n" 
                     + "\n"
+                    + "WHERE TO \n" 
+                    + "\n"
+                    + "YOUR ARE IN ROOM 5\n"
+                    + "TUNNELS LEAD TO 1 4 6\n"
+                    + "\n"
+                    + "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
                     + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+                    + "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM\n"
+					+ "ROOM # \n"
 					+ "ROOM # \n"
 					+ "ROOM # \n"
 					+ "AHA! YOU GOT THE WUMPUS!\n"
