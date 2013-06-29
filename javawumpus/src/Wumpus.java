@@ -49,10 +49,8 @@ public class Wumpus {
 			switch (currentLine) {
 			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
 			case 10: break;				 																	// 10 dim p(5)
-			case 15: print("INSTRUCTIONS (Y-N) "); 										// 15 print "INSTRUCTIONS (Y-N)";
-				char answer = (char) readChar(); readChar(); 								// 20 input i$
-				boolean needInstructions = answer != 'N' && answer !='n';
-				if (needInstructions) 										// 25 if (i$ = "N") or (i$ = "n") then 35
+			case 15: 
+				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						directions();																	// 30 gosub 375
 					nextLine = 80; break;																	// 35 goto 80
 			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
@@ -239,6 +237,13 @@ public class Wumpus {
 			currentLine = nextLine;
 		}
 	}
+	private boolean needInstructions() throws IOException {
+		print("INSTRUCTIONS (Y-N) "); 
+		char answer = (char) readChar();
+		readChar();
+		return answer != 'N' && answer != 'n';
+	}
+	
 	private void directions() throws IOException {
 		println("WELCOME TO 'HUNT THE WUMPUS'");					 		// 380 print "WELCOME TO 'HUNT THE WUMPUS'"
 		println(																	// 385 print
