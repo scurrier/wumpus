@@ -393,6 +393,69 @@ public class WumpusAcceptanceTest {
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
 					, testObj.output.toString());
-				}
+	}
+	
+	@Test
+	public void testEmptyQuiver() throws Exception {
+		int[] intInput = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2};
+		TestableWumpus testObj = new TestableWumpus("N\rs\rs\rs\rs\rs\r", intInput);
+		runGame(testObj);
+		assertEquals("INSTRUCTIONS (Y-N) \n" 
+					+ "\n"
+					+ "HUNT THE WUMPUS\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+                    + "MISSED\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+                    + "MISSED\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+                    + "MISSED\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+                    + "MISSED\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+                    + "MISSED\n"
+					+ "HA HA HA - YOU LOSE!\n"
+					+ "SAME SETUP (Y-N)\n"
+		, testObj.output.toString());
+	}
 
 }
