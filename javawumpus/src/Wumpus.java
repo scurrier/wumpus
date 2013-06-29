@@ -331,7 +331,7 @@ public class Wumpus {
 		return random.nextInt(4) + 1;
 	}
 
-	public static int readInt() {
+	public int readInt() {
 		String line = "";
 		BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
 		try {
