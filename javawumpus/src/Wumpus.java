@@ -102,7 +102,7 @@ public class Wumpus {
 			case 305: if (f == 0) nextLine = 255; break;													// 305 if f = 0 then 255
 			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
 			case 315: break;																				// 315 rem *** LOSE ***
-			case 320: System.out.println ("HA HA HA - YOU LOSE!"); break;									// 320 print "HA HA HA - YOU LOSE!"
+			case 320: println("HA HA HA - YOU LOSE!"); break;										// 320 print "HA HA HA - YOU LOSE!"
 			case 325: nextLine = 340; break;																// 325 goto 340
 			case 330: break;																				// 330 rem *** WIN ***
 			case 335: println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"); break;			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
@@ -190,10 +190,10 @@ public class Wumpus {
 			case 635: println("BATS NEARBY!"); break;											// 635 print "BATS NEARBY!"
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
-			case 650: print("YOUR ARE IN ROOM "); System.out.println(l[1]); break;				// 650 print "YOU ARE IN ROOM ";l(1)
-			case 655: print("TUNNELS LEAD TO "); System.out.print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-						print(" "); System.out.print(s[ll][2]); 
-						print(" "); System.out.println(s[ll][3]); break;
+			case 650: print("YOUR ARE IN ROOM "); println(l[1]); break;				// 650 print "YOU ARE IN ROOM ";l(1)
+			case 655: print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
+						print(" "); print(s[ll][2]); 
+						print(" "); println(s[ll][3]); break;
 			case 660: println(""); break;														// 660 print
 			case 665: returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
@@ -246,7 +246,7 @@ public class Wumpus {
 			case 910: f = 1; break;																			// 910 f = 1
 			case 915: returnFromGosub(); break;																// 915 return
 			case 920: if (ll != l[1]) nextLine = 840; break;												// 920 if l <> l(1) then 840
-			case 925: System.out.println ("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
+			case 925: println("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
 			case 930: nextLine = 880; break;																// 930 goto 880
 			case 935: break;																				// 935 rem *** MOVE WUMPUS ROUTINE ***
 			case 940: k = fnC(); break;																		// 940 k = fnc(0)
@@ -295,6 +295,12 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public void print(int data) {
+		System.out.print(data);
+	}
+	public void println(int data) {
+		System.out.println(data);
 	}
 	public void println(String data) {
 		System.out.println(data);
