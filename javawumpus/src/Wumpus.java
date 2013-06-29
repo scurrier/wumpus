@@ -50,8 +50,9 @@ public class Wumpus {
 			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
 			case 10: break;				 																	// 10 dim p(5)
 			case 15: print("INSTRUCTIONS (Y-N) "); 										// 15 print "INSTRUCTIONS (Y-N)";
-					i$ = (char) readChar(); readChar(); 								// 20 input i$
-					if (i$ != 'N' && i$ !='n') 										// 25 if (i$ = "N") or (i$ = "n") then 35
+				char answer = (char) readChar(); readChar(); 								// 20 input i$
+				boolean needInstructions = answer != 'N' && answer !='n';
+				if (needInstructions) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						directions();																	// 30 gosub 375
 					nextLine = 80; break;																	// 35 goto 80
 			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
