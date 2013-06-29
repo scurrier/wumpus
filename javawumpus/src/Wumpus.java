@@ -50,7 +50,7 @@ public class Wumpus {
 			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
 			case 10: break;				 																	// 10 dim p(5)
 			case 15: System.out.print("INSTRUCTIONS (Y-N) "); break;										// 15 print "INSTRUCTIONS (Y-N)";
-			case 20: i$ = (char) System.in.read(); System.in.read(); break; 								// 20 input i$
+			case 20: i$ = (char) readChar(); readChar(); break; 								// 20 input i$
 			case 25: if (i$ == 'N' || i$ =='n') nextLine = 35; break;										// 25 if (i$ = "N") or (i$ = "n") then 35
 			case 30: gosub(375, 35); break;																	// 30 gosub 375
 			case 35: nextLine = 80; break;																	// 35 goto 80
@@ -110,7 +110,7 @@ public class Wumpus {
 			case 345: l[j] = m[j]; break;																	// 345 l(j) = m(j)
 			case 350: ++j; if (j <= 6) nextLine = 345; break;												// 350 next j
 			case 355: System.out.print("SAME SETUP (Y-N)"); break;											// 355 print "SAME SETUP (Y-N)";
-			case 360: i$ = (char) System.in.read(); System.in.read(); break;								// 360 input i$
+			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 375: break;																				// 375 rem *** INSTRUCTIONS ***
@@ -132,7 +132,7 @@ public class Wumpus {
 			case 430: System.out.println(																	// 430 print
 					"     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"); break;					// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
 			case 435: System.out.println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"); break;			// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-			case 440: System.out.println("HIT RETURN TO CONTINUE"); System.in.read(); break;				// 440 input "HIT RETURN TO CONTINUE";a$
+			case 440: System.out.println("HIT RETURN TO CONTINUE"); readChar(); break;				// 440 input "HIT RETURN TO CONTINUE";a$
 			case 445: System.out.println("     WUMPUS:"); break;											// 445 print "     WUMPUS:"
 			case 450: System.out.println(																	// 450 print
 					" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"); break;						// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
@@ -161,7 +161,7 @@ public class Wumpus {
 			case 525: System.out.println("   AT RANDOM TO THE NEXT ROOM."); break;							// 525 print "   AT RANDOM TO THE NEXT ROOM."
 			case 530: System.out.println("     IF THE ARROW HITS THE WUMPUS, YOU WIN."); break;				// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
 			case 535: System.out.println("     IF THE ARROW HITS YOU, YOU LOSE."); break;					// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-			case 540: System.out.println("HIT RETURN TO CONTINUE"); System.in.read(); break;				// 540 input "HIT RETURN TO CONTINUE";a$
+			case 540: System.out.println("HIT RETURN TO CONTINUE"); readChar(); break;				// 540 input "HIT RETURN TO CONTINUE";a$
 			case 545: System.out.println("    WARNINGS:"); break;											// 545 print "    WARNINGS:"
 			case 550: System.out.println(																	// 550 print
 					"     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"); break;						// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
@@ -198,7 +198,7 @@ public class Wumpus {
 			case 665: returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: System.out.print("SHOOT OR MOVE (S-M) "); break;										// 675 print "SHOOT OR MOVE (S-M)";
-			case 680: i$ = (char) System.in.read(); System.in.read(); break;								// 680 input i$
+			case 680: i$ = (char) readChar(); readChar(); break;								// 680 input i$
 			case 685: if (i$ != 'S' && i$ != 's') nextLine = 700; break;									// 685 if (i$ <> "S") and (i$ <> "s") then 700
 			case 690: o = 1; break;																			// 690 o = 1
 			case 695: returnFromGosub(); break;																// 695 return
@@ -295,6 +295,9 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int readChar() throws IOException {
+		return System.in.read();
 	}
 	private static void gosub(int gosubLine, int lineToReturnTo) {
 		nextLine = gosubLine;
