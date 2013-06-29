@@ -37,18 +37,27 @@ public class WumpusAcceptanceTest {
 		}
 		@Override
 		public int readInt()  {
+			output.append('\n');
+			if (intInputIndex < intInput.length)
+				return (intInput[intInputIndex++]);
 			return 0;
 		}
 		
 		TestableWumpus(String charInput) {
+			this(charInput, new int[0]);
+		}
+
+		TestableWumpus(String charInput, int[]intInput) {
 			try {
 				this.charInput = charInput.getBytes("UTF8");
 			} catch (UnsupportedEncodingException e) {
 			}
+			this.intInput= intInput; 
 		}
 		StringBuilder output = new StringBuilder();
 		int charInputIndex = 0;
 		byte[] charInput;
+		int intInputIndex = 0;
 		int[] intInput;
 	}
 	
@@ -133,6 +142,67 @@ public class WumpusAcceptanceTest {
 					+ "TUNNELS LEAD TO 2 5 8\n"
 					+ "\n"
 					+ "SHOOT OR MOVE (S-M) \n"
+		, testObj.output.toString());
+	}
+	// pit 8 and 10, bat in 14, wumpus in 9
+	@Test
+	public void testKillWumpus() throws Exception {
+		int[] intInput = {5, 6, 7, 17, 18, 1, 9};
+		TestableWumpus testObj = new TestableWumpus("N\rm\rm\rm\rm\rm\rs\r", intInput);
+		runGame(testObj);
+		assertEquals("INSTRUCTIONS (Y-N) \n" 
+					+ "\n"
+					+ "HUNT THE WUMPUS\n"
+					+ "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+					+ "\n"
+					+ "SHOOT OR MOVE (S-M) \n"
+					+ "\n"
+                    + "WHERE TO \n" 
+                    + "\n"
+		            + "YOUR ARE IN ROOM 5\n"
+		            + "TUNNELS LEAD TO 1 4 6\n"
+		            + "\n"
+		            + "SHOOT OR MOVE (S-M) \n" 
+		            + "\n"
+		            + "WHERE TO \n" 
+		            + "\n"
+		            + "YOUR ARE IN ROOM 6\n"
+		            + "TUNNELS LEAD TO 5 7 15\n"
+		            + "\n"
+		            + "SHOOT OR MOVE (S-M) \n" 
+		            + "\n"
+		            + "WHERE TO \n" 
+		            + "\n"
+		            + "I FEEL A DRAFT\n"
+		            + "YOUR ARE IN ROOM 7\n"
+		            + "TUNNELS LEAD TO 6 8 17\n"
+		            + "\n"
+		            + "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+		            + "WHERE TO \n" 
+		            + "\n"
+		            + "BATS NEARBY!\n"
+		            + "YOUR ARE IN ROOM 17\n"
+		            + "TUNNELS LEAD TO 7 16 18\n"
+		            + "\n"
+		            + "SHOOT OR MOVE (S-M) \n" 
+		            + "\n"
+		            + "WHERE TO \n" 
+		            + "\n"
+		            + "I SMELL A WUMPUS!\n"
+		            + "YOUR ARE IN ROOM 18\n"
+		            + "TUNNELS LEAD TO 9 17 19\n"
+		            + "\n"
+		            + "SHOOT OR MOVE (S-M) \n" 
+		            + "\n"
+		            + "NO. OF ROOMS (1-5) \n" 
+		            + "ROOM # \n"
+		            + "AHA! YOU GOT THE WUMPUS!\n"
+		            + "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!\n"
+		            + "SAME SETUP (Y-N)\n"		
 		, testObj.output.toString());
 	}
 
