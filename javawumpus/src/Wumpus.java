@@ -51,7 +51,7 @@ public class Wumpus {
 			case 10: break;				 																	// 10 dim p(5)
 			case 15: 
 				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
-						directions();																	// 30 gosub 375
+						giveInstructions();																	// 30 gosub 375
 					nextLine = 80; break;																	// 35 goto 80
 			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
 																											// 85 dim s(20,3)
@@ -244,7 +244,7 @@ public class Wumpus {
 		return answer != 'N' && answer != 'n';
 	}
 	
-	private void directions() throws IOException {
+	private void giveInstructions() throws IOException {
 		println("WELCOME TO 'HUNT THE WUMPUS'");					 		// 380 print "WELCOME TO 'HUNT THE WUMPUS'"
 		println(																	// 385 print
 		"  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");							// "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
