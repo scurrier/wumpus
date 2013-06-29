@@ -113,64 +113,8 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 375: ;																				// 375 rem *** INSTRUCTIONS ***
-			println("WELCOME TO 'HUNT THE WUMPUS'");					 		// 380 print "WELCOME TO 'HUNT THE WUMPUS'"
-			println(																	// 385 print
-			"  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");							// "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
-			println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");		// 390 print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
-			println(																	// 395 print
-			"DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");							// "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
-			println("WHAT A DODECAHEDRON IS, ASK SOMEONE)");					// 400 print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
-			println("");														// 405 print
-			println("     HAZARDS:");											// 410 print "     HAZARDS:"
-			println(																	// 415 print
-			" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");					// " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
-			println(																	// 420 print
-			"     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");						// "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
-			println(																	// 425 print
-			" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");						// " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
-			println(																	// 430 print
-			"     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");					// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
-			println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");			// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-			println("HIT RETURN TO CONTINUE"); readChar();				// 440 input "HIT RETURN TO CONTINUE";a$
-			println("     WUMPUS:");											// 445 print "     WUMPUS:"
-			println(																	// 450 print
-			" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");						// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
-			println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"); 		// 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
-			println(																	// 460 print
-			" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");						// " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN"
-			println("ARROW OR YOU ENTERING HIS ROOM.");							// 465 print "ARROW OR YOU ENTERING HIS ROOM."
-			println(																	// 470 print
-			"     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");							// "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
-			println(																	// 475 print
-			" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");						// " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
-			println(" ARE, HE EATS YOU UP AND YOU LOSE!");						// 480 print " ARE, HE EATS YOU UP AND YOU LOSE!"
-			println("");														// 485 print
-			println("     YOU:");												// 490 print "     YOU:"
-			println(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"); 		// 495 print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
-			println(																	// 500 print
-			"   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");							// "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
-			println(																	// 505 print
-			"   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");					// "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
-			println(																	// 510 print
-			"   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");					// "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
-			println(																	// 515 print
-			"   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");						// "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
-			println(																	// 520 print
-			"   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"); 					// "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
-			println("   AT RANDOM TO THE NEXT ROOM.");							// 525 print "   AT RANDOM TO THE NEXT ROOM."
-			println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");				// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
-			println("     IF THE ARROW HITS YOU, YOU LOSE.");					// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-			println("HIT RETURN TO CONTINUE"); readChar();				// 540 input "HIT RETURN TO CONTINUE";a$
-			println("    WARNINGS:");											// 545 print "    WARNINGS:"
-			println(																	// 550 print
-			"     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");						// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
-			println("     THE COMPUTER SAYS:");									// 555 print "     THE COMPUTER SAYS:"
-			println(" WUMPUS:  'I SMELL A WUMPUS'");							// 560 print " WUMPUS:  'I SMELL A WUMPUS'"
-			println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
-			println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
-			println("");														// 575 print
-			returnFromGosub(); break;																// 580 return
+			case 375: directions();
+						returnFromGosub(); break;																// 580 return
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
@@ -295,6 +239,64 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	private void directions() throws IOException {
+		println("WELCOME TO 'HUNT THE WUMPUS'");					 		// 380 print "WELCOME TO 'HUNT THE WUMPUS'"
+		println(																	// 385 print
+		"  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");							// "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
+		println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");		// 390 print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
+		println(																	// 395 print
+		"DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");							// "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
+		println("WHAT A DODECAHEDRON IS, ASK SOMEONE)");					// 400 print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
+		println("");														// 405 print
+		println("     HAZARDS:");											// 410 print "     HAZARDS:"
+		println(																	// 415 print
+		" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");					// " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
+		println(																	// 420 print
+		"     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");						// "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
+		println(																	// 425 print
+		" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");						// " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
+		println(																	// 430 print
+		"     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");					// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
+		println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");			// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
+		println("HIT RETURN TO CONTINUE"); readChar();				// 440 input "HIT RETURN TO CONTINUE";a$
+		println("     WUMPUS:");											// 445 print "     WUMPUS:"
+		println(																	// 450 print
+		" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");						// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
+		println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"); 		// 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
+		println(																	// 460 print
+		" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");						// " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN"
+		println("ARROW OR YOU ENTERING HIS ROOM.");							// 465 print "ARROW OR YOU ENTERING HIS ROOM."
+		println(																	// 470 print
+		"     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");							// "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
+		println(																	// 475 print
+		" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");						// " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
+		println(" ARE, HE EATS YOU UP AND YOU LOSE!");						// 480 print " ARE, HE EATS YOU UP AND YOU LOSE!"
+		println("");														// 485 print
+		println("     YOU:");												// 490 print "     YOU:"
+		println(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"); 		// 495 print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
+		println(																	// 500 print
+		"   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");							// "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
+		println(																	// 505 print
+		"   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");					// "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
+		println(																	// 510 print
+		"   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");					// "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
+		println(																	// 515 print
+		"   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");						// "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
+		println(																	// 520 print
+		"   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"); 					// "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
+		println("   AT RANDOM TO THE NEXT ROOM.");							// 525 print "   AT RANDOM TO THE NEXT ROOM."
+		println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");				// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
+		println("     IF THE ARROW HITS YOU, YOU LOSE.");					// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
+		println("HIT RETURN TO CONTINUE"); readChar();				// 540 input "HIT RETURN TO CONTINUE";a$
+		println("    WARNINGS:");											// 545 print "    WARNINGS:"
+		println(																	// 550 print
+		"     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");						// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
+		println("     THE COMPUTER SAYS:");									// 555 print "     THE COMPUTER SAYS:"
+		println(" WUMPUS:  'I SMELL A WUMPUS'");							// 560 print " WUMPUS:  'I SMELL A WUMPUS'"
+		println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
+		println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
+		println("");														// 575 print
 	}
 	public void print(int data) {
 		System.out.print(data);
