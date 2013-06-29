@@ -52,7 +52,7 @@ public class Wumpus {
 			case 15: print("INSTRUCTIONS (Y-N) "); break;										// 15 print "INSTRUCTIONS (Y-N)";
 			case 20: i$ = (char) readChar(); readChar(); break; 								// 20 input i$
 			case 25: if (i$ == 'N' || i$ =='n') nextLine = 35; break;										// 25 if (i$ = "N") or (i$ = "n") then 35
-			case 30: gosub(375, 35); break;																	// 30 gosub 375
+			case 30: directions();																	// 30 gosub 375
 			case 35: nextLine = 80; break;																	// 35 goto 80
 			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
 																											// 85 dim s(20,3)
@@ -113,8 +113,6 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 375: directions();
-						returnFromGosub(); break;																// 580 return
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
