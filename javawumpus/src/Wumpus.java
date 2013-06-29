@@ -49,11 +49,11 @@ public class Wumpus {
 			switch (currentLine) {
 			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
 			case 10: break;				 																	// 10 dim p(5)
-			case 15: print("INSTRUCTIONS (Y-N) "); break;										// 15 print "INSTRUCTIONS (Y-N)";
-			case 20: i$ = (char) readChar(); readChar(); break; 								// 20 input i$
-			case 25: if (i$ == 'N' || i$ =='n') nextLine = 35; break;										// 25 if (i$ = "N") or (i$ = "n") then 35
-			case 30: directions();																	// 30 gosub 375
-			case 35: nextLine = 80; break;																	// 35 goto 80
+			case 15: print("INSTRUCTIONS (Y-N) "); 										// 15 print "INSTRUCTIONS (Y-N)";
+					i$ = (char) readChar(); readChar(); 								// 20 input i$
+					if (i$ != 'N' && i$ !='n') 										// 25 if (i$ = "N") or (i$ = "n") then 35
+						directions();																	// 30 gosub 375
+					nextLine = 80; break;																	// 35 goto 80
 			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
 																											// 85 dim s(20,3)
 																											// 90 for j = 1 to 20
