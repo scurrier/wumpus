@@ -88,8 +88,9 @@ public class Wumpus {
 			case 590: println(""); break;														// 590 print
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
 			case 600: k = 1; break;																			// 600 for k = 1 to 3
-			case 605: if (s[playerLocation()][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
-			case 610: printItemNearbyPlayerHint(j-1); break;
+			case 605: if (s[playerLocation()][k] == mapItemLocations[j]) 
+						printItemNearbyPlayerHint(j-1); 
+					break;
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
 			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
