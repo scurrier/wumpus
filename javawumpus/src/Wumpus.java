@@ -60,7 +60,7 @@ public class Wumpus {
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
 			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
-			case 255: gosub(585, 260); break;																// 255 gosub 585
+			case 255: printPlayerStatus(); break;																// 255 gosub 585
 			case 260: break;																				// 260 rem *** MOVE OR SHOOT ***
 			case 265: gosub(670, 270); break;																// 265 gosub 670
 			case 270: switch(o) {case 1: nextLine = 280; break; case 2: nextLine = 300; break;} break;		// 270 on o goto 280,300
@@ -84,9 +84,6 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 585:																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
-				printPlayerStatus();
-				returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: print("SHOOT OR MOVE (S-M) "); break;										// 675 print "SHOOT OR MOVE (S-M)";
 			case 680: i$ = (char) readChar(); readChar(); break;								// 680 input i$
