@@ -89,13 +89,7 @@ public class Wumpus {
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
 			case 600: k = 1; break;																			// 600 for k = 1 to 3
 			case 605: if (s[playerLocation()][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
-			case 610: switch(j-1) {																			// 610 on j-1 goto 615,625,x,635,635
-						case 1: println("I SMELL A WUMPUS!"); break;
-						case 2:
-						case 3: println("I FEEL A DRAFT"); break;
-						case 4:
-						case 5: println("BATS NEARBY!"); break;
-						}; break;
+			case 610: printItemNearbyPlayerHint(j-1); break;
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
 			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
@@ -203,6 +197,15 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public void printItemNearbyPlayerHint(int itemType) {
+		switch(itemType) {																			// 610 on j-1 goto 615,625,x,635,635
+				case 1: println("I SMELL A WUMPUS!"); break;
+				case 2:
+				case 3: println("I FEEL A DRAFT"); break;
+				case 4:
+				case 5: println("BATS NEARBY!"); break;
+				};
 	}
 	public boolean crossover() {
 		for (int j = 1; j <= 6; ++j) {
