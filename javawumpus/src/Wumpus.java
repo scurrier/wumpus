@@ -20,8 +20,8 @@ public class Wumpus {
 	private int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int[] p = new int[6];
-	private int aa = 5;
-	private int ll = aa;
+	private int availableArrows = 5;
+	private int ll = availableArrows;
 	private int o = 1;
 	private int f = 0;
 	
@@ -82,7 +82,7 @@ public class Wumpus {
 			case 215: ++k; if (k <= 6) nextLine = 205; break;												// 215 next k
 			case 220: ++j; if (j <= 6) nextLine = 200; break;												// 220 next j
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
-			case 230: aa = 5; break;																		// 230 a = 5
+			case 230: availableArrows = 5; break;																		// 230 a = 5
 			case 235: ll = mapItemLocations[1]; break;																		// 235 l = l(1)
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
@@ -175,8 +175,8 @@ public class Wumpus {
 			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
 			case 860: gosub(935, 865); break;																// 860 gosub 935
 			case 865: break;																				// 865 rem *** AMMO CHECK ***
-			case 870: aa = aa - 1; break;																	// 870 a = a-1
-			case 875: if (aa > 0) nextLine = 885; break;													// 875 if a > 0 then 885
+			case 870: availableArrows = availableArrows - 1; break;																	// 870 a = a-1
+			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
 			case 890: break;																				// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
