@@ -88,7 +88,7 @@ public class Wumpus {
 			case 685: if (i$ != 'S' && i$ != 's') nextLine = 700; break;									// 685 if (i$ <> "S") and (i$ <> "s") then 700
 			case 690: o = 1; break;																			// 690 o = 1
 			case 695: returnFromGosub(); break;																// 695 return
-			case 700: if (i$ != 'M' && i$ != 'm') nextLine = 675; break;									// 700 if (i$ <> "M") and (i$ <> "m") then 675
+			case 700: if (i$ != 'M' && i$ != 'm') nextLine = 670; break;									// 700 if (i$ <> "M") and (i$ <> "m") then 675
 			case 705: o = 2; break;																			// 705 o = 2
 			case 710: returnFromGosub(); break;																// 710 return
 			case 715: break;																				// 715 rem *** ARROW ROUTINE ***
