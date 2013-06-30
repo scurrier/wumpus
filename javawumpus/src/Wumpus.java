@@ -86,12 +86,7 @@ public class Wumpus {
 			case 720: f = 0; break;																			// 720 f = 0
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
 			case 735: 
-				int numberOfRoomsToShoot;
-				do {
-					print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
-					numberOfRoomsToShoot = readInt();																// 740 input j9
-				} while (outOfArrowRange(numberOfRoomsToShoot));
-				j9 = numberOfRoomsToShoot;
+				j9 = getShotDistanceFromPlayer();
 				break;
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
 			case 760: print("ROOM # "); break;													// 760 print "ROOM #";
@@ -176,6 +171,14 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int getShotDistanceFromPlayer() {
+		int numberOfRoomsToShoot;
+		do {
+			print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
+			numberOfRoomsToShoot = readInt();																// 740 input j9
+		} while (outOfArrowRange(numberOfRoomsToShoot));
+		return numberOfRoomsToShoot;
 	}
 	private boolean outOfArrowRange(int numberOfRoomsToShoot) {
 		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
