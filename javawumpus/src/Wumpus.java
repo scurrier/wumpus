@@ -60,7 +60,7 @@ public class Wumpus {
 			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
 			case 255: printPlayerStatus(); break;																// 255 gosub 585
 			case 260: break;																				// 260 rem *** MOVE OR SHOOT ***
-			case 265: gosub(670, 270); break;																// 265 gosub 670
+			case 265: o = getMoveShootChoiceFromPlayer(); break;																// 265 gosub 670
 			case 270: switch(o) {case 1: nextLine = 280; break; case 2: nextLine = 300; break;} break;		// 270 on o goto 280,300
 			case 275: break;																				// 275 rem *** SHOOT ***
 			case 280: gosub(715, 285); break;																// 280 gosub 715
@@ -82,10 +82,6 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 670: 																				// 670 rem *** CHOOSE OPTION ***
-				o = getMoveShootChoiceFromPlayer();
-				break;
-			case 710: returnFromGosub(); break;																// 710 return
 			case 715: break;																				// 715 rem *** ARROW ROUTINE ***
 			case 720: f = 0; break;																			// 720 f = 0
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
