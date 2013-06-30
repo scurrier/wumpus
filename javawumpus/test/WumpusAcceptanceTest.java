@@ -230,7 +230,7 @@ public class WumpusAcceptanceTest {
 
 	@Test
 	public void testCrookedArrow() throws Exception {
-		int[] intInput = {5, 5, 6, 7, 6, 8, 9};
+		int[] intInput = {5, 6, 0, 5, 6, 7, 6, 8, 9};
 		TestableWumpus testObj = new TestableWumpus("N\rm\rs\r", intInput);
 		runGame(testObj);
 		assertEquals("INSTRUCTIONS (Y-N) \n" 
@@ -250,6 +250,8 @@ public class WumpusAcceptanceTest {
                     + "\n"
                     + "SHOOT OR MOVE (S-M) \n" 
                     + "\n"
+                    + "NO. OF ROOMS (1-5) \n" //invalid input of 6
+                    + "NO. OF ROOMS (1-5) \n" //invalid input of 0
                     + "NO. OF ROOMS (1-5) \n"
 					+ "ROOM # \n"
 					+ "ROOM # \n"
@@ -458,4 +460,5 @@ public class WumpusAcceptanceTest {
 		, testObj.output.toString());
 	}
 
+	
 }
