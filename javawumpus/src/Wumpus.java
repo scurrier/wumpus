@@ -90,12 +90,12 @@ public class Wumpus {
 				break;
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
 			case 760: 
-				print("ROOM # ");													// 760 print "ROOM #";
-				p[k] = readInt();																// 765 input p(k)
-				if (did180()) {
-					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-					nextLine = 760;																// 785 goto 760
-				}
+				do {
+					print("ROOM # ");													// 760 print "ROOM #";
+					p[k] = readInt();																// 765 input p(k)
+					if (did180())
+						println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+				} while(did180());
 				break;
 			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
