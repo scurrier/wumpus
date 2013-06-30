@@ -83,7 +83,7 @@ public class Wumpus {
 			case 220: ++j; if (j <= 6) nextLine = 200; break;												// 220 next j
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: availableArrows = 5; break;																		// 230 a = 5
-			case 235: ll = mapItemLocations[1]; break;																		// 235 l = l(1)
+			case 235: ll = playerLocation(); break;																		// 235 l = l(1)
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
 			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -115,7 +115,7 @@ public class Wumpus {
 			case 590: println(""); break;														// 590 print
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
 			case 600: k = 1; break;																			// 600 for k = 1 to 3
-			case 605: if (s[mapItemLocations[1]][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
+			case 605: if (s[playerLocation()][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
 			case 610: switch(j-1) {																			// 610 on j-1 goto 615,625,625,635,635
 						case 1: nextLine = 615; break;
 						case 2:
@@ -130,7 +130,7 @@ public class Wumpus {
 			case 635: println("BATS NEARBY!"); break;											// 635 print "BATS NEARBY!"
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
-			case 650: print("YOUR ARE IN ROOM "); println(mapItemLocations[1]); break;				// 650 print "YOU ARE IN ROOM ";l(1)
+			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
 			case 655: print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 						print(" "); print(s[ll][2]); 
 						print(" "); println(s[ll][3]); break;
@@ -161,7 +161,7 @@ public class Wumpus {
 			case 785: nextLine = 760; break;																// 785 goto 760
 			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
-			case 800: ll = mapItemLocations[1]; break;																		// 800 l = l(1)
+			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
 			case 810: k1 = 1; break;																		// 810 for k1 = 1 to 3
 			case 815: if (s[ll][k1] == p[k]) nextLine = 895; break;											// 815 if s(l,k1) = p(k) then 895
@@ -171,7 +171,7 @@ public class Wumpus {
 			case 835: nextLine = 900; break;																// 835 goto 900
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
-			case 850: ll = mapItemLocations[1]; break;																		// 850 l = l(1)
+			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
 			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
 			case 860: gosub(935, 865); break;																// 860 gosub 935
 			case 865: break;																				// 865 rem *** AMMO CHECK ***
@@ -185,7 +185,7 @@ public class Wumpus {
 			case 905: println("AHA! YOU GOT THE WUMPUS!"); break;								// 905 print "AHA! YOU GOT THE WUMPUS!"
 			case 910: f = 1; break;																			// 910 f = 1
 			case 915: returnFromGosub(); break;																// 915 return
-			case 920: if (ll != mapItemLocations[1]) nextLine = 840; break;												// 920 if l <> l(1) then 840
+			case 920: if (ll != playerLocation()) nextLine = 840; break;												// 920 if l <> l(1) then 840
 			case 925: println("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
 			case 930: nextLine = 880; break;																// 930 goto 880
 			case 935: break;																				// 935 rem *** MOVE WUMPUS ROUTINE ***
@@ -204,9 +204,9 @@ public class Wumpus {
 			case 1000: if (ll > 20) nextLine = 985; break;													// 1000 if l > 20 then 985
 			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
 			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
-			case 1015: if (s[mapItemLocations[1]][k] == ll) nextLine = 1045; break;										// 1015 if s(l(1),k) = l then 1045
+			case 1015: if (s[playerLocation()][k] == ll) nextLine = 1045; break;										// 1015 if s(l(1),k) = l then 1045
 			case 1020: ++k; if (k <= 3) nextLine = 1010; break;												// 1020 next k
-			case 1025: if (ll == mapItemLocations[1]) nextLine = 1045; break;												// 1025 if l = l(1) then 1045
+			case 1025: if (ll == playerLocation()) nextLine = 1045; break;												// 1025 if l = l(1) then 1045
 			case 1030: print("NOT POSSIBLE - "); break;											// 1030 print "NOT POSSIBLE -";
 			case 1035: nextLine = 985; break;																// 1035 goto 985
 			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
@@ -235,6 +235,9 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	private int playerLocation() {
+		return mapItemLocations[1];
 	}
 	private boolean needInstructions() throws IOException {
 		print("INSTRUCTIONS (Y-N) "); 
