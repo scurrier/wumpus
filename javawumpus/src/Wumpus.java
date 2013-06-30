@@ -22,13 +22,7 @@ public class Wumpus {
 	private int[] p = new int[6];
 	private int availableArrows = 5;
 	private int ll = availableArrows;
-	private int o = 1;
-	private int f = 0;
-	
-	private int j = 0;
-	private int k = 0;
-	private int k1 = 0;
-	private int j9 = 0;
+
 	public static Random random = new Random();
 	/**
 	 * @param args
@@ -43,6 +37,13 @@ public class Wumpus {
 		}
 	}
 	public void run() throws IOException {
+		int o = 1;
+		int f = 0;
+		
+		int j = 0;
+		int k = 0;
+		int k1 = 0;
+		int j9 = 0;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
@@ -222,8 +223,8 @@ public class Wumpus {
 		print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 	public void printNearbyItemHints() {
-		for (j = 2; j <= 6; ++j) {
-					for (k = 1; k <= 3; ++k) {
+		for (int j = 2; j <= 6; ++j) {
+					for (int k = 1; k <= 3; ++k) {
 						if (s[playerLocation()][k] == mapItemLocations[j]) 
 							printItemNearbyPlayerHint(j-1);
 					}
@@ -251,7 +252,7 @@ public class Wumpus {
 	}
 	
 	private void randomizeMapItemLocations() {
-		for (j = 1; j <= 6; ++j) {
+		for (int j = 1; j <= 6; ++j) {
 			mapItemLocations[j] = fnA();																	// 175 l(j) = fna(0)
 			copyOfMapItemlocations[j] = mapItemLocations[j];																	// 180 m(j) = l(j)
 		}
