@@ -86,13 +86,15 @@ public class Wumpus {
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
-			case 595: j = 2; break;																			// 595 for j = 2 to 6
-			case 600: k = 1; break;																			// 600 for k = 1 to 3
-			case 605: if (s[playerLocation()][k] == mapItemLocations[j]) 
-						printItemNearbyPlayerHint(j-1); 
-					break;
-			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
-			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
+			case 595: for (j = 2; j <= 6; ++j) {
+						for (k = 1; k <= 3; ++k) {
+							if (s[playerLocation()][k] == mapItemLocations[j]) 
+								printItemNearbyPlayerHint(j-1);
+						}
+				
+			}
+			break;
+
 			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
 			case 655: print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 						print(" "); print(s[ll][2]); 
