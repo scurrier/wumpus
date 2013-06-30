@@ -88,16 +88,16 @@ public class Wumpus {
 			case 735: 
 				j9 = getShotDistanceFromPlayer();
 				break;
-			case 755: k = 1; break;																			// 755 for k = 1 to j9
-			case 760: 
-				do {
-					print("ROOM # ");													// 760 print "ROOM #";
-					p[k] = readInt();																// 765 input p(k)
-					if (did180())
-						println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-				} while(did180());
+			case 755: 																			// 755 for k = 1 to j9
+				for (k = 1; k <= j9; ++k) {
+					do {
+						print("ROOM # ");													// 760 print "ROOM #";
+						p[k] = readInt();																// 765 input p(k)
+						if (did180(p, k))
+							println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+					} while(did180(p, k));
+				}
 				break;
-			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
@@ -174,8 +174,8 @@ public class Wumpus {
 			currentLine = nextLine;
 		}
 	}
-	public boolean did180() {
-		return k > 2 && p[k] == p[k-2];
+	public boolean did180(int[] path, int roomCount) {
+		return roomCount > 2 && path[roomCount] == path[roomCount-2];
 	}
 	public int getShotDistanceFromPlayer() {
 		int numberOfRoomsToShoot;
