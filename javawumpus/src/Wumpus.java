@@ -85,10 +85,14 @@ public class Wumpus {
 			case 715: break;																				// 715 rem *** ARROW ROUTINE ***
 			case 720: f = 0; break;																			// 720 f = 0
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
-			case 735: print("NO. OF ROOMS (1-5) "); break;										// 735 print "NO. OF ROOMS (1-5)";
-			case 740: j9 = readInt(); break;																// 740 input j9
-			case 745: if (j9 < 1) nextLine = 735; break;													// 745 if j9 < 1 then 735
-			case 750: if (j9 > 5) nextLine = 735; break;													// 750 if j9 > 5 then 735
+			case 735: 
+				int numberOfRoomsToShoot;
+				print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
+				numberOfRoomsToShoot = readInt();																// 740 input j9
+				if (numberOfRoomsToShoot < 1) nextLine = 735;													// 745 if j9 < 1 then 735
+				if (numberOfRoomsToShoot > 5) nextLine = 735;													// 750 if j9 > 5 then 735
+				j9 = numberOfRoomsToShoot;
+				break;
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
 			case 760: print("ROOM # "); break;													// 760 print "ROOM #";
 			case 765: p[k] = readInt(); break;																// 765 input p(k)
