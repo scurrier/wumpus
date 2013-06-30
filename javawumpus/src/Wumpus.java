@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class Wumpus {
 
-	private static int currentLine;
-	private static Deque<Integer> returnLine = new ArrayDeque<Integer>();
-	private static int nextLine;
+	private int currentLine;
+	private Deque<Integer> returnLine = new ArrayDeque<Integer>();
+	private int nextLine;
 	public static Random random = new Random();
 	/**
 	 * @param args
@@ -317,11 +317,11 @@ public class Wumpus {
 	public int readChar() throws IOException {
 		return System.in.read();
 	}
-	private static void gosub(int gosubLine, int lineToReturnTo) {
+	private void gosub(int gosubLine, int lineToReturnTo) {
 		nextLine = gosubLine;
 		returnLine.addLast(lineToReturnTo);
 	}
-	private static void returnFromGosub() {
+	private void returnFromGosub() {
 		if (returnLine.isEmpty())
 			nextLine = 1151;
 		else
