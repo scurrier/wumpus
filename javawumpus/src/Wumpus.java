@@ -83,15 +83,17 @@ public class Wumpus {
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 670: 																				// 670 rem *** CHOOSE OPTION ***
+				int result = 0;
 				print("SHOOT OR MOVE (S-M) ");										// 675 print "SHOOT OR MOVE (S-M)";
 				i$ = (char) readChar(); readChar();								// 680 input i$
 				if (i$ == 'S' || i$ == 's') {									// 685 if (i$ <> "S") and (i$ <> "s") then 700
-					o = 1;																			// 690 o = 1
+					result = 1;																			// 690 o = 1
 				} else if (i$ == 'M' || i$ == 'm') {									// 700 if (i$ <> "M") and (i$ <> "m") then 675
-					o = 2;																			// 705 o = 2
+					result = 2;																			// 705 o = 2
 				} else {
 					nextLine = 670;
 				}
+				o = result;
 				break;
 			case 710: returnFromGosub(); break;																// 710 return
 			case 715: break;																				// 715 rem *** ARROW ROUTINE ***
