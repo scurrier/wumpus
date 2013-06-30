@@ -46,30 +46,10 @@ public class Wumpus {
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
-			case 5: break;								 													// 5 rem *** HUNT THE WUMPUS ***
-			case 10: break;				 																	// 10 dim p(5)
 			case 15: 
 				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						giveInstructions();																	// 30 gosub 375
-					nextLine = 80; break;																	// 35 goto 80
-			case 80: break;																					// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
-																											// 85 dim s(20,3)
-																											// 90 for j = 1 to 20
-																											// 95 for k = 1 to 3
-																											// 100 read s(j,k)
-																											// 105 next k
-																											// 110 next j
-																											// 115 data 2,5,8,1,3,10,2,4,12,3,5,14,1,4,6
-																											// 120 data 5,7,15,6,8,17,1,7,9,8,10,18,2,9,11
-																											// 125 data 10,12,19,3,11,13,12,14,20,4,13,15,6,14,16
-																											// 130 data 15,17,20,7,16,18,9,17,19,11,18,20,13,16,19
-																											// 135 def fnA(X)=INT(20*RND(1))+1
-																											// 140 def fnB(X)=INT(3*RND(1))+1
-																											// 145 def fnC(X)=INT(4*RND(1))+1
-			case 150: break;																				// 150 rem *** LOCATE L ARRAY ITEMS ***
-			case 155: break;																				// 155 rem *** 1-YOU, 2-WUMPUS, 3&4-PITS, 5&6-BATS ***
-			case 160: break;																				// 160 dim l(6)
-			case 165: break;																				// 165 dim m(6)
+				break;																	// 35 goto 80
 			case 170: randomizeMapItemLocations();
 			case 190: break;																				// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
 			case 195: j = 1; break;																			// 195 for j = 1 to 6
