@@ -84,13 +84,13 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
-			case 590: println(""); break;														// 590 print
-			case 595: printNearbyItemHints();
+			case 585:																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
+				println("");														// 590 print
+				printNearbyItemHints();
 				printPlayerLocation();
 				printTunnelOptions();
-			println("");														// 660 print
-			returnFromGosub(); break;																// 665 return
+				println("");														// 660 print
+				returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: print("SHOOT OR MOVE (S-M) "); break;										// 675 print "SHOOT OR MOVE (S-M)";
 			case 680: i$ = (char) readChar(); readChar(); break;								// 680 input i$
