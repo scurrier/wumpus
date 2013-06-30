@@ -89,18 +89,13 @@ public class Wumpus {
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
 			case 600: k = 1; break;																			// 600 for k = 1 to 3
 			case 605: if (s[playerLocation()][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
-			case 610: switch(j-1) {																			// 610 on j-1 goto 615,625,625,635,635
-						case 1: nextLine = 615; break;
+			case 610: switch(j-1) {																			// 610 on j-1 goto 615,625,x,635,635
+						case 1: println("I SMELL A WUMPUS!"); break;
 						case 2:
-						case 3: nextLine = 625; break;
+						case 3: println("I FEEL A DRAFT"); break;
 						case 4:
-						case 5: nextLine = 635; break;
+						case 5: println("BATS NEARBY!"); break;
 						}; break;
-			case 615: println("I SMELL A WUMPUS!"); break;										// 615 print "I SMELL A WUMPUS!"
-			case 620: nextLine = 640; break;																// 620 goto 640
-			case 625: println("I FEEL A DRAFT"); break;											// 625 print "I FEEL A DRAFT"
-			case 630: nextLine = 640; break;																// 630 goto 640
-			case 635: println("BATS NEARBY!"); break;											// 635 print "BATS NEARBY!"
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
 			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
