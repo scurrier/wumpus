@@ -86,13 +86,7 @@ public class Wumpus {
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
-			case 595: for (j = 2; j <= 6; ++j) {
-						for (k = 1; k <= 3; ++k) {
-							if (s[playerLocation()][k] == mapItemLocations[j]) 
-								printItemNearbyPlayerHint(j-1);
-						}
-				
-			}
+			case 595: printNearbyItemHints();
 			break;
 
 			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
@@ -199,6 +193,15 @@ public class Wumpus {
 			case 1150: break;																				// 1150 end
 			}
 			currentLine = nextLine;
+		}
+	}
+	public void printNearbyItemHints() {
+		for (j = 2; j <= 6; ++j) {
+					for (k = 1; k <= 3; ++k) {
+						if (s[playerLocation()][k] == mapItemLocations[j]) 
+							printItemNearbyPlayerHint(j-1);
+					}
+			
 		}
 	}
 	public void printItemNearbyPlayerHint(int itemType) {
