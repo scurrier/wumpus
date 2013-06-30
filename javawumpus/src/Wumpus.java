@@ -89,11 +89,14 @@ public class Wumpus {
 				j9 = getShotDistanceFromPlayer();
 				break;
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
-			case 760: print("ROOM # "); break;													// 760 print "ROOM #";
-			case 765: p[k] = readInt(); break;																// 765 input p(k)
-			case 770: if (!did180()) nextLine = 790; break;
-			case 780: println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"); break;			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-			case 785: nextLine = 760; break;																// 785 goto 760
+			case 760: 
+				print("ROOM # ");													// 760 print "ROOM #";
+				p[k] = readInt();																// 765 input p(k)
+				if (did180()) {
+					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+					nextLine = 760;																// 785 goto 760
+				}
+				break;
 			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
