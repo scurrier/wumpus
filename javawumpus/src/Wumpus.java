@@ -17,7 +17,7 @@ public class Wumpus {
 	{0,5,7,15},		{0,6,8,17},		{0,1,7,9},		{0,8,10,18},	{0,2,9,11},
 	{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
 	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
-	private int[] mapItems = new int[7];
+	private int[] mapItemLocations = new int[7];
 	private int[] m = new int[7];
 	private int[] p = new int[6];
 	private int aa = 5;
@@ -71,19 +71,19 @@ public class Wumpus {
 			case 160: break;																				// 160 dim l(6)
 			case 165: break;																				// 165 dim m(6)
 			case 170: j = 1; break;																			// 170 for j = 1 to 6
-			case 175: mapItems[j] = fnA(); break;																	// 175 l(j) = fna(0)
-			case 180: m[j] = mapItems[j]; break;																	// 180 m(j) = l(j)
+			case 175: mapItemLocations[j] = fnA(); break;																	// 175 l(j) = fna(0)
+			case 180: m[j] = mapItemLocations[j]; break;																	// 180 m(j) = l(j)
 			case 185: ++j; if (j <= 6) nextLine = 175; break;												// 185 next j
 			case 190: break;																				// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
 			case 195: j = 1; break;																			// 195 for j = 1 to 6
 			case 200: k = 1; break;																			// 200 for k = 1 to 6
 			case 205: if (j == k ) nextLine = 215; break;													// 205 if j = k then 215
-			case 210: if (mapItems[j] == mapItems[k]) nextLine = 170; break;												// 210 if l(j) = l(k) then 170
+			case 210: if (mapItemLocations[j] == mapItemLocations[k]) nextLine = 170; break;												// 210 if l(j) = l(k) then 170
 			case 215: ++k; if (k <= 6) nextLine = 205; break;												// 215 next k
 			case 220: ++j; if (j <= 6) nextLine = 200; break;												// 220 next j
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: aa = 5; break;																		// 230 a = 5
-			case 235: ll = mapItems[1]; break;																		// 235 l = l(1)
+			case 235: ll = mapItemLocations[1]; break;																		// 235 l = l(1)
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
 			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -105,7 +105,7 @@ public class Wumpus {
 			case 330: break;																				// 330 rem *** WIN ***
 			case 335: println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"); break;			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
 			case 340: j = 1; break;																			// 340 for j = 1 to 6
-			case 345: mapItems[j] = m[j]; break;																	// 345 l(j) = m(j)
+			case 345: mapItemLocations[j] = m[j]; break;																	// 345 l(j) = m(j)
 			case 350: ++j; if (j <= 6) nextLine = 345; break;												// 350 next j
 			case 355: print("SAME SETUP (Y-N)"); break;											// 355 print "SAME SETUP (Y-N)";
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
@@ -115,7 +115,7 @@ public class Wumpus {
 			case 590: println(""); break;														// 590 print
 			case 595: j = 2; break;																			// 595 for j = 2 to 6
 			case 600: k = 1; break;																			// 600 for k = 1 to 3
-			case 605: if (s[mapItems[1]][k] != mapItems[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
+			case 605: if (s[mapItemLocations[1]][k] != mapItemLocations[j]) nextLine = 640; break;										// 605 if s(l(1),k) <> l(j) then 640
 			case 610: switch(j-1) {																			// 610 on j-1 goto 615,625,625,635,635
 						case 1: nextLine = 615; break;
 						case 2:
@@ -130,7 +130,7 @@ public class Wumpus {
 			case 635: println("BATS NEARBY!"); break;											// 635 print "BATS NEARBY!"
 			case 640: ++k; if (k <= 3) nextLine = 605; break;												// 640 next k
 			case 645: ++j; if (j <= 6) nextLine = 600; break;												// 645 next j
-			case 650: print("YOUR ARE IN ROOM "); println(mapItems[1]); break;				// 650 print "YOU ARE IN ROOM ";l(1)
+			case 650: print("YOUR ARE IN ROOM "); println(mapItemLocations[1]); break;				// 650 print "YOU ARE IN ROOM ";l(1)
 			case 655: print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 						print(" "); print(s[ll][2]); 
 						print(" "); println(s[ll][3]); break;
@@ -161,7 +161,7 @@ public class Wumpus {
 			case 785: nextLine = 760; break;																// 785 goto 760
 			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
-			case 800: ll = mapItems[1]; break;																		// 800 l = l(1)
+			case 800: ll = mapItemLocations[1]; break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
 			case 810: k1 = 1; break;																		// 810 for k1 = 1 to 3
 			case 815: if (s[ll][k1] == p[k]) nextLine = 895; break;											// 815 if s(l,k1) = p(k) then 895
@@ -171,7 +171,7 @@ public class Wumpus {
 			case 835: nextLine = 900; break;																// 835 goto 900
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
-			case 850: ll = mapItems[1]; break;																		// 850 l = l(1)
+			case 850: ll = mapItemLocations[1]; break;																		// 850 l = l(1)
 			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
 			case 860: gosub(935, 865); break;																// 860 gosub 935
 			case 865: break;																				// 865 rem *** AMMO CHECK ***
@@ -181,18 +181,18 @@ public class Wumpus {
 			case 885: returnFromGosub(); break;																// 885 return
 			case 890: break;																				// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
 			case 895: ll = p[k]; break;																		// 895 l = p(k)
-			case 900: if (ll != mapItems[2]) nextLine = 920; break;												// 900 if l <> l(2) then 920
+			case 900: if (ll != mapItemLocations[2]) nextLine = 920; break;												// 900 if l <> l(2) then 920
 			case 905: println("AHA! YOU GOT THE WUMPUS!"); break;								// 905 print "AHA! YOU GOT THE WUMPUS!"
 			case 910: f = 1; break;																			// 910 f = 1
 			case 915: returnFromGosub(); break;																// 915 return
-			case 920: if (ll != mapItems[1]) nextLine = 840; break;												// 920 if l <> l(1) then 840
+			case 920: if (ll != mapItemLocations[1]) nextLine = 840; break;												// 920 if l <> l(1) then 840
 			case 925: println("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
 			case 930: nextLine = 880; break;																// 930 goto 880
 			case 935: break;																				// 935 rem *** MOVE WUMPUS ROUTINE ***
 			case 940: k = fnC(); break;																		// 940 k = fnc(0)
 			case 945: if (k == 4) nextLine = 955; break;													// 945 if k = 4 then 955
-			case 950: mapItems[2] = s[mapItems[2]][k]; break;																// 950 l(2) = s(l(2),k)
-			case 955: if (mapItems[2] != ll) nextLine = 970; break;												// 955 if l(2) <> l then 970
+			case 950: mapItemLocations[2] = s[mapItemLocations[2]][k]; break;																// 950 l(2) = s(l(2),k)
+			case 955: if (mapItemLocations[2] != ll) nextLine = 970; break;												// 955 if l(2) <> l then 970
 			case 960: println("TSK TSK TSK - WUMPUS GOT YOU!"); break;							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			case 965: f = -1; break;																		// 965 f = -1
 			case 970: returnFromGosub(); break;																// 970 return
@@ -204,29 +204,29 @@ public class Wumpus {
 			case 1000: if (ll > 20) nextLine = 985; break;													// 1000 if l > 20 then 985
 			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
 			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
-			case 1015: if (s[mapItems[1]][k] == ll) nextLine = 1045; break;										// 1015 if s(l(1),k) = l then 1045
+			case 1015: if (s[mapItemLocations[1]][k] == ll) nextLine = 1045; break;										// 1015 if s(l(1),k) = l then 1045
 			case 1020: ++k; if (k <= 3) nextLine = 1010; break;												// 1020 next k
-			case 1025: if (ll == mapItems[1]) nextLine = 1045; break;												// 1025 if l = l(1) then 1045
+			case 1025: if (ll == mapItemLocations[1]) nextLine = 1045; break;												// 1025 if l = l(1) then 1045
 			case 1030: print("NOT POSSIBLE - "); break;											// 1030 print "NOT POSSIBLE -";
 			case 1035: nextLine = 985; break;																// 1035 goto 985
 			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
-			case 1045: mapItems[1] = ll; break;																	// 1045 l(1) = l
+			case 1045: mapItemLocations[1] = ll; break;																	// 1045 l(1) = l
 			case 1050: break;																				// 1050 rem *** WUMPUS ***
-			case 1055: if (ll != mapItems[2]) nextLine = 1090; break;												// 1055 if l <> l(2) then 1090
+			case 1055: if (ll != mapItemLocations[2]) nextLine = 1090; break;												// 1055 if l <> l(2) then 1090
 			case 1060: println("... OOPS! BUMPED A WUMPUS!"); break;								// 1060 print "... OOPS! BUMPED A WUMPUS!"
 			case 1065: break;																				// 1065 rem *** MOVE WUMPUS ***
 			case 1070: gosub(940, 1075); break;																// 1070 gosub 940
 			case 1075: if (f == 0) nextLine = 1090; break;													// 1075 if f = 0 then 1090
 			case 1080: returnFromGosub(); break;															// 1080 return
 			case 1085: break;																				// 1085 rem *** PIT ***
-			case 1090: if (ll == mapItems[3]) nextLine = 1100; break;												// 1090 if l = l(3) then 1100
-			case 1095: if (ll != mapItems[4]) nextLine = 1120; break;												// 1095 if l <> l(4) then 1120
+			case 1090: if (ll == mapItemLocations[3]) nextLine = 1100; break;												// 1090 if l = l(3) then 1100
+			case 1095: if (ll != mapItemLocations[4]) nextLine = 1120; break;												// 1095 if l <> l(4) then 1120
 			case 1100: println("YYYYIIIIEEEE . . . FELL IN PIT"); break;							// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
 			case 1105: f = -1; break;																		// 1105 f = -1
 			case 1110: returnFromGosub(); break;															// 1110 return
 			case 1115: break;																				// 1115 rem *** BATS ***
-			case 1120: if (ll == mapItems[5]) nextLine = 1130; break;												// 1120 if l = l(5) then 1130
-			case 1125: if (ll != mapItems[6]) nextLine = 1145; break;												// 1125 if l <> l(6) then 1145
+			case 1120: if (ll == mapItemLocations[5]) nextLine = 1130; break;												// 1120 if l = l(5) then 1130
+			case 1125: if (ll != mapItemLocations[6]) nextLine = 1145; break;												// 1125 if l <> l(6) then 1145
 			case 1130: println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"); break;			// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
 			case 1135: ll = fnA(); break;																	// 1135 l = fna(1)
 			case 1140: nextLine = 1045; break;																// 1140 goto 1045
