@@ -17,7 +17,7 @@ public class Wumpus {
 	{0,5,7,15},		{0,6,8,17},		{0,1,7,9},		{0,8,10,18},	{0,2,9,11},
 	{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
 	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
-	private int[] mapItemLocations = new int[7];
+	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int[] p = new int[6];
 	private int availableArrows = 5;
@@ -51,13 +51,9 @@ public class Wumpus {
 						giveInstructions();																	// 30 gosub 375
 				break;																	// 35 goto 80
 			case 170: randomizeMapItemLocations();
-			case 190: break;																				// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
-			case 195: j = 1; break;																			// 195 for j = 1 to 6
-			case 200: k = 1; break;																			// 200 for k = 1 to 6
-			case 205: if (j == k ) nextLine = 215; break;													// 205 if j = k then 215
-			case 210: if (mapItemLocations[j] == mapItemLocations[k]) nextLine = 170; break;												// 210 if l(j) = l(k) then 170
-			case 215: ++k; if (k <= 6) nextLine = 205; break;												// 215 next k
-			case 220: ++j; if (j <= 6) nextLine = 200; break;												// 220 next j
+			case 195: if (crossover())
+						nextLine = 170;
+					break;												
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: availableArrows = 5; break;																		// 230 a = 5
 			case 235: ll = playerLocation(); break;																		// 235 l = l(1)
@@ -213,6 +209,17 @@ public class Wumpus {
 			currentLine = nextLine;
 		}
 	}
+	public boolean crossover() {
+		for (int j = 1; j <= 6; ++j) {
+			for (int k = 1; k <= 6; ++k) {
+				if (j == k) continue;
+				if (mapItemLocations[j] == mapItemLocations[k])
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	private void randomizeMapItemLocations() {
 		for (j = 1; j <= 6; ++j) {
 			mapItemLocations[j] = fnA();																	// 175 l(j) = fna(0)
