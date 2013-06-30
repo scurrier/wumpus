@@ -177,19 +177,24 @@ public class Wumpus {
 			currentLine = nextLine;
 		}
 	}
+
 	public int getMoveShootChoiceFromPlayer() throws IOException {
 		int result = 0;
-		print("SHOOT OR MOVE (S-M) ");										// 675 print "SHOOT OR MOVE (S-M)";
-		i$ = (char) readChar(); readChar();								// 680 input i$
-		if (i$ == 'S' || i$ == 's') {									// 685 if (i$ <> "S") and (i$ <> "s") then 700
-			result = 1;																			// 690 o = 1
-		} else if (i$ == 'M' || i$ == 'm') {									// 700 if (i$ <> "M") and (i$ <> "m") then 675
-			result = 2;																			// 705 o = 2
-		} else {
-			nextLine = 670;
+		while (result == 0) {
+			print("SHOOT OR MOVE (S-M) "); // 675 print "SHOOT OR MOVE (S-M)";
+			i$ = (char) readChar();
+			readChar(); // 680 input i$
+			if (i$ == 'S' || i$ == 's') { // 685 if (i$ <> "S") and (i$ <> "s")
+											// then 700
+				result = 1; // 690 o = 1
+			} else if (i$ == 'M' || i$ == 'm') { // 700 if (i$ <> "M") and (i$
+													// <> "m") then 675
+				result = 2; // 705 o = 2
+			}
 		}
 		return result;
 	}
+
 	public void placeItemsOnMap() {
 		do {
 					randomizeMapItemLocations();
