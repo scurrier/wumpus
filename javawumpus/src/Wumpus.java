@@ -87,14 +87,12 @@ public class Wumpus {
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
 			case 595: printNearbyItemHints();
-			break;
-
-			case 650: print("YOUR ARE IN ROOM "); println(playerLocation()); break;				// 650 print "YOU ARE IN ROOM ";l(1)
-			case 655: print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
+			print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
+			print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 						print(" "); print(s[ll][2]); 
-						print(" "); println(s[ll][3]); break;
-			case 660: println(""); break;														// 660 print
-			case 665: returnFromGosub(); break;																// 665 return
+						print(" "); println(s[ll][3]);
+			println("");														// 660 print
+			returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: print("SHOOT OR MOVE (S-M) "); break;										// 675 print "SHOOT OR MOVE (S-M)";
 			case 680: i$ = (char) readChar(); readChar(); break;								// 680 input i$
