@@ -85,11 +85,7 @@ public class Wumpus {
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 585:																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
-				println("");														// 590 print
-				printNearbyItemHints();
-				printPlayerLocation();
-				printTunnelOptions();
-				println("");														// 660 print
+				printPlayerStatus();
 				returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
 			case 675: print("SHOOT OR MOVE (S-M) "); break;										// 675 print "SHOOT OR MOVE (S-M)";
@@ -190,6 +186,13 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public void printPlayerStatus() {
+		println("");														// 590 print
+		printNearbyItemHints();
+		printPlayerLocation();
+		printTunnelOptions();
+		println("");														// 660 print
 	}
 	public void printTunnelOptions() {
 		print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
