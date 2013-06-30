@@ -91,8 +91,7 @@ public class Wumpus {
 			case 755: k = 1; break;																			// 755 for k = 1 to j9
 			case 760: print("ROOM # "); break;													// 760 print "ROOM #";
 			case 765: p[k] = readInt(); break;																// 765 input p(k)
-			case 770: if (k <= 2) nextLine = 790; break;													// 770 if k <= 2 then 790
-			case 775: if (p[k] != p[k-2]) nextLine = 790; break;											// 775 if p(k) <> p(k-2) then 790
+			case 770: if (!did180()) nextLine = 790; break;
 			case 780: println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"); break;			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
 			case 785: nextLine = 760; break;																// 785 goto 760
 			case 790: ++k; if (k <= j9) nextLine = 760; break;												// 790 next k
@@ -171,6 +170,9 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public boolean did180() {
+		return k > 2 && p[k] == p[k-2];
 	}
 	public int getShotDistanceFromPlayer() {
 		int numberOfRoomsToShoot;
