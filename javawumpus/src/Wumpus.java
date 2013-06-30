@@ -18,7 +18,7 @@ public class Wumpus {
 	{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
 	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
 	private int[] mapItemLocations = new int[7];
-	private int[] m = new int[7];
+	private int[] copyOfMapItemlocations = new int[7];
 	private int[] p = new int[6];
 	private int aa = 5;
 	private int ll = aa;
@@ -72,7 +72,7 @@ public class Wumpus {
 			case 165: break;																				// 165 dim m(6)
 			case 170: j = 1; break;																			// 170 for j = 1 to 6
 			case 175: mapItemLocations[j] = fnA(); break;																	// 175 l(j) = fna(0)
-			case 180: m[j] = mapItemLocations[j]; break;																	// 180 m(j) = l(j)
+			case 180: copyOfMapItemlocations[j] = mapItemLocations[j]; break;																	// 180 m(j) = l(j)
 			case 185: ++j; if (j <= 6) nextLine = 175; break;												// 185 next j
 			case 190: break;																				// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
 			case 195: j = 1; break;																			// 195 for j = 1 to 6
@@ -105,7 +105,7 @@ public class Wumpus {
 			case 330: break;																				// 330 rem *** WIN ***
 			case 335: println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"); break;			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
 			case 340: j = 1; break;																			// 340 for j = 1 to 6
-			case 345: mapItemLocations[j] = m[j]; break;																	// 345 l(j) = m(j)
+			case 345: mapItemLocations[j] = copyOfMapItemlocations[j]; break;																	// 345 l(j) = m(j)
 			case 350: ++j; if (j <= 6) nextLine = 345; break;												// 350 next j
 			case 355: print("SAME SETUP (Y-N)"); break;											// 355 print "SAME SETUP (Y-N)";
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
