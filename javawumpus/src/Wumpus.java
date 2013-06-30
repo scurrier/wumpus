@@ -87,10 +87,8 @@ public class Wumpus {
 			case 585: break;																				// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
 			case 590: println(""); break;														// 590 print
 			case 595: printNearbyItemHints();
-			print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
-			print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-						print(" "); print(s[ll][2]); 
-						print(" "); println(s[ll][3]);
+				printPlayerLocation();
+				printTunnelOptions();
 			println("");														// 660 print
 			returnFromGosub(); break;																// 665 return
 			case 670: break;																				// 670 rem *** CHOOSE OPTION ***
@@ -192,6 +190,14 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public void printTunnelOptions() {
+		print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
+					print(" "); print(s[ll][2]); 
+					print(" "); println(s[ll][3]);
+	}
+	public void printPlayerLocation() {
+		print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 	public void printNearbyItemHints() {
 		for (j = 2; j <= 6; ++j) {
