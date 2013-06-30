@@ -70,10 +70,11 @@ public class Wumpus {
 			case 155: break;																				// 155 rem *** 1-YOU, 2-WUMPUS, 3&4-PITS, 5&6-BATS ***
 			case 160: break;																				// 160 dim l(6)
 			case 165: break;																				// 165 dim m(6)
-			case 170: j = 1; break;																			// 170 for j = 1 to 6
-			case 175: mapItemLocations[j] = fnA(); break;																	// 175 l(j) = fna(0)
-			case 180: copyOfMapItemlocations[j] = mapItemLocations[j]; break;																	// 180 m(j) = l(j)
-			case 185: ++j; if (j <= 6) nextLine = 175; break;												// 185 next j
+			case 170: 																			// 170 for j = 1 to 6
+			for (j = 1; j <= 6; ++j) {
+				mapItemLocations[j] = fnA();																	// 175 l(j) = fna(0)
+				copyOfMapItemlocations[j] = mapItemLocations[j];																	// 180 m(j) = l(j)
+			}
 			case 190: break;																				// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
 			case 195: j = 1; break;																			// 195 for j = 1 to 6
 			case 200: k = 1; break;																			// 200 for k = 1 to 6
