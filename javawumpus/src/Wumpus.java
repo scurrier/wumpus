@@ -50,9 +50,9 @@ public class Wumpus {
 				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						giveInstructions();																	// 30 gosub 375
 				break;																	// 35 goto 80
-			case 170: randomizeMapItemLocations();
-			case 195: if (crossover())
-						nextLine = 170;
+			case 170: do {
+						randomizeMapItemLocations();
+				}  while (crossover());
 					break;												
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: availableArrows = 5; break;																		// 230 a = 5
