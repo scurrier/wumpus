@@ -109,7 +109,6 @@ public class Wumpus {
 					}
 				}
 				break;
-			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
 			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
 			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
