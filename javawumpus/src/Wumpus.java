@@ -91,23 +91,10 @@ public class Wumpus {
 			case 755: 																			// 755 for k = 1 to j9
 				p = getIntendedFlightPathFromPlayer(j9);
 																							// 795 rem *** SHOOT ARROW ***
-				ll = playerLocation();																		// 800 l = l(1)
-				for (k = 1; k <= j9; ++k) {
-					ll = isPathValidFromRoom(s[ll], p[k]) ? p[k] : s[ll][fnB()];																// 830 l = s(l,fnb(1))
-					if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
-						println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
-						f = 1;																			// 910 f = 1
-						returnFromGosub();
-						break;
-					}
-																					// 915 return
-					if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
-						println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
-						f = -1;
-						returnFromGosub();
-						break;
-					}
-				}
+				f = shootArrow(j9, p);
+				boolean gameEnded = (f != 0);
+				if (gameEnded)
+					returnFromGosub();
 				break;
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
 			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
@@ -165,6 +152,22 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int shootArrow(int shotDistance, int[] arrowPath) {
+		int ll = playerLocation();																		// 800 l = l(1)
+		for (int k2 = 1; k2 <= shotDistance; ++k2) {
+			ll = isPathValidFromRoom(s[ll], arrowPath[k2]) ? arrowPath[k2] : s[ll][fnB()];																// 830 l = s(l,fnb(1))
+			if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
+				println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
+				return 1;																			// 910 f = 1
+			}
+																			// 915 return
+			if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
+				println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
+				return -1;
+			}
+		}
+		return 0;
 	}
 	public boolean isPathValidFromRoom(int[] room, int path) {
 		for (int k1 = 1; k1 <= 3; ++k1) {
