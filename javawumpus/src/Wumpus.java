@@ -96,7 +96,13 @@ public class Wumpus {
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
 			case 810: break;
 			case 830: ll = isPathValidFromRoom(s[ll], p[k]) ? p[k] : s[ll][fnB()]; break;																// 830 l = s(l,fnb(1))
-			case 835: nextLine = 900; break;																// 835 goto 900
+			case 831: if (ll != mapItemLocations[2]) nextLine = 835; break;												// 900 if l <> l(2) then 920
+			case 832: println("AHA! YOU GOT THE WUMPUS!"); break;								// 905 print "AHA! YOU GOT THE WUMPUS!"
+			case 833: f = 1; break;																			// 910 f = 1
+			case 834: returnFromGosub(); break;																// 915 return
+			case 835: if (ll != playerLocation()) nextLine = 840; break;												// 920 if l <> l(1) then 840
+			case 836: println("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
+			case 837: nextLine = 880; break;																// 930 goto 880
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
 			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
@@ -107,13 +113,6 @@ public class Wumpus {
 			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
-			case 900: if (ll != mapItemLocations[2]) nextLine = 920; break;												// 900 if l <> l(2) then 920
-			case 905: println("AHA! YOU GOT THE WUMPUS!"); break;								// 905 print "AHA! YOU GOT THE WUMPUS!"
-			case 910: f = 1; break;																			// 910 f = 1
-			case 915: returnFromGosub(); break;																// 915 return
-			case 920: if (ll != playerLocation()) nextLine = 840; break;												// 920 if l <> l(1) then 840
-			case 925: println("OUCH! ARROW GOT YOU!"); break;									// 925 print "OUCH! ARROW GOT YOU!"
-			case 930: nextLine = 880; break;																// 930 goto 880
 			case 935: break;																				// 935 rem *** MOVE WUMPUS ROUTINE ***
 			case 940: k = fnC(); break;																		// 940 k = fnc(0)
 			case 945: if (k == 4) nextLine = 955; break;													// 945 if k = 4 then 955
