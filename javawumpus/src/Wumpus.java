@@ -43,7 +43,6 @@ public class Wumpus {
 		int j = 0;
 		int k = 0;
 		int j9 = 0;
-		boolean validPathFromRoom = false;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
@@ -95,11 +94,8 @@ public class Wumpus {
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
-			case 810:  																		// 810 for k1 = 1 to 3
-				validPathFromRoom = isPathValidFromRoom(s[ll], p[k]);
-				break;
-			case 825: break;																				// 825 rem *** NO TUNNEL FOR ARROW ***
-			case 830: ll = validPathFromRoom ? p[k] : s[ll][fnB()]; break;																// 830 l = s(l,fnb(1))
+			case 810: break;
+			case 830: ll = isPathValidFromRoom(s[ll], p[k]) ? p[k] : s[ll][fnB()]; break;																// 830 l = s(l,fnb(1))
 			case 835: nextLine = 900; break;																// 835 goto 900
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
