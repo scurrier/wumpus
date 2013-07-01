@@ -105,7 +105,8 @@ public class Wumpus {
 																				// 915 return
 				if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
 					println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
-					nextLine = 880;																// 930 goto 880
+					f = -1;
+					returnFromGosub();
 				}
 				break;
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
