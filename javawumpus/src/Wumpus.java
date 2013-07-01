@@ -96,10 +96,12 @@ public class Wumpus {
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
-			case 810: k1 = 1; 																		// 810 for k1 = 1 to 3
-				validPathFromRoom = false; break;
-			case 815: if (s[ll][k1] == p[k]) validPathFromRoom = true; break;											// 815 if s(l,k1) = p(k) then 895
-			case 820: ++k1; if (k1 <= 3) nextLine = 815; break;												// 820 next k1
+			case 810:  																		// 810 for k1 = 1 to 3
+				validPathFromRoom = false;
+				for (k1 = 1; k1 <= 3; ++k1) {
+					if (s[ll][k1] == p[k]) validPathFromRoom = true;											// 815 if s(l,k1) = p(k) then 895
+				}												// 820 next k1
+				break;
 			case 825: break;																				// 825 rem *** NO TUNNEL FOR ARROW ***
 			case 830: ll = validPathFromRoom ? p[k] : s[ll][fnB()]; break;																// 830 l = s(l,fnb(1))
 			case 835: nextLine = 900; break;																// 835 goto 900
