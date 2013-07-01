@@ -90,23 +90,23 @@ public class Wumpus {
 				break;
 			case 755: 																			// 755 for k = 1 to j9
 				p = getIntendedFlightPathFromPlayer(j9);
-				break;
-			case 795: break;																				// 795 rem *** SHOOT ARROW ***
-			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
-			case 805: k = 1; break;																			// 805 for k = 1 to j9
-			case 810: break;
-			case 830: 
-				ll = isPathValidFromRoom(s[ll], p[k]) ? p[k] : s[ll][fnB()];																// 830 l = s(l,fnb(1))
-				if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
-					println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
-					f = 1;																			// 910 f = 1
-					returnFromGosub();
-				}
-																				// 915 return
-				if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
-					println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
-					f = -1;
-					returnFromGosub();
+																							// 795 rem *** SHOOT ARROW ***
+				ll = playerLocation();																		// 800 l = l(1)
+				for (k = 1; k <= j9; ++k) {
+					ll = isPathValidFromRoom(s[ll], p[k]) ? p[k] : s[ll][fnB()];																// 830 l = s(l,fnb(1))
+					if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
+						println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
+						f = 1;																			// 910 f = 1
+						returnFromGosub();
+						break;
+					}
+																					// 915 return
+					if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
+						println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
+						f = -1;
+						returnFromGosub();
+						break;
+					}
 				}
 				break;
 			case 840: ++k; if (k <= j9) nextLine = 810; break;												// 840 next k
