@@ -107,8 +107,6 @@ public class Wumpus {
 			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
-			case 890: break;																				// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
-			case 895: ll = p[k]; break;																		// 895 l = p(k)
 			case 900: if (ll != mapItemLocations[2]) nextLine = 920; break;												// 900 if l <> l(2) then 920
 			case 905: println("AHA! YOU GOT THE WUMPUS!"); break;								// 905 print "AHA! YOU GOT THE WUMPUS!"
 			case 910: f = 1; break;																			// 910 f = 1
