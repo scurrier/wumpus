@@ -90,14 +90,7 @@ public class Wumpus {
 				j9 = getShotDistanceFromPlayer();
 				break;
 			case 755: 																			// 755 for k = 1 to j9
-				for (k = 1; k <= j9; ++k) {
-					do {
-						print("ROOM # ");													// 760 print "ROOM #";
-						p[k] = readInt();																// 765 input p(k)
-						if (did180(p, k))
-							println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-					} while(did180(p, k));
-				}
+				p = getIntendedFlightPathFromPlayer(j9);
 				break;
 			case 795: break;																				// 795 rem *** SHOOT ARROW ***
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
@@ -174,6 +167,18 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int[] getIntendedFlightPathFromPlayer(int numberOfRooms) {
+		int[] p = new int[6];
+		for (int k = 1; k <= numberOfRooms; ++k) {
+			do {
+				print("ROOM # ");													// 760 print "ROOM #";
+				p[k] = readInt();																// 765 input p(k)
+				if (did180(p, k))
+					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+			} while(did180(p, k));
+		}
+		return p;
 	}
 	public boolean did180(int[] path, int roomCount) {
 		return roomCount > 2 && path[roomCount] == path[roomCount-2];
