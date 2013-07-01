@@ -293,6 +293,33 @@ public class WumpusAcceptanceTest {
 		, testObj.output.toString());
 	}
 	
+	@Test
+	public void testShootBadPath() throws Exception {
+		int[] intInput = {5, 8, 14, 16, 18, 20};
+		TestableWumpus testObj = new TestableWumpus("N\rs\r", intInput);
+		runGame(testObj);
+		assertEquals("INSTRUCTIONS (Y-N) \n" 
+					+ "\n"
+					+ "HUNT THE WUMPUS\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+                    + "NO. OF ROOMS (1-5) \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+					+ "ROOM # \n"
+		            + "AHA! YOU GOT THE WUMPUS!\n"
+		            + "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!\n"
+					+ "SAME SETUP (Y-N)\n"
+		, testObj.output.toString());
+	}
+	
 	// pit 8 and 10, bat in 14, wumpus in 9
 	@Test
 	public void testBatMoveBumpWumpus() throws Exception {
