@@ -42,7 +42,6 @@ public class Wumpus {
 		
 		int j = 0;
 		int k = 0;
-		int k1 = 0;
 		int j9 = 0;
 		boolean validPathFromRoom = false;
 		while (currentLine <= 1150) {
@@ -97,10 +96,7 @@ public class Wumpus {
 			case 800: ll = playerLocation(); break;																		// 800 l = l(1)
 			case 805: k = 1; break;																			// 805 for k = 1 to j9
 			case 810:  																		// 810 for k1 = 1 to 3
-				validPathFromRoom = false;
-				for (k1 = 1; k1 <= 3; ++k1) {
-					if (s[ll][k1] == p[k]) validPathFromRoom = true;											// 815 if s(l,k1) = p(k) then 895
-				}												// 820 next k1
+				validPathFromRoom = isPathValidFromRoom(s[ll], p[k]);
 				break;
 			case 825: break;																				// 825 rem *** NO TUNNEL FOR ARROW ***
 			case 830: ll = validPathFromRoom ? p[k] : s[ll][fnB()]; break;																// 830 l = s(l,fnb(1))
@@ -171,6 +167,13 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public boolean isPathValidFromRoom(int[] room, int path) {
+		for (int k1 = 1; k1 <= 3; ++k1) {
+			if (room[k1] == path) 
+				return true;
+		}
+		return false;
 	}
 	public int[] getIntendedFlightPathFromPlayer(int numberOfRooms) {
 		int[] p = new int[6];
