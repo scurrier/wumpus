@@ -40,8 +40,6 @@ public class Wumpus {
 		int f = 0;
 		
 		int j = 0;
-		int k = 0;
-		boolean validMove = false;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
@@ -84,17 +82,7 @@ public class Wumpus {
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985:
-				do {
-					ll = getMoveDirection();
-					validMove = false;																		// 1005 for k = 1 to 3
-					for (k = 1; k <= 3; ++k) {
-						if (s[playerLocation()][k] == ll) 
-							validMove = true;										// 1015 if s(l(1),k) = l then 1045
-					}
-					if (ll == playerLocation()) validMove = true;												// 1025 if l = l(1) then 1045
-					if (!validMove)
-						print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
-				} while (!validMove);
+				ll = getNewPlayerLocation();
 				break;																// 1035 goto 985
 			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
 			case 1045: mapItemLocations[1] = ll; break;																	// 1045 l(1) = l
@@ -122,6 +110,23 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int getNewPlayerLocation() {
+		boolean validMove;
+		int newLocation;
+		do {
+			newLocation = getMoveDirection();
+			validMove = false;																		// 1005 for k = 1 to 3
+			for (int i = 1; i <= 3; ++i) {
+				if (s[playerLocation()][i] == newLocation) 
+					validMove = true;										// 1015 if s(l(1),k) = l then 1045
+			}
+			if (newLocation == playerLocation()) 
+				validMove = true;												// 1025 if l = l(1) then 1045
+			if (!validMove)
+				print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
+		} while (!validMove);
+		return newLocation;
 	}
 	public int getMoveDirection() {
 		int move;
