@@ -43,13 +43,10 @@ public class Wumpus {
 						giveInstructions();																	// 30 gosub 375
 				break;																	// 35 goto 80
 			case 170: placeItemsOnMap();
-					break;												
-			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
-			case 230: availableArrows = 5; break;																		// 230 a = 5
-			case 235: break;																		// 235 l = l(1)
-			case 240: break;																				// 240 rem *** RUN THE GAME ***
-			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
-			case 250:																				// 250 rem *** HAZARD WARNING AND LOCATION ***
+				break;																				// 225 rem *** SET NO. OF ARROWS ***
+			case 230: 
+				availableArrows = 5;																		// 230 a = 5
+				println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
 				do {
 					printPlayerStatus();																// 255 gosub 585
 					if (1 == getMoveShootChoiceFromPlayer())
@@ -57,20 +54,20 @@ public class Wumpus {
 					else
 						f = movePlayerToLocation(getNewPlayerLocation()); 
 				} while (f == 0);
+				if (f < 0)
+					println("HA HA HA - YOU LOSE!");										// 320 print "HA HA HA - YOU LOSE!"
+				else
+					println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+
+				for (j = 1; j <= 6; ++j) {
+					mapItemLocations[j] = copyOfMapItemlocations[j];
+				}
+			
+				print("SAME SETUP (Y-N)");
+				i$ = (char) readChar(); readChar(); 
+				if (i$ != 'Y' && i$ != 'y') nextLine = 170;
+				nextLine = 230;
 				break;
-			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
-			case 315: break;																				// 315 rem *** LOSE ***
-			case 320: println("HA HA HA - YOU LOSE!"); break;										// 320 print "HA HA HA - YOU LOSE!"
-			case 325: nextLine = 340; break;																// 325 goto 340
-			case 330: break;																				// 330 rem *** WIN ***
-			case 335: println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"); break;			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
-			case 340: j = 1; break;																			// 340 for j = 1 to 6
-			case 345: mapItemLocations[j] = copyOfMapItemlocations[j]; break;																	// 345 l(j) = m(j)
-			case 350: ++j; if (j <= 6) nextLine = 345; break;												// 350 next j
-			case 355: print("SAME SETUP (Y-N)"); break;											// 355 print "SAME SETUP (Y-N)";
-			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
-			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
-			case 370: nextLine = 230; break;																// 370 goto 230
 			case 1150: break;																				// 1150 end
 			}
 			currentLine = nextLine;
