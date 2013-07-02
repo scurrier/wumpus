@@ -50,20 +50,20 @@ public class Wumpus {
 			case 235: break;																		// 235 l = l(1)
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
-			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
-			case 255: printPlayerStatus(); break;																// 255 gosub 585
-			case 260: break;																				// 260 rem *** MOVE OR SHOOT ***
-			case 265: o = getMoveShootChoiceFromPlayer(); break;																// 265 gosub 670
-			case 270: switch(o) {
-				case 1: 
-					f = shoot(); 
-					break; 
-				case 2: 
-					f = movePlayerToLocation(getNewPlayerLocation()); 
-					break;
-				} 
-				break;		// 270 on o goto 280,300
-			case 305: if (f == 0) nextLine = 255; break;													// 305 if f = 0 then 255
+			case 250:																				// 250 rem *** HAZARD WARNING AND LOCATION ***
+				do {
+						printPlayerStatus();																// 255 gosub 585
+						o = getMoveShootChoiceFromPlayer();																// 265 gosub 670
+						switch(o) {
+							case 1: 
+								f = shoot(); 
+								break; 
+							case 2: 
+								f = movePlayerToLocation(getNewPlayerLocation()); 
+								break;
+						}
+				} while (f == 0);
+				break;
 			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
 			case 315: break;																				// 315 rem *** LOSE ***
 			case 320: println("HA HA HA - YOU LOSE!"); break;										// 320 print "HA HA HA - YOU LOSE!"
