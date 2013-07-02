@@ -41,8 +41,7 @@ public class Wumpus {
 			case 15: 
 				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						giveInstructions();																	// 30 gosub 375
-				break;																	// 35 goto 80
-			case 170: placeItemsOnMap();
+				placeItemsOnMap();
 				break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: 
 				availableArrows = 5;																		// 230 a = 5
@@ -65,7 +64,8 @@ public class Wumpus {
 			
 				print("SAME SETUP (Y-N)");
 				i$ = (char) readChar(); readChar(); 
-				if (i$ != 'Y' && i$ != 'y') nextLine = 170;
+				if (i$ != 'Y' && i$ != 'y') 
+					placeItemsOnMap();
 				nextLine = 230;
 				break;
 			case 1150: break;																				// 1150 end
