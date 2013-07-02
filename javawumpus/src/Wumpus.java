@@ -87,8 +87,6 @@ public class Wumpus {
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
 			case 735: 
 				j9 = getShotDistanceFromPlayer();
-				break;
-			case 755: 																			// 755 for k = 1 to j9
 				p = getIntendedFlightPathFromPlayer(j9);
 																							// 795 rem *** SHOOT ARROW ***
 				f = shootArrow(j9, p);
@@ -96,15 +94,16 @@ public class Wumpus {
 				if (gameEnded)
 					returnFromGosub();
 				break;
-			case 845: println("MISSED"); break;													// 845 print "MISSED"
-			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
-			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
-			case 860: f = moveWumpus(); break;																// 860 gosub 935
-			case 865: break;																				// 865 rem *** AMMO CHECK ***
-			case 870: availableArrows = availableArrows - 1; break;																	// 870 a = a-1
-			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
-			case 880: f = -1; break;																		// 880 f = -1
-			case 885: returnFromGosub(); break;																// 885 return
+			case 845: 
+				println("MISSED");													// 845 print "MISSED"
+				ll = playerLocation();																		// 850 l = l(1)
+				f = moveWumpus();																// 860 gosub 935
+																							// 865 rem *** AMMO CHECK ***
+				availableArrows = availableArrows - 1;																	// 870 a = a-1
+				if (availableArrows <= 0)													// 875 if a > 0 then 885
+					f = -1;																		// 880 f = -1
+				returnFromGosub(); 
+				break;																// 885 return
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985: print("WHERE TO "); break;													// 985 print "WHERE TO";
