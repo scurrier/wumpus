@@ -83,10 +83,7 @@ public class Wumpus {
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985:
-				do {
-					print("WHERE TO ");													// 985 print "WHERE TO";
-					ll = readInt();																// 990 input l
-				} while (ll < 1 || ll > 20);
+				ll = getMoveDirection();
 				break;
 			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
 			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
@@ -121,6 +118,14 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int getMoveDirection() {
+		int move;
+		do {
+			print("WHERE TO ");													// 985 print "WHERE TO";
+			move = readInt();																// 990 input l
+		} while (move < 1 || move > 20);
+		return move;
 	}
 	private int shoot() {
 		int j9 = getShotDistanceFromPlayer();
