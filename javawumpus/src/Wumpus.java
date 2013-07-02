@@ -1,15 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Random;
 
 
 public class Wumpus {
 
 	private int currentLine = 5;
-	private Deque<Integer> returnLine = new ArrayDeque<Integer>();
 	private int nextLine;
 	char i$ = '\0';
 	private int[][] s = {{0,0,0,0},
@@ -57,13 +54,15 @@ public class Wumpus {
 			case 255: printPlayerStatus(); break;																// 255 gosub 585
 			case 260: break;																				// 260 rem *** MOVE OR SHOOT ***
 			case 265: o = getMoveShootChoiceFromPlayer(); break;																// 265 gosub 670
-			case 270: switch(o) {case 1: nextLine = 280; break; case 2: nextLine = 300; break;} break;		// 270 on o goto 280,300
-			case 275: break;																				// 275 rem *** SHOOT ***
-			case 280: f = shoot(); break;																// 280 gosub 715
-			case 285: if (f == 0) nextLine = 255; break;													// 285 if f = 0 then 255
-			case 290: nextLine = 310; break;																// 290 goto 310
-			case 295: break;																				// 295 rem *** MOVE ***
-			case 300: f = movePlayerToLocation(getNewPlayerLocation()); break;																// 300 gosub 975
+			case 270: switch(o) {
+				case 1: 
+					f = shoot(); 
+					break; 
+				case 2: 
+					f = movePlayerToLocation(getNewPlayerLocation()); 
+					break;
+				} 
+				break;		// 270 on o goto 280,300
 			case 305: if (f == 0) nextLine = 255; break;													// 305 if f = 0 then 255
 			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
 			case 315: break;																				// 315 rem *** LOSE ***
@@ -356,16 +355,6 @@ public class Wumpus {
 	}
 	public int readChar() throws IOException {
 		return System.in.read();
-	}
-	private void gosub(int gosubLine, int lineToReturnTo) {
-		nextLine = gosubLine;
-		returnLine.addLast(lineToReturnTo);
-	}
-	private void returnFromGosub() {
-		if (returnLine.isEmpty())
-			nextLine = 1151;
-		else
-			nextLine = returnLine.pollLast();
 	}
 	public static int fnA() {
 		return random.nextInt(20) + 1;
