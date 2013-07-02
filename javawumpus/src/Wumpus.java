@@ -20,7 +20,6 @@ public class Wumpus {
 	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int availableArrows = 5;
-	private int ll = availableArrows;
 
 	public static Random random = new Random();
 	/**
@@ -51,7 +50,7 @@ public class Wumpus {
 					break;												
 			case 225: break;																				// 225 rem *** SET NO. OF ARROWS ***
 			case 230: availableArrows = 5; break;																		// 230 a = 5
-			case 235: ll = playerLocation(); break;																		// 235 l = l(1)
+			case 235: break;																		// 235 l = l(1)
 			case 240: break;																				// 240 rem *** RUN THE GAME ***
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
 			case 250: break;																				// 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -82,11 +81,7 @@ public class Wumpus {
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985:
-				ll = getNewPlayerLocation();
-				break;																// 1040 rem *** CHECK FOR HAZARDS ***
-			case 1045:
-				f = movePlayerToLocation(ll);
-				ll = playerLocation();
+				f = movePlayerToLocation(getNewPlayerLocation());
 				returnFromGosub(); break;															// 1145 return
 			case 1150: break;																				// 1150 end
 			}
@@ -148,7 +143,6 @@ public class Wumpus {
 		if (gameEnded)
 			return f;
 		println("MISSED");													// 845 print "MISSED"
-		ll = playerLocation();																		// 850 l = l(1)
 		f = moveWumpus();																// 860 gosub 935
 																					// 865 rem *** AMMO CHECK ***
 		availableArrows = availableArrows - 1;																	// 870 a = a-1
@@ -161,7 +155,7 @@ public class Wumpus {
 		if (k < 4) {													// 945 if k = 4 then 955
 			mapItemLocations[2] = s[mapItemLocations[2]][k];
 		}																// 950 l(2) = s(l(2),k)
-		if (mapItemLocations[2] == ll) {												// 955 if l(2) <> l then 970
+		if (mapItemLocations[2] == playerLocation()) {												// 955 if l(2) <> l then 970
 			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			return -1;																		// 965 f = -1
 		}
@@ -242,6 +236,7 @@ public class Wumpus {
 		println("");														// 660 print
 	}
 	public void printTunnelOptions() {
+		int ll = playerLocation();
 		print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 					print(" "); print(s[ll][2]); 
 					print(" "); println(s[ll][3]);
