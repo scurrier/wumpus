@@ -82,11 +82,11 @@ public class Wumpus {
 			case 370: nextLine = 230; break;																// 370 goto 230
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
-			case 985: 
-				print("WHERE TO ");													// 985 print "WHERE TO";
-				ll = readInt();																// 990 input l
-				if (ll < 1) nextLine = 985;													// 995 if l < 1 then 985
-				if (ll > 20) nextLine = 985;													// 1000 if l > 20 then 985
+			case 985:
+				do {
+					print("WHERE TO ");													// 985 print "WHERE TO";
+					ll = readInt();																// 990 input l
+				} while (ll < 1 || ll > 20);
 				break;
 			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
 			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
