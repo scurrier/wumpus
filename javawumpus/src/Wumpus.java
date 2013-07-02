@@ -42,32 +42,30 @@ public class Wumpus {
 				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
 						giveInstructions();																	// 30 gosub 375
 				placeItemsOnMap();
-				break;																				// 225 rem *** SET NO. OF ARROWS ***
-			case 230: 
-				availableArrows = 5;																		// 230 a = 5
-				println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
-				do {
-					printPlayerStatus();																// 255 gosub 585
-					if (1 == getMoveShootChoiceFromPlayer())
-						f = shoot();
+				do { 
+					availableArrows = 5;																		// 230 a = 5
+					println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
+					do {
+						printPlayerStatus();																// 255 gosub 585
+						if (1 == getMoveShootChoiceFromPlayer())
+							f = shoot();
+						else
+							f = movePlayerToLocation(getNewPlayerLocation()); 
+					} while (f == 0);
+					if (f < 0)
+						println("HA HA HA - YOU LOSE!");										// 320 print "HA HA HA - YOU LOSE!"
 					else
-						f = movePlayerToLocation(getNewPlayerLocation()); 
-				} while (f == 0);
-				if (f < 0)
-					println("HA HA HA - YOU LOSE!");										// 320 print "HA HA HA - YOU LOSE!"
-				else
-					println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
-
-				for (j = 1; j <= 6; ++j) {
-					mapItemLocations[j] = copyOfMapItemlocations[j];
-				}
-			
-				print("SAME SETUP (Y-N)");
-				i$ = (char) readChar(); readChar(); 
-				if (i$ != 'Y' && i$ != 'y') 
-					placeItemsOnMap();
-				nextLine = 230;
-				break;
+						println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+	
+					for (j = 1; j <= 6; ++j) {
+						mapItemLocations[j] = copyOfMapItemlocations[j];
+					}
+				
+					print("SAME SETUP (Y-N)");
+					i$ = (char) readChar(); readChar(); 
+					if (i$ != 'Y' && i$ != 'y') 
+						placeItemsOnMap();
+				} while (true);
 			case 1150: break;																				// 1150 end
 			}
 			currentLine = nextLine;
