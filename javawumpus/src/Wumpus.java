@@ -105,14 +105,17 @@ public class Wumpus {
 			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
-			case 935: break;																				// 935 rem *** MOVE WUMPUS ROUTINE ***
-			case 940: k = fnC(); break;																		// 940 k = fnc(0)
-			case 945: if (k == 4) nextLine = 955; break;													// 945 if k = 4 then 955
-			case 950: mapItemLocations[2] = s[mapItemLocations[2]][k]; break;																// 950 l(2) = s(l(2),k)
-			case 955: if (mapItemLocations[2] != ll) nextLine = 970; break;												// 955 if l(2) <> l then 970
-			case 960: println("TSK TSK TSK - WUMPUS GOT YOU!"); break;							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
-			case 965: f = -1; break;																		// 965 f = -1
-			case 970: returnFromGosub(); break;																// 970 return
+			case 935: 																				// 935 rem *** MOVE WUMPUS ROUTINE ***
+				k = fnC();																		// 940 k = fnc(0)
+				if (k < 4) {													// 945 if k = 4 then 955
+					mapItemLocations[2] = s[mapItemLocations[2]][k];
+				}																// 950 l(2) = s(l(2),k)
+				if (mapItemLocations[2] == ll) {												// 955 if l(2) <> l then 970
+					println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
+					f = -1;																		// 965 f = -1
+				}
+				returnFromGosub(); 
+				break;																// 970 return
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985: print("WHERE TO "); break;													// 985 print "WHERE TO";
@@ -132,7 +135,7 @@ public class Wumpus {
 			case 1055: if (ll != mapItemLocations[2]) nextLine = 1090; break;												// 1055 if l <> l(2) then 1090
 			case 1060: println("... OOPS! BUMPED A WUMPUS!"); break;								// 1060 print "... OOPS! BUMPED A WUMPUS!"
 			case 1065: break;																				// 1065 rem *** MOVE WUMPUS ***
-			case 1070: gosub(940, 1075); break;																// 1070 gosub 940
+			case 1070: gosub(935, 1075); break;																// 1070 gosub 940
 			case 1075: if (f == 0) nextLine = 1090; break;													// 1075 if f = 0 then 1090
 			case 1080: returnFromGosub(); break;															// 1080 return
 			case 1085: break;																				// 1085 rem *** PIT ***
