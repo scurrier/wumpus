@@ -85,15 +85,17 @@ public class Wumpus {
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985:
 				ll = getMoveDirection();
-				break;
-			case 1005: k = 1; validMove = false; break;																		// 1005 for k = 1 to 3
-			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
-			case 1015: if (s[playerLocation()][k] == ll) validMove = true; break;										// 1015 if s(l(1),k) = l then 1045
-			case 1020: ++k; if (k <= 3) nextLine = 1010; break;												// 1020 next k
-			case 1025: if (ll == playerLocation()) validMove = true; break;												// 1025 if l = l(1) then 1045
-			case 1026: if (validMove) nextLine = 1045; break;
-			case 1030: print("NOT POSSIBLE - "); break;											// 1030 print "NOT POSSIBLE -";
-			case 1035: nextLine = 985; break;																// 1035 goto 985
+				validMove = false;																		// 1005 for k = 1 to 3
+				for (k = 1; k <= 3; ++k) {
+					if (s[playerLocation()][k] == ll) 
+						validMove = true;										// 1015 if s(l(1),k) = l then 1045
+				}
+				if (ll == playerLocation()) validMove = true;												// 1025 if l = l(1) then 1045
+				if (!validMove) {
+					print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
+					nextLine = 985;
+				}
+				break;																// 1035 goto 985
 			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
 			case 1045: mapItemLocations[1] = ll; break;																	// 1045 l(1) = l
 			case 1050: break;																				// 1050 rem *** WUMPUS ***
