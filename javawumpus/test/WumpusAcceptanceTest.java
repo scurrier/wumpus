@@ -486,6 +486,41 @@ public class WumpusAcceptanceTest {
 					+ "SAME SETUP (Y-N)\n"
 		, testObj.output.toString());
 	}
+	
+	@Test
+	public void testInvalidMove() throws Exception {
+		int[] intInput = {0, 21, 20, 1, 3, 7, 8};
+		TestableWumpus testObj = new TestableWumpus("N\rm\rm\r", intInput);
+		runGame(testObj);
+		assertEquals("INSTRUCTIONS (Y-N) \n" 
+					+ "\n"
+					+ "HUNT THE WUMPUS\n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+					+ "WHERE TO \n"
+					+ "WHERE TO \n"
+					+ "WHERE TO \n"
+                    + "NOT POSSIBLE - WHERE TO \n"
+                    + "\n"
+					+ "I FEEL A DRAFT\n"
+					+ "YOUR ARE IN ROOM 1\n"
+					+ "TUNNELS LEAD TO 2 5 8\n"
+                    + "\n"
+					+ "SHOOT OR MOVE (S-M) \n" 
+                    + "\n"
+					+ "WHERE TO \n"
+                    + "NOT POSSIBLE - WHERE TO \n"
+                    + "NOT POSSIBLE - WHERE TO \n"
+					+ "YYYYIIIIEEEE . . . FELL IN PIT\n"
+					+ "HA HA HA - YOU LOSE!\n"
+					+ "SAME SETUP (Y-N)\n"
+        , testObj.output.toString());
+	}
 
 	
 }
