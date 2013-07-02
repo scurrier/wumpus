@@ -84,36 +84,35 @@ public class Wumpus {
 			case 985:
 				ll = getNewPlayerLocation();
 				break;																// 1040 rem *** CHECK FOR HAZARDS ***
-			case 1045: 
-				mapItemLocations[1] = ll;																	// 1045 l(1) = l
-																						// 1050 rem *** WUMPUS ***
-				if (ll == mapItemLocations[2]) {												// 1055 if l <> l(2) then 1090
-					println("... OOPS! BUMPED A WUMPUS!");								// 1060 print "... OOPS! BUMPED A WUMPUS!"
-					f = moveWumpus();																// 1070 gosub 940
-					if (f != 0) 
-						returnFromGosub(); 
-				}
-				break;															// 1080 return
-			
-			case 1085: 																				// 1085 rem *** PIT ***
-				if (ll == mapItemLocations[3] || ll == mapItemLocations[4]) {
-					println("YYYYIIIIEEEE . . . FELL IN PIT");							// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
-					f = -1;																		// 1105 f = -1
-					returnFromGosub(); 
-				}
-				break;															// 1110 return
-			case 1115: 																				// 1115 rem *** BATS ***
-				if (ll == mapItemLocations[5] || ll == mapItemLocations[6]) {
-					println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");			// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
-					ll = fnA();																	// 1135 l = fna(1)
-					nextLine = 1045;
-				}
-				break;
-			case 1145: returnFromGosub(); break;															// 1145 return
+			case 1045:
+				f = movePlayerToLocation(ll);
+				ll = playerLocation();
+				returnFromGosub(); break;															// 1145 return
 			case 1150: break;																				// 1150 end
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int movePlayerToLocation(int newLocation) {
+		mapItemLocations[1] = newLocation;
+		
+		if (newLocation == mapItemLocations[2]) {
+			println("... OOPS! BUMPED A WUMPUS!");
+			int f = moveWumpus();
+			if (f != 0) 
+				return f;
+		}
+		
+		if (newLocation == mapItemLocations[3] || newLocation == mapItemLocations[4]) {
+			println("YYYYIIIIEEEE . . . FELL IN PIT");
+			return -1;
+		}
+		
+		if (newLocation == mapItemLocations[5] || newLocation == mapItemLocations[6]) {
+			println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
+			return movePlayerToLocation(fnA());
+		}
+		return 0;
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
