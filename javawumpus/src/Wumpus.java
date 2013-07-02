@@ -99,16 +99,12 @@ public class Wumpus {
 			case 845: println("MISSED"); break;													// 845 print "MISSED"
 			case 850: ll = playerLocation(); break;																		// 850 l = l(1)
 			case 855: break;																				// 855 rem *** MOVE WUMPUS ***
-			case 860: gosub(935, 865); break;																// 860 gosub 935
+			case 860: f = moveWumpus(); break;																// 860 gosub 935
 			case 865: break;																				// 865 rem *** AMMO CHECK ***
 			case 870: availableArrows = availableArrows - 1; break;																	// 870 a = a-1
 			case 875: if (availableArrows > 0) nextLine = 885; break;													// 875 if a > 0 then 885
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
-			case 935: 																				// 935 rem *** MOVE WUMPUS ROUTINE ***
-				f = moveWumpus();
-				returnFromGosub(); 
-				break;																// 970 return
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985: print("WHERE TO "); break;													// 985 print "WHERE TO";
@@ -128,7 +124,7 @@ public class Wumpus {
 			case 1055: if (ll != mapItemLocations[2]) nextLine = 1090; break;												// 1055 if l <> l(2) then 1090
 			case 1060: println("... OOPS! BUMPED A WUMPUS!"); break;								// 1060 print "... OOPS! BUMPED A WUMPUS!"
 			case 1065: break;																				// 1065 rem *** MOVE WUMPUS ***
-			case 1070: gosub(935, 1075); break;																// 1070 gosub 940
+			case 1070: f = moveWumpus(); break;																// 1070 gosub 940
 			case 1075: if (f == 0) nextLine = 1090; break;													// 1075 if f = 0 then 1090
 			case 1080: returnFromGosub(); break;															// 1080 return
 			case 1085: break;																				// 1085 rem *** PIT ***
