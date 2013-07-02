@@ -32,7 +32,6 @@ public class Wumpus {
 		}
 	}
 	public void run() throws IOException {
-		int o = 1;
 		int f = 0;
 		
 		int j = 0;
@@ -52,16 +51,11 @@ public class Wumpus {
 			case 245: println("HUNT THE WUMPUS"); break;											// 245 print "HUNT THE WUMPUS"
 			case 250:																				// 250 rem *** HAZARD WARNING AND LOCATION ***
 				do {
-						printPlayerStatus();																// 255 gosub 585
-						o = getMoveShootChoiceFromPlayer();																// 265 gosub 670
-						switch(o) {
-							case 1: 
-								f = shoot(); 
-								break; 
-							case 2: 
-								f = movePlayerToLocation(getNewPlayerLocation()); 
-								break;
-						}
+					printPlayerStatus();																// 255 gosub 585
+					if (1 == getMoveShootChoiceFromPlayer())
+						f = shoot();
+					else
+						f = movePlayerToLocation(getNewPlayerLocation()); 
 				} while (f == 0);
 				break;
 			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
