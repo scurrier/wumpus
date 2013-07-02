@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class Wumpus {
 
-	private int currentLine = 5;
-	private int nextLine;
 	char i$ = '\0';
 	private int[][] s = {{0,0,0,0},
 	{0,2,5,8},		{0,1,3,10},		{0,2,4,12},		{0,3,5,14},		{0,1,4,6},
@@ -33,43 +31,33 @@ public class Wumpus {
 	}
 	public void run() throws IOException {
 		int f = 0;
-		
-		int j = 0;
-		while (currentLine <= 1150) {
-			nextLine = currentLine + 1;
-			switch (currentLine) {
-			case 15: 
-				if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
-						giveInstructions();																	// 30 gosub 375
-				placeItemsOnMap();
-				do { 
-					availableArrows = 5;																		// 230 a = 5
-					println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
-					do {
-						printPlayerStatus();																// 255 gosub 585
-						if (1 == getMoveShootChoiceFromPlayer())
-							f = shoot();
-						else
-							f = movePlayerToLocation(getNewPlayerLocation()); 
-					} while (f == 0);
-					if (f < 0)
-						println("HA HA HA - YOU LOSE!");										// 320 print "HA HA HA - YOU LOSE!"
-					else
-						println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
-	
-					for (j = 1; j <= 6; ++j) {
-						mapItemLocations[j] = copyOfMapItemlocations[j];
-					}
-				
-					print("SAME SETUP (Y-N)");
-					i$ = (char) readChar(); readChar(); 
-					if (i$ != 'Y' && i$ != 'y') 
-						placeItemsOnMap();
-				} while (true);
-			case 1150: break;																				// 1150 end
+		if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
+				giveInstructions();																	// 30 gosub 375
+		placeItemsOnMap();
+		do { 
+			availableArrows = 5;																		// 230 a = 5
+			println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
+			do {
+				printPlayerStatus();																// 255 gosub 585
+				if (1 == getMoveShootChoiceFromPlayer())
+					f = shoot();
+				else
+					f = movePlayerToLocation(getNewPlayerLocation()); 
+			} while (f == 0);
+			if (f < 0)
+				println("HA HA HA - YOU LOSE!");										// 320 print "HA HA HA - YOU LOSE!"
+			else
+				println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+
+			for (int j = 1; j <= 6; ++j) {
+				mapItemLocations[j] = copyOfMapItemlocations[j];
 			}
-			currentLine = nextLine;
-		}
+		
+			print("SAME SETUP (Y-N)");
+			i$ = (char) readChar(); readChar(); 
+			if (i$ != 'Y' && i$ != 'y') 
+				placeItemsOnMap();
+		} while (true);
 	}
 	public int movePlayerToLocation(int newLocation) {
 		mapItemLocations[1] = newLocation;
