@@ -19,7 +19,6 @@ public class Wumpus {
 	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
 	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
-	private int[] p = new int[6];
 	private int availableArrows = 5;
 	private int ll = availableArrows;
 
@@ -42,7 +41,6 @@ public class Wumpus {
 		
 		int j = 0;
 		int k = 0;
-		int j9 = 0;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
@@ -85,23 +83,8 @@ public class Wumpus {
 			case 715: break;																				// 715 rem *** ARROW ROUTINE ***
 			case 720: f = 0; break;																			// 720 f = 0
 			case 725: break;																				// 725 rem *** PATH OF ARROW ***
-			case 735: 
-				j9 = getShotDistanceFromPlayer();
-				p = getIntendedFlightPathFromPlayer(j9);
-																							// 795 rem *** SHOOT ARROW ***
-				f = shootArrow(j9, p);
-				boolean gameEnded = (f != 0);
-				if (gameEnded)
-					returnFromGosub();
-				break;
-			case 845: 
-				println("MISSED");													// 845 print "MISSED"
-				ll = playerLocation();																		// 850 l = l(1)
-				f = moveWumpus();																// 860 gosub 935
-																							// 865 rem *** AMMO CHECK ***
-				availableArrows = availableArrows - 1;																	// 870 a = a-1
-				if (availableArrows <= 0)													// 875 if a > 0 then 885
-					f = -1;																		// 880 f = -1
+			case 735:
+				f = shoot();
 				returnFromGosub(); 
 				break;																// 885 return
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
@@ -143,6 +126,23 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	private int shoot() {
+		int j9 = getShotDistanceFromPlayer();
+		int[] p = getIntendedFlightPathFromPlayer(j9);
+																					// 795 rem *** SHOOT ARROW ***
+		int f = shootArrow(j9, p);
+		boolean gameEnded = (f != 0);
+		if (gameEnded)
+			return f;
+		println("MISSED");													// 845 print "MISSED"
+		ll = playerLocation();																		// 850 l = l(1)
+		f = moveWumpus();																// 860 gosub 935
+																					// 865 rem *** AMMO CHECK ***
+		availableArrows = availableArrows - 1;																	// 870 a = a-1
+		if (availableArrows <= 0)													// 875 if a > 0 then 885
+			f = -1;																		// 880 f = -1
+		return f;
 	}
 	public int moveWumpus() {
 		int k = fnC();																		// 940 k = fnc(0)
