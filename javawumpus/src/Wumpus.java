@@ -41,6 +41,7 @@ public class Wumpus {
 		
 		int j = 0;
 		int k = 0;
+		boolean validMove = false;
 		while (currentLine <= 1150) {
 			nextLine = currentLine + 1;
 			switch (currentLine) {
@@ -85,11 +86,12 @@ public class Wumpus {
 			case 985:
 				ll = getMoveDirection();
 				break;
-			case 1005: k = 1; break;																		// 1005 for k = 1 to 3
+			case 1005: k = 1; validMove = false; break;																		// 1005 for k = 1 to 3
 			case 1010: break;																				// 1010 rem *** CHECK IF LEGAL MOVE ***
-			case 1015: if (s[playerLocation()][k] == ll) nextLine = 1045; break;										// 1015 if s(l(1),k) = l then 1045
+			case 1015: if (s[playerLocation()][k] == ll) validMove = true; break;										// 1015 if s(l(1),k) = l then 1045
 			case 1020: ++k; if (k <= 3) nextLine = 1010; break;												// 1020 next k
-			case 1025: if (ll == playerLocation()) nextLine = 1045; break;												// 1025 if l = l(1) then 1045
+			case 1025: if (ll == playerLocation()) validMove = true; break;												// 1025 if l = l(1) then 1045
+			case 1026: if (validMove) nextLine = 1045; break;
 			case 1030: print("NOT POSSIBLE - "); break;											// 1030 print "NOT POSSIBLE -";
 			case 1035: nextLine = 985; break;																// 1035 goto 985
 			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
