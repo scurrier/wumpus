@@ -106,14 +106,7 @@ public class Wumpus {
 			case 880: f = -1; break;																		// 880 f = -1
 			case 885: returnFromGosub(); break;																// 885 return
 			case 935: 																				// 935 rem *** MOVE WUMPUS ROUTINE ***
-				k = fnC();																		// 940 k = fnc(0)
-				if (k < 4) {													// 945 if k = 4 then 955
-					mapItemLocations[2] = s[mapItemLocations[2]][k];
-				}																// 950 l(2) = s(l(2),k)
-				if (mapItemLocations[2] == ll) {												// 955 if l(2) <> l then 970
-					println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
-					f = -1;																		// 965 f = -1
-				}
+				f = moveWumpus();
 				returnFromGosub(); 
 				break;																// 970 return
 			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
@@ -155,6 +148,17 @@ public class Wumpus {
 			}
 			currentLine = nextLine;
 		}
+	}
+	public int moveWumpus() {
+		int k = fnC();																		// 940 k = fnc(0)
+		if (k < 4) {													// 945 if k = 4 then 955
+			mapItemLocations[2] = s[mapItemLocations[2]][k];
+		}																// 950 l(2) = s(l(2),k)
+		if (mapItemLocations[2] == ll) {												// 955 if l(2) <> l then 970
+			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
+			return -1;																		// 965 f = -1
+		}
+		return 0;
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
