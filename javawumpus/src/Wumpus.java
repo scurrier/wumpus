@@ -63,7 +63,7 @@ public class Wumpus {
 			case 285: if (f == 0) nextLine = 255; break;													// 285 if f = 0 then 255
 			case 290: nextLine = 310; break;																// 290 goto 310
 			case 295: break;																				// 295 rem *** MOVE ***
-			case 300: gosub(975, 305); break;																// 300 gosub 975
+			case 300: f = movePlayerToLocation(getNewPlayerLocation()); break;																// 300 gosub 975
 			case 305: if (f == 0) nextLine = 255; break;													// 305 if f = 0 then 255
 			case 310: if (f > 0) nextLine = 335; break;														// 310 if f > 0 then 335
 			case 315: break;																				// 315 rem *** LOSE ***
@@ -78,11 +78,6 @@ public class Wumpus {
 			case 360: i$ = (char) readChar(); readChar(); break;								// 360 input i$
 			case 365: if (i$ != 'Y' && i$ != 'y') nextLine = 170; break;									// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 			case 370: nextLine = 230; break;																// 370 goto 230
-			case 975: break;																				// 975 rem *** MOVE ROUTINE ***
-			case 980: f = 0; break;																			// 980 f = 0
-			case 985:
-				f = movePlayerToLocation(getNewPlayerLocation());
-				returnFromGosub(); break;															// 1145 return
 			case 1150: break;																				// 1150 end
 			}
 			currentLine = nextLine;
