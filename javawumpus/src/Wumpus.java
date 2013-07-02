@@ -83,28 +83,32 @@ public class Wumpus {
 			case 980: f = 0; break;																			// 980 f = 0
 			case 985:
 				ll = getNewPlayerLocation();
-				break;																// 1035 goto 985
-			case 1040: break;																				// 1040 rem *** CHECK FOR HAZARDS ***
-			case 1045: mapItemLocations[1] = ll; break;																	// 1045 l(1) = l
-			case 1050: break;																				// 1050 rem *** WUMPUS ***
-			case 1055: if (ll != mapItemLocations[2]) nextLine = 1090; break;												// 1055 if l <> l(2) then 1090
-			case 1060: println("... OOPS! BUMPED A WUMPUS!"); break;								// 1060 print "... OOPS! BUMPED A WUMPUS!"
-			case 1065: break;																				// 1065 rem *** MOVE WUMPUS ***
-			case 1070: f = moveWumpus(); break;																// 1070 gosub 940
-			case 1075: if (f == 0) nextLine = 1090; break;													// 1075 if f = 0 then 1090
-			case 1080: returnFromGosub(); break;															// 1080 return
-			case 1085: break;																				// 1085 rem *** PIT ***
-			case 1090: if (ll == mapItemLocations[3]) nextLine = 1100; break;												// 1090 if l = l(3) then 1100
-			case 1095: if (ll != mapItemLocations[4]) nextLine = 1120; break;												// 1095 if l <> l(4) then 1120
-			case 1100: println("YYYYIIIIEEEE . . . FELL IN PIT"); break;							// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
-			case 1105: f = -1; break;																		// 1105 f = -1
-			case 1110: returnFromGosub(); break;															// 1110 return
-			case 1115: break;																				// 1115 rem *** BATS ***
-			case 1120: if (ll == mapItemLocations[5]) nextLine = 1130; break;												// 1120 if l = l(5) then 1130
-			case 1125: if (ll != mapItemLocations[6]) nextLine = 1145; break;												// 1125 if l <> l(6) then 1145
-			case 1130: println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"); break;			// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
-			case 1135: ll = fnA(); break;																	// 1135 l = fna(1)
-			case 1140: nextLine = 1045; break;																// 1140 goto 1045
+				break;																// 1040 rem *** CHECK FOR HAZARDS ***
+			case 1045: 
+				mapItemLocations[1] = ll;																	// 1045 l(1) = l
+																						// 1050 rem *** WUMPUS ***
+				if (ll == mapItemLocations[2]) {												// 1055 if l <> l(2) then 1090
+					println("... OOPS! BUMPED A WUMPUS!");								// 1060 print "... OOPS! BUMPED A WUMPUS!"
+					f = moveWumpus();																// 1070 gosub 940
+					if (f != 0) 
+						returnFromGosub(); 
+				}
+				break;															// 1080 return
+			
+			case 1085: 																				// 1085 rem *** PIT ***
+				if (ll == mapItemLocations[3] || ll == mapItemLocations[4]) {
+					println("YYYYIIIIEEEE . . . FELL IN PIT");							// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
+					f = -1;																		// 1105 f = -1
+					returnFromGosub(); 
+				}
+				break;															// 1110 return
+			case 1115: 																				// 1115 rem *** BATS ***
+				if (ll == mapItemLocations[5] || ll == mapItemLocations[6]) {
+					println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");			// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
+					ll = fnA();																	// 1135 l = fna(1)
+					nextLine = 1045;
+				}
+				break;
 			case 1145: returnFromGosub(); break;															// 1145 return
 			case 1150: break;																				// 1150 end
 			}
