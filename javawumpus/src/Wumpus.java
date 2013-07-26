@@ -7,11 +7,11 @@ import java.util.Random;
 public class Wumpus {
 
 	char i$ = '\0';
-	private int[][] s = {{0,0,0,0},
+	private Map map = new Map(new int[][] {{0,0,0,0},
 	{0,2,5,8},		{0,1,3,10},		{0,2,4,12},		{0,3,5,14},		{0,1,4,6},
 	{0,5,7,15},		{0,6,8,17},		{0,1,7,9},		{0,8,10,18},	{0,2,9,11},
 	{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
-	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
+	{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}});
 	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int availableArrows = 5;
@@ -87,7 +87,7 @@ public class Wumpus {
 			newLocation = getMoveDirection();
 			validMove = false;																		// 1005 for k = 1 to 3
 			for (int i = 1; i <= 3; ++i) {
-				if (s[playerLocation()][i] == newLocation) 
+				if (map.s[playerLocation()][i] == newLocation) 
 					validMove = true;										// 1015 if s(l(1),k) = l then 1045
 			}
 			if (newLocation == playerLocation()) 
@@ -124,7 +124,7 @@ public class Wumpus {
 	public int moveWumpus() {
 		int k = fnC();																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
-			mapItemLocations[2] = s[mapItemLocations[2]][k];
+			mapItemLocations[2] = map.s[mapItemLocations[2]][k];
 		}																// 950 l(2) = s(l(2),k)
 		if (mapItemLocations[2] == playerLocation()) {												// 955 if l(2) <> l then 970
 			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
@@ -135,7 +135,7 @@ public class Wumpus {
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
-			ll = isPathValidFromRoom(s[ll], arrowPath[k2]) ? arrowPath[k2] : s[ll][fnB()];																// 830 l = s(l,fnb(1))
+			ll = isPathValidFromRoom(map.s[ll], arrowPath[k2]) ? arrowPath[k2] : map.s[ll][fnB()];																// 830 l = s(l,fnb(1))
 			if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
 				println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
 				return 1;																			// 910 f = 1
@@ -208,9 +208,9 @@ public class Wumpus {
 	}
 	public void printTunnelOptions() {
 		int ll = playerLocation();
-		print("TUNNELS LEAD TO "); print(s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-					print(" "); print(s[ll][2]); 
-					print(" "); println(s[ll][3]);
+		print("TUNNELS LEAD TO "); print(map.s[ll][1]);						// 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
+					print(" "); print(map.s[ll][2]); 
+					print(" "); println(map.s[ll][3]);
 	}
 	public void printPlayerLocation() {
 		print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
@@ -218,7 +218,7 @@ public class Wumpus {
 	public void printNearbyItemHints() {
 		for (int j = 2; j <= 6; ++j) {
 					for (int k = 1; k <= 3; ++k) {
-						if (s[playerLocation()][k] == mapItemLocations[j]) 
+						if (map.s[playerLocation()][k] == mapItemLocations[j]) 
 							printItemNearbyPlayerHint(j-1);
 					}
 			
