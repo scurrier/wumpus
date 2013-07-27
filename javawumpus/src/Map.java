@@ -1,6 +1,6 @@
 
 public class Map {
-	public int[][] s;
+	private int[][] s;
 
 	public Map() {
 		this.s = new int[][] {{0,0,0,0},
