@@ -17,4 +17,8 @@ public class Map {
 		}
 		return false;
 	}
+
+	public int[] getRoomExits(int room) {
+		return s[room];
+	}
 }

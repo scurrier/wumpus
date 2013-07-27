@@ -122,16 +122,13 @@ public class Wumpus {
 	public int moveWumpus() {
 		int k = fnC();																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
-			setWumpus(getRoomExits(getWumpus())[k]);
+			setWumpus(map.getRoomExits(getWumpus())[k]);
 		}																// 950 l(2) = s(l(2),k)
 		if (getWumpus() == playerLocation()) {												// 955 if l(2) <> l then 970
 			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			return -1;																		// 965 f = -1
 		}
 		return 0;
-	}
-	private int[] getRoomExits(int room) {
-		return map.s[room];
 	}
 	private int setWumpus(int newLocation) {
 		return mapItemLocations[2] = newLocation;
