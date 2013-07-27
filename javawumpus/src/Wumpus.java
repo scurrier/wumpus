@@ -122,7 +122,7 @@ public class Wumpus {
 	public int moveWumpus() {
 		int k = fnC();																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
-			setWumpus(k);
+			setWumpus(map.s[getWumpus()][k]);
 		}																// 950 l(2) = s(l(2),k)
 		if (getWumpus() == playerLocation()) {												// 955 if l(2) <> l then 970
 			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
@@ -130,8 +130,8 @@ public class Wumpus {
 		}
 		return 0;
 	}
-	private int setWumpus(int k) {
-		return mapItemLocations[2] = map.s[getWumpus()][k];
+	private int setWumpus(int newLocation) {
+		return mapItemLocations[2] = newLocation;
 	}
 	private int getWumpus() {
 		return mapItemLocations[2];
