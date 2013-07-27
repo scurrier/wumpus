@@ -58,7 +58,7 @@ public class Wumpus {
 	public int movePlayerToLocation(int newLocation) {
 		mapItemLocations[1] = newLocation;
 		
-		if (newLocation == mapItemLocations[2]) {
+		if (newLocation == getWumpus()) {
 			println("... OOPS! BUMPED A WUMPUS!");
 			int f = moveWumpus();
 			if (f != 0) 
@@ -122,19 +122,25 @@ public class Wumpus {
 	public int moveWumpus() {
 		int k = fnC();																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
-			mapItemLocations[2] = map.s[mapItemLocations[2]][k];
+			setWumpus(k);
 		}																// 950 l(2) = s(l(2),k)
-		if (mapItemLocations[2] == playerLocation()) {												// 955 if l(2) <> l then 970
+		if (getWumpus() == playerLocation()) {												// 955 if l(2) <> l then 970
 			println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			return -1;																		// 965 f = -1
 		}
 		return 0;
 	}
+	private int setWumpus(int k) {
+		return mapItemLocations[2] = map.s[getWumpus()][k];
+	}
+	private int getWumpus() {
+		return mapItemLocations[2];
+	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
 			ll = isPathValidFromRoom(map.s[ll], arrowPath[k2]) ? arrowPath[k2] : map.s[ll][fnB()];																// 830 l = s(l,fnb(1))
-			if (ll == mapItemLocations[2]) {												// 900 if l <> l(2) then 920
+			if (ll == getWumpus()) {												// 900 if l <> l(2) then 920
 				println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
 				return 1;																			// 910 f = 1
 			}
