@@ -9,4 +9,12 @@ public class Map {
 				{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
 				{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
 	}
+
+	public boolean isValidMove(int startLocation, int endLocation) {
+		for (int i = 1; i <= 3; ++i) {
+			if (s[startLocation][i] == endLocation)
+				return true;
+		}
+		return false;
+	}
 }

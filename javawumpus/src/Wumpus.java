@@ -89,20 +89,12 @@ public class Wumpus {
 	}
 
 	private boolean isValidPlayerMove(int newLocation) {
-		if (isValidMove(playerLocation(), newLocation))
+		if (map.isValidMove(playerLocation(), newLocation))
 			return true;
 		if (newLocation == playerLocation())
 			return true;
 		return false;
 	}
-	private boolean isValidMove(int startLocation, int endLocation) {
-		for (int i = 1; i <= 3; ++i) {
-			if (map.s[startLocation][i] == endLocation)
-				return true;
-		}
-		return false;
-	}
-
 	public int getMoveDirection() {
 		int move;
 		do {
