@@ -81,17 +81,22 @@ public class Wumpus {
 		int newLocation;
 		do {
 			newLocation = getMoveDirection();
-			validMove = false;																		// 1005 for k = 1 to 3
-			for (int i = 1; i <= 3; ++i) {
-				if (map.s[playerLocation()][i] == newLocation) 
-					validMove = true;										// 1015 if s(l(1),k) = l then 1045
-			}
-			if (newLocation == playerLocation()) 
-				validMove = true;												// 1025 if l = l(1) then 1045
+			validMove = isValidPlayerMove(newLocation);
 			if (!validMove)
 				print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
 		} while (!validMove);
 		return newLocation;
+	}
+	private boolean isValidPlayerMove(int newLocation) {
+		boolean validMove;
+		validMove = false;																		// 1005 for k = 1 to 3
+		for (int i = 1; i <= 3; ++i) {
+			if (map.s[playerLocation()][i] == newLocation) 
+				validMove = true;										// 1015 if s(l(1),k) = l then 1045
+		}
+		if (newLocation == playerLocation()) 
+			validMove = true;												// 1025 if l = l(1) then 1045
+		return validMove;
 	}
 	public int getMoveDirection() {
 		int move;
