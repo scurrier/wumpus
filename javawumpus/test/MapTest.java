@@ -27,5 +27,12 @@ public class MapTest {
 			assertFalse(testObj.isValidMove(5, badMove));
 		}
 	}
+	
+	@Test
+	public void testGetRoomExits() throws Exception {
+		assertEquals(11, testObj.getRoomExits(19)[1]);
+		assertEquals(18, testObj.getRoomExits(19)[2]);
+		assertEquals(20, testObj.getRoomExits(19)[3]);
+	}
 
 }
