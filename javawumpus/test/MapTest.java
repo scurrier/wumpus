@@ -22,7 +22,7 @@ public class MapTest {
 	
 	@Test
 	public void testInvalidMoves() throws Exception {
-		int[] validMoves = {1,2,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+		int[] validMoves = {2,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
 		for (int badMove : validMoves) {
 			assertFalse(testObj.isValidMove(5, badMove));
 		}
