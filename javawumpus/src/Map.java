@@ -1,24 +1,25 @@
 
 public class Map {
-	private int[][] s;
+	private Paths[] s;
+	static Paths paths(int exit1, int exit2, int exit3) { return new Paths(new int[]{0,exit1,exit2,exit3}); }
 
 	public Map() {
-		this.s = new int[][] {{0,0,0,0},
-				{0,2,5,8},		{0,1,3,10},		{0,2,4,12},		{0,3,5,14},		{0,1,4,6},
-				{0,5,7,15},		{0,6,8,17},		{0,1,7,9},		{0,8,10,18},	{0,2,9,11},
-				{0,10,12,19},	{0,3,11,13},	{0,12,14,20},	{0,4,13,15},	{0,6,14,16},
-				{0,15,17,20},	{0,7,16,18},	{0,9,17,19},	{0,11,18,20},	{0,13,16,19}};
+		this.s = new Paths[] {paths(0,0,0),
+				paths(2,5,8),		paths(1,3,10),		paths(2,4,12),		paths(3,5,14),		paths(1,4,6),
+				paths(5,7,15),		paths(6,8,17),		paths(1,7,9),		paths(8,10,18),		paths(2,9,11),
+				paths(10,12,19),	paths(3,11,13),		paths(12,14,20),	paths(4,13,15),		paths(6,14,16),
+				paths(15,17,20),	paths(7,16,18),		paths(9,17,19),		paths(11,18,20),	paths(13,16,19)};
 	}
 
 	public boolean isValidMove(int startLocation, int endLocation) {
 		for (int i = 1; i <= 3; ++i) {
-			if (s[startLocation][i] == endLocation)
+			if (s[startLocation].s[i] == endLocation)
 				return true;
 		}
 		return false;
 	}
 
-	public int[] getRoomExits(int room) {
+	public Paths getRoomExits(int room) {
 		return s[room];
 	}
 }
