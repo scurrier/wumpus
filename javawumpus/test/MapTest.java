@@ -30,9 +30,9 @@ public class MapTest {
 	
 	@Test
 	public void testGetRoomExits() throws Exception {
-		assertEquals(11, testObj.getRoomExits(19).s[1]);
-		assertEquals(18, testObj.getRoomExits(19).s[2]);
-		assertEquals(20, testObj.getRoomExits(19).s[3]);
+		assertEquals(11, testObj.getRoomExits(19).room(1));
+		assertEquals(18, testObj.getRoomExits(19).room(2));
+		assertEquals(20, testObj.getRoomExits(19).room(3));
 	}
 
 }

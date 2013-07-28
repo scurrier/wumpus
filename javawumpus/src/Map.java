@@ -13,7 +13,7 @@ public class Map {
 
 	public boolean isValidMove(int startLocation, int endLocation) {
 		for (int i = 1; i <= 3; ++i) {
-			if (s[startLocation].s[i] == endLocation)
+			if (s[startLocation].room(i) == endLocation)
 				return true;
 		}
 		return false;
