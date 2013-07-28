@@ -9,37 +9,46 @@ import org.junit.Test;
 
 
 public class WumpusAcceptanceTest {
-	class TestableWumpus extends Wumpus {
+	class TestableUserInteraction extends UserInteraction {
+
+		int charInputIndex = 0;
+		byte[] charInput;
+		int intInputIndex = 0;
+		int[] intInput;
+		StringBuilder output = new StringBuilder();
 		@Override
 		public void print(int data) {
 			output.append(data);
 		}
+		
+	}
+	class TestableWumpus extends Wumpus {
 		@Override
 		public void println(int data) {
-			output.append(data);
-			output.append('\n');
+			testUi.output.append(data);
+			testUi.output.append('\n');
 		}
 		@Override
 		public void print(String data) {
-			output.append(data);
+			testUi.output.append(data);
 		}
 		@Override
 		public void println(String data) {
-			output.append(data);
-			output.append('\n');
+			testUi.output.append(data);
+			testUi.output.append('\n');
 		}
 		@Override
 		public int readChar() throws IOException {
-			output.append('\n');
-			if (charInputIndex < charInput.length)
-				return (charInput[charInputIndex++]);
+			testUi.output.append('\n');
+			if (testUi.charInputIndex < testUi.charInput.length)
+				return (testUi.charInput[testUi.charInputIndex++]);
 			throw new IOException();
 		}
 		@Override
 		public int readInt()  {
-			output.append('\n');
-			if (intInputIndex < intInput.length)
-				return (intInput[intInputIndex++]);
+			testUi.output.append('\n');
+			if (testUi.intInputIndex < testUi.intInput.length)
+				return (testUi.intInput[testUi.intInputIndex++]);
 			return 0;
 		}
 		
@@ -49,16 +58,13 @@ public class WumpusAcceptanceTest {
 
 		TestableWumpus(String charInput, int[]intInput) {
 			try {
-				this.charInput = charInput.getBytes("UTF8");
+				this.testUi.charInput = charInput.getBytes("UTF8");
 			} catch (UnsupportedEncodingException e) {
 			}
-			this.intInput= intInput; 
+			this.testUi.intInput= intInput;
+			this.ui = testUi;
 		}
-		StringBuilder output = new StringBuilder();
-		int charInputIndex = 0;
-		byte[] charInput;
-		int intInputIndex = 0;
-		int[] intInput;
+		TestableUserInteraction testUi = new TestableUserInteraction();
 	}
 	
 	@Before
@@ -126,7 +132,7 @@ public class WumpusAcceptanceTest {
 			    + "\n"
 			    + "SHOOT OR MOVE (S-M) \n" 
 
-				, testObj.output.toString());
+				, testObj.testUi.output.toString());
 	}
 
 	@Test
@@ -142,7 +148,7 @@ public class WumpusAcceptanceTest {
 					+ "TUNNELS LEAD TO 2 5 8\n"
 					+ "\n"
 					+ "SHOOT OR MOVE (S-M) \n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 
 	@Test
@@ -203,7 +209,7 @@ public class WumpusAcceptanceTest {
 		            + "AHA! YOU GOT THE WUMPUS!\n"
 		            + "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!\n"
 		            + "SAME SETUP (Y-N)\n"		
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 
 	@Test
@@ -225,7 +231,7 @@ public class WumpusAcceptanceTest {
 					+ "YYYYIIIIEEEE . . . FELL IN PIT\n"
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 
 	@Test
@@ -263,7 +269,7 @@ public class WumpusAcceptanceTest {
 					+ "AHA! YOU GOT THE WUMPUS!\n"
 					+ "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!\n"
 					+ "SAME SETUP (Y-N)\n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 
 	@Test
@@ -290,7 +296,7 @@ public class WumpusAcceptanceTest {
 					+ "OUCH! ARROW GOT YOU!\n"
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 	
 	@Test
@@ -317,7 +323,7 @@ public class WumpusAcceptanceTest {
 		            + "AHA! YOU GOT THE WUMPUS!\n"
 		            + "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!\n"
 					+ "SAME SETUP (Y-N)\n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 	
 	// pit 8 and 10, bat in 14, wumpus in 9
@@ -421,7 +427,7 @@ public class WumpusAcceptanceTest {
 					+ "YYYYIIIIEEEE . . . FELL IN PIT\n"
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
-					, testObj.output.toString());
+					, testObj.testUi.output.toString());
 	}
 	
 	@Test
@@ -484,7 +490,7 @@ public class WumpusAcceptanceTest {
                     + "MISSED\n"
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
-		, testObj.output.toString());
+		, testObj.testUi.output.toString());
 	}
 	
 	@Test
@@ -519,7 +525,7 @@ public class WumpusAcceptanceTest {
 					+ "YYYYIIIIEEEE . . . FELL IN PIT\n"
 					+ "HA HA HA - YOU LOSE!\n"
 					+ "SAME SETUP (Y-N)\n"
-        , testObj.output.toString());
+        , testObj.testUi.output.toString());
 	}
 
 	

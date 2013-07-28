@@ -11,7 +11,7 @@ public class Wumpus {
 	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int availableArrows = 5;
-	private UserInteraction ui = new UserInteraction();
+	protected UserInteraction ui = new UserInteraction();
 
 	public static Random random = new Random();
 	/**
@@ -206,8 +206,8 @@ public class Wumpus {
 	}
 	public void printTunnelOptions() {
 		Paths room = map.getRoomExits(playerLocation());
-		print("TUNNELS LEAD TO "); print(room.room(1));
-					print(" "); print(room.room(2)); 
+		print("TUNNELS LEAD TO "); ui.print(room.room(1));
+					print(" "); ui.print(room.room(2)); 
 					print(" "); println(room.room(3));
 	}
 	public void printPlayerLocation() {
@@ -316,9 +316,6 @@ public class Wumpus {
 		println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
 		println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
 		println("");														// 575 print
-	}
-	public void print(int data) {
-		System.out.print(data);
 	}
 	public void println(int data) {
 		System.out.println(data);
