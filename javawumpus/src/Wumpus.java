@@ -152,13 +152,6 @@ public class Wumpus {
 		}
 		return 0;
 	}
-	public boolean isPathValidFromRoom(int[] room, int path) {
-		for (int k1 = 1; k1 <= 3; ++k1) {
-			if (room[k1] == path) 
-				return true;
-		}
-		return false;
-	}
 	public int[] getIntendedFlightPathFromPlayer(int numberOfRooms) {
 		int[] p = new int[6];
 		for (int k = 1; k <= numberOfRooms; ++k) {
@@ -223,10 +216,8 @@ public class Wumpus {
 	public void printNearbyItemHints() {
 		for (int j = 2; j <= 6; ++j) {
 			Paths roomExits = map.getRoomExits(playerLocation());
-			for (int k = 1; k <= 3; ++k) {
-				if (roomExits.room(k) == mapItemLocations[j])
+				if (roomExits.canGetToRoom(mapItemLocations[j]))
 					printItemNearbyPlayerHint(j - 1);
-			}
 
 		}
 	}
