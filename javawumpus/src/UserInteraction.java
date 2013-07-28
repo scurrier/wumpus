@@ -5,4 +5,8 @@ public class UserInteraction {
 		System.out.print(data);
 	}
 
+	public void println(int data) {
+		System.out.println(data);
+	}
+
 }

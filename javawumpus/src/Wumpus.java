@@ -208,10 +208,10 @@ public class Wumpus {
 		Paths room = map.getRoomExits(playerLocation());
 		print("TUNNELS LEAD TO "); ui.print(room.room(1));
 					print(" "); ui.print(room.room(2)); 
-					print(" "); println(room.room(3));
+					print(" "); ui.println(room.room(3));
 	}
 	public void printPlayerLocation() {
-		print("YOUR ARE IN ROOM "); println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
+		print("YOUR ARE IN ROOM "); ui.println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 
 	public void printNearbyItemHints() {
@@ -316,9 +316,6 @@ public class Wumpus {
 		println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
 		println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
 		println("");														// 575 print
-	}
-	public void println(int data) {
-		System.out.println(data);
 	}
 	public void println(String data) {
 		System.out.println(data);

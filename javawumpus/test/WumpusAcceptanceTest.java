@@ -20,14 +20,14 @@ public class WumpusAcceptanceTest {
 		public void print(int data) {
 			output.append(data);
 		}
+		@Override
+		public void println(int data) {
+			output.append(data);
+			output.append('\n');
+		}
 		
 	}
 	class TestableWumpus extends Wumpus {
-		@Override
-		public void println(int data) {
-			testUi.output.append(data);
-			testUi.output.append('\n');
-		}
 		@Override
 		public void print(String data) {
 			testUi.output.append(data);
