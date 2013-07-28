@@ -9,4 +9,8 @@ public class UserInteraction {
 		System.out.println(data);
 	}
 
+	public void println(String data) {
+		System.out.println(data);
+	}
+
 }

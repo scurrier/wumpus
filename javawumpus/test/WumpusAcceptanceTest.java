@@ -25,17 +25,17 @@ public class WumpusAcceptanceTest {
 			output.append(data);
 			output.append('\n');
 		}
+		@Override
+		public void println(String data) {
+			output.append(data);
+			output.append('\n');
+		}
 		
 	}
 	class TestableWumpus extends Wumpus {
 		@Override
 		public void print(String data) {
 			testUi.output.append(data);
-		}
-		@Override
-		public void println(String data) {
-			testUi.output.append(data);
-			testUi.output.append('\n');
 		}
 		@Override
 		public int readChar() throws IOException {
