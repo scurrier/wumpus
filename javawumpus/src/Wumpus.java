@@ -26,8 +26,7 @@ public class Wumpus {
 	}
 	public void run() throws IOException {
 		int f = 0;
-		if (needInstructions()) 										// 25 if (i$ = "N") or (i$ = "n") then 35
-				giveInstructions();																	// 30 gosub 375
+		giveInstructionsIfNeeded();
 		placeItemsOnMap();
 		do { 
 			availableArrows = 5;																		// 230 a = 5
@@ -53,6 +52,10 @@ public class Wumpus {
 			if (i$ != 'Y' && i$ != 'y') 
 				placeItemsOnMap();
 		} while (true);
+	}
+	private void giveInstructionsIfNeeded() throws IOException {
+		if (needInstructions())
+				giveInstructions();
 	}
 	public int movePlayerToLocation(int newLocation) {
 		mapItemLocations[1] = newLocation;
