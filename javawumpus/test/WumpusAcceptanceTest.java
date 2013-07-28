@@ -41,16 +41,16 @@ public class WumpusAcceptanceTest {
 				return (charInput[charInputIndex++]);
 			throw new IOException();
 		}
+		@Override
+		public int readInt()  {
+			output.append('\n');
+			if (intInputIndex < intInput.length)
+				return (intInput[intInputIndex++]);
+			return 0;
+		}
 		
 	}
 	class TestableWumpus extends Wumpus {
-		@Override
-		public int readInt()  {
-			testUi.output.append('\n');
-			if (testUi.intInputIndex < testUi.intInput.length)
-				return (testUi.intInput[testUi.intInputIndex++]);
-			return 0;
-		}
 		
 		TestableWumpus(String charInput) {
 			this(charInput, new int[0]);

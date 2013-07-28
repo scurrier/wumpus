@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 
@@ -100,7 +98,7 @@ public class Wumpus {
 		int move;
 		do {
 			ui.print("WHERE TO ");													// 985 print "WHERE TO";
-			move = readInt();																// 990 input l
+			move = ui.readInt();																// 990 input l
 		} while (move < 1 || move > 20);
 		return move;
 	}
@@ -158,7 +156,7 @@ public class Wumpus {
 		for (int k = 1; k <= numberOfRooms; ++k) {
 			do {
 				ui.print("ROOM # ");													// 760 print "ROOM #";
-				p[k] = readInt();																// 765 input p(k)
+				p[k] = ui.readInt();																// 765 input p(k)
 				if (did180(p, k))
 					ui.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
 			} while(did180(p, k));
@@ -172,7 +170,7 @@ public class Wumpus {
 		int numberOfRoomsToShoot;
 		do {
 			ui.print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
-			numberOfRoomsToShoot = readInt();																// 740 input j9
+			numberOfRoomsToShoot = ui.readInt();																// 740 input j9
 		} while (outOfArrowRange(numberOfRoomsToShoot));
 		return numberOfRoomsToShoot;
 	}
@@ -309,16 +307,5 @@ public class Wumpus {
 	}
 	public static int fnC() {
 		return random.nextInt(4) + 1;
-	}
-
-	public int readInt() {
-		String line = "";
-		BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			line = is.readLine();
-		} catch (IOException e) {
-			return 0;
-		}
-		return Integer.parseInt(line);
 	}
 }
