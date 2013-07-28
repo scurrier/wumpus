@@ -1,7 +1,7 @@
 
 public class Map {
 	private Paths[] s;
-	static Paths paths(int exit1, int exit2, int exit3) { return new Paths(new int[]{0,exit1,exit2,exit3}); }
+	static Paths paths(int exit1, int exit2, int exit3) { return new Paths(new int[]{exit1,exit2,exit3}); }
 
 	public Map() {
 		this.s = new Paths[] {

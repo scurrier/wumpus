@@ -7,7 +7,7 @@ public class PathsTest {
 
 	@Test
 	public void testCanGetToRoom() {
-		Paths testObj = new Paths(new int[]{0,1,2,3});
+		Paths testObj = new Paths(new int[]{1,2,3});
 		assertTrue(testObj.canGetToRoom(1));
 		assertTrue(testObj.canGetToRoom(2));
 		assertTrue(testObj.canGetToRoom(3));
