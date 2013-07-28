@@ -50,7 +50,7 @@ public class Wumpus {
 				mapItemLocations[j] = copyOfMapItemlocations[j];
 			}
 		
-			print("SAME SETUP (Y-N)");
+			ui.print("SAME SETUP (Y-N)");
 			i$ = (char) readChar(); readChar(); 
 			if (i$ != 'Y' && i$ != 'y') 
 				placeItemsOnMap();
@@ -84,7 +84,7 @@ public class Wumpus {
 			newLocation = getMoveDirection();
 			validMove = isValidPlayerMove(newLocation);
 			if (!validMove)
-				print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
+				ui.print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
 		} while (!validMove);
 		return newLocation;
 	}
@@ -99,7 +99,7 @@ public class Wumpus {
 	public int getMoveDirection() {
 		int move;
 		do {
-			print("WHERE TO ");													// 985 print "WHERE TO";
+			ui.print("WHERE TO ");													// 985 print "WHERE TO";
 			move = readInt();																// 990 input l
 		} while (move < 1 || move > 20);
 		return move;
@@ -157,7 +157,7 @@ public class Wumpus {
 		int[] p = new int[6];
 		for (int k = 1; k <= numberOfRooms; ++k) {
 			do {
-				print("ROOM # ");													// 760 print "ROOM #";
+				ui.print("ROOM # ");													// 760 print "ROOM #";
 				p[k] = readInt();																// 765 input p(k)
 				if (did180(p, k))
 					ui.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
@@ -171,7 +171,7 @@ public class Wumpus {
 	public int getShotDistanceFromPlayer() {
 		int numberOfRoomsToShoot;
 		do {
-			print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
+			ui.print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
 			numberOfRoomsToShoot = readInt();																// 740 input j9
 		} while (outOfArrowRange(numberOfRoomsToShoot));
 		return numberOfRoomsToShoot;
@@ -182,7 +182,7 @@ public class Wumpus {
 
 	public int getMoveShootChoiceFromPlayer() throws IOException {
 		while (true) {
-			print("SHOOT OR MOVE (S-M) ");
+			ui.print("SHOOT OR MOVE (S-M) ");
 			i$ = (char) readChar();
 			readChar(); 
 			if (i$ == 'S' || i$ == 's')
@@ -206,12 +206,12 @@ public class Wumpus {
 	}
 	public void printTunnelOptions() {
 		Paths room = map.getRoomExits(playerLocation());
-		print("TUNNELS LEAD TO "); ui.print(room.room(1));
-					print(" "); ui.print(room.room(2)); 
-					print(" "); ui.println(room.room(3));
+		ui.print("TUNNELS LEAD TO "); ui.print(room.room(1));
+					ui.print(" "); ui.print(room.room(2)); 
+					ui.print(" "); ui.println(room.room(3));
 	}
 	public void printPlayerLocation() {
-		print("YOUR ARE IN ROOM "); ui.println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
+		ui.print("YOUR ARE IN ROOM "); ui.println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 
 	public void printNearbyItemHints() {
@@ -253,7 +253,7 @@ public class Wumpus {
 		return mapItemLocations[1];
 	}
 	private boolean needInstructions() throws IOException {
-		print("INSTRUCTIONS (Y-N) "); 
+		ui.print("INSTRUCTIONS (Y-N) "); 
 		char answer = (char) readChar();
 		readChar();
 		return answer != 'N' && answer != 'n';
@@ -300,9 +300,6 @@ public class Wumpus {
 		ui.println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
 		ui.println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
 		ui.println("");														// 575 print
-	}
-	public void print(String data) {
-		System.out.print(data);
 	}
 	public int readChar() throws IOException {
 		return System.in.read();

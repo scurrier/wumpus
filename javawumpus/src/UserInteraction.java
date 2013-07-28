@@ -13,4 +13,8 @@ public class UserInteraction {
 		System.out.println(data);
 	}
 
+	public void print(String data) {
+		System.out.print(data);
+	}
+
 }
