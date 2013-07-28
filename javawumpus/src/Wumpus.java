@@ -11,6 +11,7 @@ public class Wumpus {
 	protected int[] mapItemLocations = new int[7];
 	private int[] copyOfMapItemlocations = new int[7];
 	private int availableArrows = 5;
+	private UserInteraction ui = new UserInteraction();
 
 	public static Random random = new Random();
 	/**
