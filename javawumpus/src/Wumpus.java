@@ -51,7 +51,7 @@ public class Wumpus {
 			}
 		
 			ui.print("SAME SETUP (Y-N)");
-			i$ = (char) readChar(); readChar(); 
+			i$ = (char) ui.readChar(); ui.readChar(); 
 			if (i$ != 'Y' && i$ != 'y') 
 				placeItemsOnMap();
 		} while (true);
@@ -183,8 +183,8 @@ public class Wumpus {
 	public int getMoveShootChoiceFromPlayer() throws IOException {
 		while (true) {
 			ui.print("SHOOT OR MOVE (S-M) ");
-			i$ = (char) readChar();
-			readChar(); 
+			i$ = (char) ui.readChar();
+			ui.readChar(); 
 			if (i$ == 'S' || i$ == 's')
 				return 1;
 			else if (i$ == 'M' || i$ == 'm')
@@ -254,8 +254,8 @@ public class Wumpus {
 	}
 	private boolean needInstructions() throws IOException {
 		ui.print("INSTRUCTIONS (Y-N) "); 
-		char answer = (char) readChar();
-		readChar();
+		char answer = (char) ui.readChar();
+		ui.readChar();
 		return answer != 'N' && answer != 'n';
 	}
 	
@@ -272,7 +272,7 @@ public class Wumpus {
 		ui.println(" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");						// " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
 		ui.println("     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");					// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
 		ui.println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");			// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-		ui.println("HIT RETURN TO CONTINUE"); readChar();				// 440 input "HIT RETURN TO CONTINUE";a$
+		ui.println("HIT RETURN TO CONTINUE"); ui.readChar();				// 440 input "HIT RETURN TO CONTINUE";a$
 		ui.println("     WUMPUS:");											// 445 print "     WUMPUS:"
 		ui.println(" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");						// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
 		ui.println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"); 		// 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
@@ -292,7 +292,7 @@ public class Wumpus {
 		ui.println("   AT RANDOM TO THE NEXT ROOM.");							// 525 print "   AT RANDOM TO THE NEXT ROOM."
 		ui.println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");				// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
 		ui.println("     IF THE ARROW HITS YOU, YOU LOSE.");					// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-		ui.println("HIT RETURN TO CONTINUE"); readChar();				// 540 input "HIT RETURN TO CONTINUE";a$
+		ui.println("HIT RETURN TO CONTINUE"); ui.readChar();				// 540 input "HIT RETURN TO CONTINUE";a$
 		ui.println("    WARNINGS:");											// 545 print "    WARNINGS:"
 		ui.println("     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");						// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
 		ui.println("     THE COMPUTER SAYS:");									// 555 print "     THE COMPUTER SAYS:"
@@ -300,9 +300,6 @@ public class Wumpus {
 		ui.println(" BAT   :  'BATS NEARBY'");									// 565 print " BAT   :  'BATS NEARBY'"
 		ui.println(" PIT   :  'I FEEL A DRAFT'");								// 570 print " PIT   :  'I FEEL A DRAFT'"
 		ui.println("");														// 575 print
-	}
-	public int readChar() throws IOException {
-		return System.in.read();
 	}
 	public static int fnA() {
 		return random.nextInt(20) + 1;

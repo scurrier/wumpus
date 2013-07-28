@@ -34,16 +34,16 @@ public class WumpusAcceptanceTest {
 		public void print(String data) {
 			output.append(data);
 		}
+		@Override
+		public int readChar() throws IOException {
+			output.append('\n');
+			if (charInputIndex < charInput.length)
+				return (charInput[charInputIndex++]);
+			throw new IOException();
+		}
 		
 	}
 	class TestableWumpus extends Wumpus {
-		@Override
-		public int readChar() throws IOException {
-			testUi.output.append('\n');
-			if (testUi.charInputIndex < testUi.charInput.length)
-				return (testUi.charInput[testUi.charInputIndex++]);
-			throw new IOException();
-		}
 		@Override
 		public int readInt()  {
 			testUi.output.append('\n');

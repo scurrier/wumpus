@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class UserInteraction {
 
@@ -15,6 +17,10 @@ public class UserInteraction {
 
 	public void print(String data) {
 		System.out.print(data);
+	}
+
+	public int readChar() throws IOException {
+		return System.in.read();
 	}
 
 }
