@@ -42,13 +42,16 @@ public class Wumpus {
 			else
 				ui.youWin();
 
-			for (int j = 1; j <= 6; ++j) {
-				items.mapItemLocations[j] = items.copyOfMapItemlocations[j];
-			}
+			resetItemLocations();
 		
 			if (useSameSetup()) 
 				placeItemsOnMap();
 		} while (true);
+	}
+	private void resetItemLocations() {
+		for (int j = 1; j <= 6; ++j) {
+			items.mapItemLocations[j] = items.copyOfMapItemlocations[j];
+		}
 	}
 	private boolean useSameSetup() throws IOException {
 		ui.print("SAME SETUP (Y-N)");
