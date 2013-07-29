@@ -47,11 +47,15 @@ public class Wumpus {
 				mapItemLocations[j] = copyOfMapItemlocations[j];
 			}
 		
-			ui.print("SAME SETUP (Y-N)");
-			i$ = (char) ui.readChar(); ui.readChar(); 
-			if (i$ != 'Y' && i$ != 'y') 
+			if (useSameSetup()) 
 				placeItemsOnMap();
 		} while (true);
+	}
+	private boolean useSameSetup() throws IOException {
+		ui.print("SAME SETUP (Y-N)");
+		i$ = (char) ui.readChar(); ui.readChar(); 
+		boolean useSameSetup = i$ != 'Y' && i$ != 'y';
+		return useSameSetup;
 	}
 	public int movePlayerToLocation(int newLocation) {
 		mapItemLocations[1] = newLocation;
