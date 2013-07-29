@@ -26,9 +26,9 @@ public class MapItemLocations {
 		return false;
 	}
 
-	public void placeItemsOnMap(Wumpus wumpus) {
+	public void placeItemsOnMap(Selector selector) {
 		do {
-			randomizeMapItemLocations(wumpus.selector);
+			randomizeMapItemLocations(selector);
 		} while (crossover());
 	}
 }
