@@ -29,10 +29,10 @@ public class Wumpus {
 		ui.giveInstructionsIfNeeded();
 		placeItemsOnMap();
 		do { 
-			availableArrows = 5;																		// 230 a = 5
-			ui.println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
+			availableArrows = 5;
+			ui.gameStartHeader();
 			do {
-				printPlayerStatus();																// 255 gosub 585
+				printPlayerStatus();
 				if (1 == ui.getMoveShootChoiceFromPlayer())
 					f = shoot();
 				else
@@ -41,7 +41,7 @@ public class Wumpus {
 			if (f < 0)
 				ui.println("HA HA HA - YOU LOSE!");
 			else
-				ui.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");			// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+				ui.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
 
 			for (int j = 1; j <= 6; ++j) {
 				mapItemLocations[j] = copyOfMapItemlocations[j];

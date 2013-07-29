@@ -112,4 +112,8 @@ public class UserInteraction {
 		return move;
 	}
 
+	public void gameStartHeader() {
+		println("HUNT THE WUMPUS");
+	}
+
 }
