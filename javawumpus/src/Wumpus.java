@@ -177,7 +177,7 @@ public class Wumpus {
 
 	public void placeItemsOnMap() {
 		do {
-					randomizeMapItemLocations();
+					items.randomizeMapItemLocations(selector);
 			}  while (crossover());
 	}
 	public void printPlayerStatus() {
@@ -226,12 +226,6 @@ public class Wumpus {
 		return false;
 	}
 	
-	private void randomizeMapItemLocations() {
-		for (int j = 1; j <= 6; ++j) {
-			items.mapItemLocations[j] = selector.pickRoom();																	// 175 l(j) = fna(0)
-			items.copyOfMapItemlocations[j] = items.mapItemLocations[j];																	// 180 m(j) = l(j)
-		}
-	}
 	private int playerLocation() {
 		return items.mapItemLocations[1];
 	}
