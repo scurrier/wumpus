@@ -14,4 +14,15 @@ public class MapItemLocations {
 			copyOfMapItemlocations[j] = mapItemLocations[j];																	// 180 m(j) = l(j)
 		}
 	}
+
+	public boolean crossover() {
+		for (int j = 1; j <= 6; ++j) {
+			for (int k = 1; k <= 6; ++k) {
+				if (j == k) continue;
+				if (mapItemLocations[j] == mapItemLocations[k])
+					return true;
+			}
+		}
+		return false;
+	}
 }

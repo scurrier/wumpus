@@ -6,7 +6,7 @@ public class Wumpus {
 
 	char i$ = '\0';
 	private Map map = new Map();
-	protected MapItemLocations items = new MapItemLocations();
+	public MapItemLocations items = new MapItemLocations();
 	private int availableArrows = 5;
 	protected UserInteraction ui = new UserInteraction();
 
@@ -178,7 +178,7 @@ public class Wumpus {
 	public void placeItemsOnMap() {
 		do {
 					items.randomizeMapItemLocations(selector);
-			}  while (crossover());
+			}  while (items.crossover());
 	}
 	public void printPlayerStatus() {
 		ui.println("");														// 590 print
@@ -215,17 +215,6 @@ public class Wumpus {
 				case 5: ui.println("BATS NEARBY!"); break;
 				};
 	}
-	public boolean crossover() {
-		for (int j = 1; j <= 6; ++j) {
-			for (int k = 1; k <= 6; ++k) {
-				if (j == k) continue;
-				if (items.mapItemLocations[j] == items.mapItemLocations[k])
-					return true;
-			}
-		}
-		return false;
-	}
-	
 	private int playerLocation() {
 		return items.mapItemLocations[1];
 	}

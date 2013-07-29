@@ -27,13 +27,13 @@ public class WumpusTest {
 		// remember zeroth index is not used
 		int[] withDups = {0,1,1,2,3,4,5};
 		Wumpus testObj = new WumpusWithSetMapItems(withDups);
-		assertTrue(testObj.crossover());
+		assertTrue(testObj.items.crossover());
 		int[] withDupsAtEnds = {0,1,2,3,4,5,1};
 		testObj = new WumpusWithSetMapItems(withDupsAtEnds);
-		assertTrue(testObj.crossover());
+		assertTrue(testObj.items.crossover());
 		int[] unique = {0,1,2,3,4,5,6};
 		testObj = new WumpusWithSetMapItems(unique);
-		assertFalse(testObj.crossover());
+		assertFalse(testObj.items.crossover());
 	}
 
 }
