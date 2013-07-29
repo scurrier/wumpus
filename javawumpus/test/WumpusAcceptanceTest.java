@@ -62,7 +62,7 @@ public class WumpusAcceptanceTest {
 			}
 			this.testUi.intInput= intInput;
 			this.ui = testUi;
-			this.random = new Random(0); //seed random for expected results		
+			this.selector = new Selector(new Random(0)); //seed random for expected results		
 		}
 		TestableUserInteraction testUi = new TestableUserInteraction();
 	}

@@ -13,7 +13,7 @@ public class WumpusTest {
 	@Before
 	public void setUp() {
 		testObj = new Wumpus();
-		testObj.random = new Random(0); //seed random for expected results
+		testObj.selector = new Selector(new Random(0)); //seed random for expected results
 	}
 	
 	@Test
