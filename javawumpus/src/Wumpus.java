@@ -6,8 +6,7 @@ public class Wumpus {
 
 	char i$ = '\0';
 	private Map map = new Map();
-	protected int[] mapItemLocations = new int[7];
-	private int[] copyOfMapItemlocations = new int[7];
+	protected MapItemLocations items = new MapItemLocations();
 	private int availableArrows = 5;
 	protected UserInteraction ui = new UserInteraction();
 
@@ -44,7 +43,7 @@ public class Wumpus {
 				ui.youWin();
 
 			for (int j = 1; j <= 6; ++j) {
-				mapItemLocations[j] = copyOfMapItemlocations[j];
+				items.mapItemLocations[j] = items.copyOfMapItemlocations[j];
 			}
 		
 			if (useSameSetup()) 
@@ -58,7 +57,7 @@ public class Wumpus {
 		return useSameSetup;
 	}
 	public int movePlayerToLocation(int newLocation) {
-		mapItemLocations[1] = newLocation;
+		items.mapItemLocations[1] = newLocation;
 		
 		if (newLocation == getWumpus()) {
 			ui.println("... OOPS! BUMPED A WUMPUS!");
@@ -67,12 +66,12 @@ public class Wumpus {
 				return f;
 		}
 		
-		if (newLocation == mapItemLocations[3] || newLocation == mapItemLocations[4]) {
+		if (newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4]) {
 			ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
 			return -1;
 		}
 		
-		if (newLocation == mapItemLocations[5] || newLocation == mapItemLocations[6]) {
+		if (newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6]) {
 			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
 			return movePlayerToLocation(fnA());
 		}
@@ -125,10 +124,10 @@ public class Wumpus {
 		return 0;
 	}
 	private int setWumpus(int newLocation) {
-		return mapItemLocations[2] = newLocation;
+		return items.mapItemLocations[2] = newLocation;
 	}
 	private int getWumpus() {
-		return mapItemLocations[2];
+		return items.mapItemLocations[2];
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
@@ -198,7 +197,7 @@ public class Wumpus {
 	public void printNearbyItemHints() {
 		for (int j = 2; j <= 6; ++j) {
 			Paths roomExits = map.getRoomExits(playerLocation());
-				if (roomExits.canGetToRoom(mapItemLocations[j]))
+				if (roomExits.canGetToRoom(items.mapItemLocations[j]))
 					printItemNearbyPlayerHint(j - 1);
 
 		}
@@ -217,7 +216,7 @@ public class Wumpus {
 		for (int j = 1; j <= 6; ++j) {
 			for (int k = 1; k <= 6; ++k) {
 				if (j == k) continue;
-				if (mapItemLocations[j] == mapItemLocations[k])
+				if (items.mapItemLocations[j] == items.mapItemLocations[k])
 					return true;
 			}
 		}
@@ -226,12 +225,12 @@ public class Wumpus {
 	
 	private void randomizeMapItemLocations() {
 		for (int j = 1; j <= 6; ++j) {
-			mapItemLocations[j] = fnA();																	// 175 l(j) = fna(0)
-			copyOfMapItemlocations[j] = mapItemLocations[j];																	// 180 m(j) = l(j)
+			items.mapItemLocations[j] = fnA();																	// 175 l(j) = fna(0)
+			items.copyOfMapItemlocations[j] = items.mapItemLocations[j];																	// 180 m(j) = l(j)
 		}
 	}
 	private int playerLocation() {
-		return mapItemLocations[1];
+		return items.mapItemLocations[1];
 	}
 	public static int fnA() {
 		return random.nextInt(20) + 1;

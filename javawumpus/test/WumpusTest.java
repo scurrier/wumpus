@@ -57,7 +57,7 @@ public class WumpusTest {
 	
 	class WumpusWithSetMapItems extends Wumpus {
 		public WumpusWithSetMapItems(int[] mapItems) {
-			this.mapItemLocations = mapItems;
+			this.items.mapItemLocations = mapItems;
 		}
 	}
 	
