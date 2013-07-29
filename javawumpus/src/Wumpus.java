@@ -26,7 +26,7 @@ public class Wumpus {
 	public void run() throws IOException {
 		int f = 0;
 		ui.giveInstructionsIfNeeded();
-		placeItemsOnMap();
+		items.placeItemsOnMap(this);
 		do { 
 			availableArrows = 5;
 			ui.gameStartHeader();
@@ -45,7 +45,7 @@ public class Wumpus {
 			resetItemLocations();
 		
 			if (useSameSetup()) 
-				placeItemsOnMap();
+				items.placeItemsOnMap(this);
 		} while (true);
 	}
 	private void resetItemLocations() {
@@ -175,11 +175,6 @@ public class Wumpus {
 		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
 	}
 
-	public void placeItemsOnMap() {
-		do {
-					items.randomizeMapItemLocations(selector);
-			}  while (items.crossover());
-	}
 	public void printPlayerStatus() {
 		ui.println("");														// 590 print
 		printNearbyItemHints();
