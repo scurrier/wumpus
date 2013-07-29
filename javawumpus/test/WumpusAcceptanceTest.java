@@ -1,10 +1,9 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-import org.junit.Before;
 import org.junit.Test;
 
 
@@ -63,13 +62,9 @@ public class WumpusAcceptanceTest {
 			}
 			this.testUi.intInput= intInput;
 			this.ui = testUi;
+			this.random = new Random(0); //seed random for expected results		
 		}
 		TestableUserInteraction testUi = new TestableUserInteraction();
-	}
-	
-	@Before
-	public void setUp() {
-		Wumpus.random = new Random(0); //seed random for expected results		
 	}
 	
 	public void runGame(TestableWumpus testObj) {

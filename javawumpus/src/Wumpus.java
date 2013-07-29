@@ -10,7 +10,7 @@ public class Wumpus {
 	private int availableArrows = 5;
 	protected UserInteraction ui = new UserInteraction();
 
-	public static Random random = new Random();
+	public Random random = new Random();
 	/**
 	 * @param args
 	 */
@@ -235,13 +235,13 @@ public class Wumpus {
 	private int playerLocation() {
 		return items.mapItemLocations[1];
 	}
-	public static int fnA() {
+	public int fnA() {
 		return random.nextInt(20) + 1;
 	}
-	public static int fnB() {
+	public int fnB() {
 		return random.nextInt(3) + 1;
 	}
-	public static int fnC() {
+	public int fnC() {
 		return random.nextInt(4) + 1;
 	}
 }
