@@ -33,7 +33,7 @@ public class Wumpus {
 			ui.println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
 			do {
 				printPlayerStatus();																// 255 gosub 585
-				if (1 == getMoveShootChoiceFromPlayer())
+				if (1 == ui.getMoveShootChoiceFromPlayer(this))
 					f = shoot();
 				else
 					f = movePlayerToLocation(getNewPlayerLocation()); 
@@ -179,18 +179,6 @@ public class Wumpus {
 	}
 	private boolean outOfArrowRange(int numberOfRoomsToShoot) {
 		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
-	}
-
-	public int getMoveShootChoiceFromPlayer() throws IOException {
-		while (true) {
-			ui.print("SHOOT OR MOVE (S-M) ");
-			i$ = (char) ui.readChar();
-			ui.readChar(); 
-			if (i$ == 'S' || i$ == 's')
-				return 1;
-			else if (i$ == 'M' || i$ == 'm')
-				return 2;
-		}
 	}
 
 	public void placeItemsOnMap() {

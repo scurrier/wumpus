@@ -91,4 +91,16 @@ public class UserInteraction {
 		return answer != 'N' && answer != 'n';
 	}
 
+	public int getMoveShootChoiceFromPlayer(Wumpus wumpus) throws IOException {
+		while (true) {
+			print("SHOOT OR MOVE (S-M) ");
+			wumpus.i$ = (char) readChar();
+			readChar(); 
+			if (wumpus.i$ == 'S' || wumpus.i$ == 's')
+				return 1;
+			else if (wumpus.i$ == 'M' || wumpus.i$ == 'm')
+				return 2;
+		}
+	}
+
 }
