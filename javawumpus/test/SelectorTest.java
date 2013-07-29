@@ -11,43 +11,43 @@ public class SelectorTest {
 	
 	@Test
 	public void fnA() throws Exception {
-		assertEquals(1, testObj.fnA(null));
-		assertEquals(9, testObj.fnA(null));
-		assertEquals(10, testObj.fnA(null));
-		assertEquals(8, testObj.fnA(null));
-		assertEquals(16, testObj.fnA(null));
-		assertEquals(14, testObj.fnA(null));
-		assertEquals(12, testObj.fnA(null));
-		assertEquals(2, testObj.fnA(null));
-		assertEquals(20, testObj.fnA(null));
-		assertEquals(15, testObj.fnA(null));
+		assertEquals(1, testObj.pickRoom(null));
+		assertEquals(9, testObj.pickRoom(null));
+		assertEquals(10, testObj.pickRoom(null));
+		assertEquals(8, testObj.pickRoom(null));
+		assertEquals(16, testObj.pickRoom(null));
+		assertEquals(14, testObj.pickRoom(null));
+		assertEquals(12, testObj.pickRoom(null));
+		assertEquals(2, testObj.pickRoom(null));
+		assertEquals(20, testObj.pickRoom(null));
+		assertEquals(15, testObj.pickRoom(null));
 	}
 
 	@Test
 	public void fnB() throws Exception {
-		assertEquals(1, testObj.fnB(null));
-		assertEquals(2, testObj.fnB(null));
-		assertEquals(2, testObj.fnB(null));
-		assertEquals(3, testObj.fnB(null));
-		assertEquals(3, testObj.fnB(null));
-		assertEquals(3, testObj.fnB(null));
-		assertEquals(3, testObj.fnB(null));
-		assertEquals(1, testObj.fnB(null));
-		assertEquals(1, testObj.fnB(null));
-		assertEquals(3, testObj.fnB(null));
+		assertEquals(1, testObj.pickPath(null));
+		assertEquals(2, testObj.pickPath(null));
+		assertEquals(2, testObj.pickPath(null));
+		assertEquals(3, testObj.pickPath(null));
+		assertEquals(3, testObj.pickPath(null));
+		assertEquals(3, testObj.pickPath(null));
+		assertEquals(3, testObj.pickPath(null));
+		assertEquals(1, testObj.pickPath(null));
+		assertEquals(1, testObj.pickPath(null));
+		assertEquals(3, testObj.pickPath(null));
 	}
 	
 	@Test
 	public void fnC() throws Exception {
-		assertEquals(3, testObj.fnC(null));
-		assertEquals(4, testObj.fnC(null));
-		assertEquals(1, testObj.fnC(null));
-		assertEquals(3, testObj.fnC(null));
-		assertEquals(3, testObj.fnC(null));
-		assertEquals(2, testObj.fnC(null));
-		assertEquals(3, testObj.fnC(null));
-		assertEquals(1, testObj.fnC(null));
-		assertEquals(3, testObj.fnC(null));
-		assertEquals(4, testObj.fnC(null));
+		assertEquals(3, testObj.pickMove(null));
+		assertEquals(4, testObj.pickMove(null));
+		assertEquals(1, testObj.pickMove(null));
+		assertEquals(3, testObj.pickMove(null));
+		assertEquals(3, testObj.pickMove(null));
+		assertEquals(2, testObj.pickMove(null));
+		assertEquals(3, testObj.pickMove(null));
+		assertEquals(1, testObj.pickMove(null));
+		assertEquals(3, testObj.pickMove(null));
+		assertEquals(4, testObj.pickMove(null));
 	}
 }

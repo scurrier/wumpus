@@ -76,7 +76,7 @@ public class Wumpus {
 		
 		if (newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6]) {
 			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
-			return movePlayerToLocation(selector.fnA(this));
+			return movePlayerToLocation(selector.pickRoom(this));
 		}
 		return 0;
 	}
@@ -116,7 +116,7 @@ public class Wumpus {
 		return f;
 	}
 	public int moveWumpus() {
-		int k = selector.fnC(this);																		// 940 k = fnc(0)
+		int k = selector.pickMove(this);																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
 			setWumpus(map.getRoomExits(getWumpus()).room(k));
 		}																// 950 l(2) = s(l(2),k)
@@ -135,7 +135,7 @@ public class Wumpus {
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
-			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.fnB(this));																// 830 l = s(l,fnb(1))
+			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath(this));																// 830 l = s(l,fnb(1))
 			if (ll == getWumpus()) {												// 900 if l <> l(2) then 920
 				ui.println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
 				return 1;																			// 910 f = 1
@@ -228,7 +228,7 @@ public class Wumpus {
 	
 	private void randomizeMapItemLocations() {
 		for (int j = 1; j <= 6; ++j) {
-			items.mapItemLocations[j] = selector.fnA(this);																	// 175 l(j) = fna(0)
+			items.mapItemLocations[j] = selector.pickRoom(this);																	// 175 l(j) = fna(0)
 			items.copyOfMapItemlocations[j] = items.mapItemLocations[j];																	// 180 m(j) = l(j)
 		}
 	}

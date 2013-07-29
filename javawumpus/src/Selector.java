@@ -8,15 +8,15 @@ public class Selector {
 		this.random = random;
 	}
 
-	public int fnA(Wumpus wumpus) {
+	public int pickRoom(Wumpus wumpus) {
 		return random.nextInt(20) + 1;
 	}
 
-	public int fnB(Wumpus wumpus) {
+	public int pickPath(Wumpus wumpus) {
 		return random.nextInt(3) + 1;
 	}
 
-	public int fnC(Wumpus wumpus) {
+	public int pickMove(Wumpus wumpus) {
 		return random.nextInt(4) + 1;
 	}
 }
