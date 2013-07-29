@@ -41,7 +41,7 @@ public class Wumpus {
 			if (f < 0)
 				ui.youLose();
 			else
-				ui.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
+				ui.youWin();
 
 			for (int j = 1; j <= 6; ++j) {
 				mapItemLocations[j] = copyOfMapItemlocations[j];

@@ -120,4 +120,8 @@ public class UserInteraction {
 		println("HA HA HA - YOU LOSE!");
 	}
 
+	public void youWin() {
+		println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
+	}
+
 }
