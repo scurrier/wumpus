@@ -116,4 +116,8 @@ public class UserInteraction {
 		println("HUNT THE WUMPUS");
 	}
 
+	public void youLose() {
+		println("HA HA HA - YOU LOSE!");
+	}
+
 }

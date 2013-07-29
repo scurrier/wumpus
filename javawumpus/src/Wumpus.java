@@ -39,7 +39,7 @@ public class Wumpus {
 					f = movePlayerToLocation(getNewPlayerLocation()); 
 			} while (f == 0);
 			if (f < 0)
-				ui.println("HA HA HA - YOU LOSE!");
+				ui.youLose();
 			else
 				ui.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
 
