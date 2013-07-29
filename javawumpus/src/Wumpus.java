@@ -82,7 +82,7 @@ public class Wumpus {
 		boolean validMove;
 		int newLocation;
 		do {
-			newLocation = getMoveDirection();
+			newLocation = ui.getMoveDirection();
 			validMove = isValidPlayerMove(newLocation);
 			if (!validMove)
 				ui.print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
@@ -96,14 +96,6 @@ public class Wumpus {
 		if (newLocation == playerLocation())
 			return true;
 		return false;
-	}
-	public int getMoveDirection() {
-		int move;
-		do {
-			ui.print("WHERE TO ");													// 985 print "WHERE TO";
-			move = ui.readInt();																// 990 input l
-		} while (move < 1 || move > 20);
-		return move;
 	}
 	private int shoot() {
 		int j9 = getShotDistanceFromPlayer();

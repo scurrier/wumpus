@@ -103,4 +103,13 @@ public class UserInteraction {
 		}
 	}
 
+	public int getMoveDirection() {
+		int move;
+		do {
+			print("WHERE TO ");													// 985 print "WHERE TO";
+			move = readInt();																// 990 input l
+		} while (move < 1 || move > 20);
+		return move;
+	}
+
 }
