@@ -18,44 +18,44 @@ public class WumpusTest {
 	
 	@Test
 	public void fnA() throws Exception {
-		assertEquals(1, testObj.fnA());
-		assertEquals(9, testObj.fnA());
-		assertEquals(10, testObj.fnA());
-		assertEquals(8, testObj.fnA());
-		assertEquals(16, testObj.fnA());
-		assertEquals(14, testObj.fnA());
-		assertEquals(12, testObj.fnA());
-		assertEquals(2, testObj.fnA());
-		assertEquals(20, testObj.fnA());
-		assertEquals(15, testObj.fnA());
+		assertEquals(1, testObj.selector.fnA(testObj));
+		assertEquals(9, testObj.selector.fnA(testObj));
+		assertEquals(10, testObj.selector.fnA(testObj));
+		assertEquals(8, testObj.selector.fnA(testObj));
+		assertEquals(16, testObj.selector.fnA(testObj));
+		assertEquals(14, testObj.selector.fnA(testObj));
+		assertEquals(12, testObj.selector.fnA(testObj));
+		assertEquals(2, testObj.selector.fnA(testObj));
+		assertEquals(20, testObj.selector.fnA(testObj));
+		assertEquals(15, testObj.selector.fnA(testObj));
 	}
 
 	@Test
 	public void fnB() throws Exception {
-		assertEquals(1, testObj.fnB());
-		assertEquals(2, testObj.fnB());
-		assertEquals(2, testObj.fnB());
-		assertEquals(3, testObj.fnB());
-		assertEquals(3, testObj.fnB());
-		assertEquals(3, testObj.fnB());
-		assertEquals(3, testObj.fnB());
-		assertEquals(1, testObj.fnB());
-		assertEquals(1, testObj.fnB());
-		assertEquals(3, testObj.fnB());
+		assertEquals(1, testObj.selector.fnB(testObj));
+		assertEquals(2, testObj.selector.fnB(testObj));
+		assertEquals(2, testObj.selector.fnB(testObj));
+		assertEquals(3, testObj.selector.fnB(testObj));
+		assertEquals(3, testObj.selector.fnB(testObj));
+		assertEquals(3, testObj.selector.fnB(testObj));
+		assertEquals(3, testObj.selector.fnB(testObj));
+		assertEquals(1, testObj.selector.fnB(testObj));
+		assertEquals(1, testObj.selector.fnB(testObj));
+		assertEquals(3, testObj.selector.fnB(testObj));
 	}
 	
 	@Test
 	public void fnC() throws Exception {
-		assertEquals(3, testObj.fnC());
-		assertEquals(4, testObj.fnC());
-		assertEquals(1, testObj.fnC());
-		assertEquals(3, testObj.fnC());
-		assertEquals(3, testObj.fnC());
-		assertEquals(2, testObj.fnC());
-		assertEquals(3, testObj.fnC());
-		assertEquals(1, testObj.fnC());
-		assertEquals(3, testObj.fnC());
-		assertEquals(4, testObj.fnC());
+		assertEquals(3, testObj.selector.fnC(testObj));
+		assertEquals(4, testObj.selector.fnC(testObj));
+		assertEquals(1, testObj.selector.fnC(testObj));
+		assertEquals(3, testObj.selector.fnC(testObj));
+		assertEquals(3, testObj.selector.fnC(testObj));
+		assertEquals(2, testObj.selector.fnC(testObj));
+		assertEquals(3, testObj.selector.fnC(testObj));
+		assertEquals(1, testObj.selector.fnC(testObj));
+		assertEquals(3, testObj.selector.fnC(testObj));
+		assertEquals(4, testObj.selector.fnC(testObj));
 	}
 	
 	class WumpusWithSetMapItems extends Wumpus {
