@@ -33,7 +33,7 @@ public class Wumpus {
 			ui.println("HUNT THE WUMPUS");											// 245 print "HUNT THE WUMPUS"
 			do {
 				printPlayerStatus();																// 255 gosub 585
-				if (1 == ui.getMoveShootChoiceFromPlayer(this))
+				if (1 == ui.getMoveShootChoiceFromPlayer())
 					f = shoot();
 				else
 					f = movePlayerToLocation(getNewPlayerLocation()); 

@@ -91,14 +91,14 @@ public class UserInteraction {
 		return answer != 'N' && answer != 'n';
 	}
 
-	public int getMoveShootChoiceFromPlayer(Wumpus wumpus) throws IOException {
+	public int getMoveShootChoiceFromPlayer() throws IOException {
 		while (true) {
 			print("SHOOT OR MOVE (S-M) ");
-			wumpus.i$ = (char) readChar();
+			char i$ = (char) readChar();
 			readChar(); 
-			if (wumpus.i$ == 'S' || wumpus.i$ == 's')
+			if (i$ == 'S' || i$ == 's')
 				return 1;
-			else if (wumpus.i$ == 'M' || wumpus.i$ == 'm')
+			else if (i$ == 'M' || i$ == 'm')
 				return 2;
 		}
 	}
