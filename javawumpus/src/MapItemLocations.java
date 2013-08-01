@@ -1,5 +1,5 @@
 public class MapItemLocations {
-	public int[] mapItemLocations;
+	private int[] mapItemLocations;
 	private int[] copyOfMapItemlocations;
 
 	public MapItemLocations() {
@@ -32,8 +32,8 @@ public class MapItemLocations {
 
 	private void randomizeMapItemLocations(Selector selector) {
 		for (int j = 1; j <= 6; ++j) {
-			mapItemLocations[j] = selector.pickRoom(); // 175 l(j) = fna(0)
-			copyOfMapItemlocations[j] = mapItemLocations[j]; // 180 m(j) = l(j)
+			mapItemLocations[j] = selector.pickRoom();
+			copyOfMapItemlocations[j] = mapItemLocations[j];
 		}
 	}
 
@@ -69,5 +69,23 @@ public class MapItemLocations {
 
 	boolean isPit(Wumpus wumpus, int newLocation) {
 		return newLocation == mapItemLocations[3] || newLocation == mapItemLocations[4];
+	}
+
+	public void printNearbyItemHints(UserInteraction ui, Paths roomExits) {
+		for (int j = 2; j <= 6; ++j) {
+			if (roomExits.canGetToRoom(mapItemLocations[j]))
+				printItemNearbyPlayerHint(ui, j - 1);
+			
+		}
+	}
+
+	private void printItemNearbyPlayerHint(UserInteraction ui, int itemType) {
+		switch(itemType) {																			// 610 on j-1 goto 615,625,x,635,635
+				case 1: ui.println("I SMELL A WUMPUS!"); break;
+				case 2:
+				case 3: ui.println("I FEEL A DRAFT"); break;
+				case 4:
+				case 5: ui.println("BATS NEARBY!"); break;
+				};
 	}
 }

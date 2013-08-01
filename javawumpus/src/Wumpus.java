@@ -5,7 +5,7 @@ import java.util.Random;
 public class Wumpus {
 
 	char i$ = '\0';
-	private Map map = new Map();
+	Map map = new Map();
 	public MapItemLocations items = new MapItemLocations();
 	private int availableArrows = 5;
 	protected UserInteraction ui = new UserInteraction();
@@ -167,7 +167,7 @@ public class Wumpus {
 
 	public void printPlayerStatus() {
 		ui.println("");														// 590 print
-		printNearbyItemHints();
+		items.printNearbyItemHints(ui, map.getRoomExits(items.getPlayer()));
 		printPlayerLocation();
 		printTunnelOptions();
 		ui.println("");														// 660 print
@@ -180,24 +180,5 @@ public class Wumpus {
 	}
 	public void printPlayerLocation() {
 		ui.print("YOUR ARE IN ROOM "); ui.println(items.getPlayer());				// 650 print "YOU ARE IN ROOM ";l(1)
-	}
-
-	public void printNearbyItemHints() {
-		for (int j = 2; j <= 6; ++j) {
-			Paths roomExits = map.getRoomExits(items.getPlayer());
-				if (roomExits.canGetToRoom(items.mapItemLocations[j]))
-					printItemNearbyPlayerHint(j - 1);
-
-		}
-	}
-
-	public void printItemNearbyPlayerHint(int itemType) {
-		switch(itemType) {																			// 610 on j-1 goto 615,625,x,635,635
-				case 1: ui.println("I SMELL A WUMPUS!"); break;
-				case 2:
-				case 3: ui.println("I FEEL A DRAFT"); break;
-				case 4:
-				case 5: ui.println("BATS NEARBY!"); break;
-				};
 	}
 }
