@@ -55,7 +55,7 @@ public class Wumpus {
 		return useSameSetup;
 	}
 	public int movePlayerToLocation(int newLocation) {
-		items.mapItemLocations[1] = newLocation;
+		setPlayer(newLocation);
 		
 		if (newLocation == getWumpus()) {
 			ui.println("... OOPS! BUMPED A WUMPUS!");
@@ -74,6 +74,9 @@ public class Wumpus {
 			return movePlayerToLocation(selector.pickRoom());
 		}
 		return 0;
+	}
+	private void setPlayer(int newLocation) {
+		items.mapItemLocations[1] = newLocation;
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
