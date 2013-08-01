@@ -69,11 +69,14 @@ public class Wumpus {
 			return -1;
 		}
 		
-		if (newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6]) {
+		if (isBat(newLocation)) {
 			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
 			return movePlayerToLocation(selector.pickRoom());
 		}
 		return 0;
+	}
+	private boolean isBat(int newLocation) {
+		return newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6];
 	}
 	private boolean isPit(int newLocation) {
 		return newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4];
