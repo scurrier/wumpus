@@ -55,22 +55,38 @@ public class Wumpus {
 		items.setPlayer(newLocation);
 		
 		if (items.isWumpus(newLocation)) {
-			ui.println("... OOPS! BUMPED A WUMPUS!");
-			int f = moveWumpus();
+			int f = bumpedIntoWumpus();
 			if (f != PLAYING) 
 				return f;
 		}
 		
-		if (items.isPit(this, newLocation)) {
-			ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
-			return LOST;
+		if (items.isPit(newLocation)) {
+			int f = fellInPit();
+			if (f != PLAYING) 
+				return f;
 		}
 		
-		if (items.isBat(this, newLocation)) {
-			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
-			return movePlayerToLocation(selector.pickRoom());
+		if (items.isBat(newLocation)) {
+			int f = foundABat();
+			if (f != PLAYING) 
+				return f;
 		}
 		return PLAYING;
+	}
+	private int foundABat() {
+		ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
+		int f = movePlayerToLocation(selector.pickRoom());
+		return f;
+	}
+	private int fellInPit() {
+		ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
+		int f = LOST;
+		return f;
+	}
+	private int bumpedIntoWumpus() {
+		ui.println("... OOPS! BUMPED A WUMPUS!");
+		int f = moveWumpus();
+		return f;
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;

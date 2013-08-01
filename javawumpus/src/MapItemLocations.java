@@ -63,11 +63,11 @@ public class MapItemLocations {
 		mapItemLocations[1] = newLocation;
 	}
 
-	boolean isBat(Wumpus wumpus, int newLocation) {
+	boolean isBat(int newLocation) {
 		return newLocation == mapItemLocations[5] || newLocation == mapItemLocations[6];
 	}
 
-	boolean isPit(Wumpus wumpus, int newLocation) {
+	boolean isPit(int newLocation) {
 		return newLocation == mapItemLocations[3] || newLocation == mapItemLocations[4];
 	}
 
