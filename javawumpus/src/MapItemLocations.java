@@ -45,4 +45,8 @@ public class MapItemLocations {
 	int getWumpus() {
 		return mapItemLocations[2];
 	}
+
+	boolean isWumpus(int location) {
+		return location == getWumpus();
+	}
 }
