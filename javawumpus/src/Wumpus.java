@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Wumpus {
 
+	private static final int PLAYING = 0;
+	private static final int WON = 1;
+	private static final int LOST = -1;
 	char i$ = '\0';
 	Map map = new Map();
 	public MapItemLocations items = new MapItemLocations();
@@ -24,7 +27,7 @@ public class Wumpus {
 		}
 	}
 	public void run() throws IOException {
-		int f = 0;
+		int f = PLAYING;
 		ui.giveInstructionsIfNeeded();
 		items.randomize(selector);
 		do { 
@@ -36,8 +39,8 @@ public class Wumpus {
 					f = shoot();
 				else
 					f = movePlayerToLocation(getNewPlayerLocation()); 
-			} while (f == 0);
-			if (f < 0)
+			} while (f == PLAYING);
+			if (f == LOST)
 				ui.youLose();
 			else
 				ui.youWin();
@@ -54,20 +57,20 @@ public class Wumpus {
 		if (items.isWumpus(newLocation)) {
 			ui.println("... OOPS! BUMPED A WUMPUS!");
 			int f = moveWumpus();
-			if (f != 0) 
+			if (f != PLAYING) 
 				return f;
 		}
 		
 		if (items.isPit(this, newLocation)) {
 			ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
-			return -1;
+			return LOST;
 		}
 		
 		if (items.isBat(this, newLocation)) {
 			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
 			return movePlayerToLocation(selector.pickRoom());
 		}
-		return 0;
+		return PLAYING;
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
@@ -112,9 +115,9 @@ public class Wumpus {
 		}																// 950 l(2) = s(l(2),k)
 		if (items.isWumpus(items.getPlayer())) {												// 955 if l(2) <> l then 970
 			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
-			return -1;																		// 965 f = -1
+			return LOST;																		// 965 f = -1
 		}
-		return 0;
+		return PLAYING;
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = items.getPlayer();																		// 800 l = l(1)
@@ -122,15 +125,15 @@ public class Wumpus {
 			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
 			if (items.isWumpus(ll)) {												// 900 if l <> l(2) then 920
 				ui.println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
-				return 1;																			// 910 f = 1
+				return WON;																			// 910 f = 1
 			}
 																			// 915 return
 			if (ll == items.getPlayer()) {												// 920 if l <> l(1) then 840
 				ui.println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
-				return -1;
+				return LOST;
 			}
 		}
-		return 0;
+		return PLAYING;
 	}
 	public int[] getIntendedFlightPathFromPlayer(int numberOfRooms) {
 		int[] p = new int[6];
