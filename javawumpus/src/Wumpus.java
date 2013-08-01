@@ -57,7 +57,7 @@ public class Wumpus {
 	public int movePlayerToLocation(int newLocation) {
 		setPlayer(newLocation);
 		
-		if (newLocation == getWumpus()) {
+		if (isWumpus(newLocation)) {
 			ui.println("... OOPS! BUMPED A WUMPUS!");
 			int f = moveWumpus();
 			if (f != 0) 
@@ -74,6 +74,9 @@ public class Wumpus {
 			return movePlayerToLocation(selector.pickRoom());
 		}
 		return 0;
+	}
+	private boolean isWumpus(int newLocation) {
+		return newLocation == getWumpus();
 	}
 	private boolean isBat(int newLocation) {
 		return newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6];
@@ -140,7 +143,7 @@ public class Wumpus {
 		int ll = playerLocation();																		// 800 l = l(1)
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
 			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
-			if (ll == getWumpus()) {												// 900 if l <> l(2) then 920
+			if (isWumpus(ll)) {												// 900 if l <> l(2) then 920
 				ui.println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
 				return 1;																			// 910 f = 1
 			}
