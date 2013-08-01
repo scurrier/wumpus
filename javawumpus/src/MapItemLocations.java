@@ -57,4 +57,12 @@ public class MapItemLocations {
 	void setPlayer(int newLocation) {
 		mapItemLocations[1] = newLocation;
 	}
+
+	boolean isBat(Wumpus wumpus, int newLocation) {
+		return newLocation == mapItemLocations[5] || newLocation == mapItemLocations[6];
+	}
+
+	boolean isPit(Wumpus wumpus, int newLocation) {
+		return newLocation == mapItemLocations[3] || newLocation == mapItemLocations[4];
+	}
 }

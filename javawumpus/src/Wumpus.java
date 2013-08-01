@@ -64,22 +64,16 @@ public class Wumpus {
 				return f;
 		}
 		
-		if (isPit(newLocation)) {
+		if (items.isPit(this, newLocation)) {
 			ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
 			return -1;
 		}
 		
-		if (isBat(newLocation)) {
+		if (items.isBat(this, newLocation)) {
 			ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
 			return movePlayerToLocation(selector.pickRoom());
 		}
 		return 0;
-	}
-	private boolean isBat(int newLocation) {
-		return newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6];
-	}
-	private boolean isPit(int newLocation) {
-		return newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4];
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
