@@ -26,7 +26,7 @@ public class Wumpus {
 	public void run() throws IOException {
 		int f = 0;
 		ui.giveInstructionsIfNeeded();
-		items.placeItemsOnMap(selector);
+		items.randomize(selector);
 		do { 
 			availableArrows = 5;
 			ui.gameStartHeader();
@@ -42,10 +42,10 @@ public class Wumpus {
 			else
 				ui.youWin();
 
-			items.resetItemLocations();
+			items.reset();
 		
 			if (useSameSetup()) 
-				items.placeItemsOnMap(selector);
+				items.randomize(selector);
 		} while (true);
 	}
 	private boolean useSameSetup() throws IOException {

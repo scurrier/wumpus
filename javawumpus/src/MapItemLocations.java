@@ -7,13 +7,6 @@ public class MapItemLocations {
 		this.copyOfMapItemlocations = new int[7];
 	}
 
-	private void randomizeMapItemLocations(Selector selector) {
-		for (int j = 1; j <= 6; ++j) {
-			mapItemLocations[j] = selector.pickRoom(); // 175 l(j) = fna(0)
-			copyOfMapItemlocations[j] = mapItemLocations[j]; // 180 m(j) = l(j)
-		}
-	}
-
 	public boolean crossover() {
 		for (int j = 1; j <= 6; ++j) {
 			for (int k = 1; k <= 6; ++k) {
@@ -26,13 +19,20 @@ public class MapItemLocations {
 		return false;
 	}
 
-	public void placeItemsOnMap(Selector selector) {
+	public void randomize(Selector selector) {
 		do {
 			randomizeMapItemLocations(selector);
 		} while (crossover());
 	}
 
-	void resetItemLocations() {
+	private void randomizeMapItemLocations(Selector selector) {
+		for (int j = 1; j <= 6; ++j) {
+			mapItemLocations[j] = selector.pickRoom(); // 175 l(j) = fna(0)
+			copyOfMapItemlocations[j] = mapItemLocations[j]; // 180 m(j) = l(j)
+		}
+	}
+
+	void reset() {
 		for (int j = 1; j <= 6; ++j) {
 			mapItemLocations[j] = copyOfMapItemlocations[j];
 		}
