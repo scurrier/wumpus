@@ -37,4 +37,12 @@ public class MapItemLocations {
 			mapItemLocations[j] = copyOfMapItemlocations[j];
 		}
 	}
+
+	void setWumpus(int newLocation) {
+		mapItemLocations[2] = newLocation;
+	}
+
+	int getWumpus() {
+		return mapItemLocations[2];
+	}
 }

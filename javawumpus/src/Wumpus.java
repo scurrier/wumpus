@@ -76,7 +76,7 @@ public class Wumpus {
 		return 0;
 	}
 	private boolean isWumpus(int newLocation) {
-		return newLocation == getWumpus();
+		return newLocation == items.getWumpus();
 	}
 	private boolean isBat(int newLocation) {
 		return newLocation == items.mapItemLocations[5] || newLocation == items.mapItemLocations[6];
@@ -125,19 +125,14 @@ public class Wumpus {
 	public int moveWumpus() {
 		int k = selector.pickMove();																		// 940 k = fnc(0)
 		if (k < 4) {													// 945 if k = 4 then 955
-			setWumpus(map.getRoomExits(getWumpus()).room(k));
+			int newLocation = map.getRoomExits(items.getWumpus()).room(k);
+			items.setWumpus(newLocation);
 		}																// 950 l(2) = s(l(2),k)
-		if (getWumpus() == playerLocation()) {												// 955 if l(2) <> l then 970
+		if (items.getWumpus() == playerLocation()) {												// 955 if l(2) <> l then 970
 			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			return -1;																		// 965 f = -1
 		}
 		return 0;
-	}
-	private int setWumpus(int newLocation) {
-		return items.mapItemLocations[2] = newLocation;
-	}
-	private int getWumpus() {
-		return items.mapItemLocations[2];
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
 		int ll = playerLocation();																		// 800 l = l(1)
