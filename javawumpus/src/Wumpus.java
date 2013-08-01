@@ -44,15 +44,9 @@ public class Wumpus {
 
 			items.reset();
 		
-			if (useSameSetup()) 
+			if (ui.useSameSetup(this)) 
 				items.randomize(selector);
 		} while (true);
-	}
-	private boolean useSameSetup() throws IOException {
-		ui.print("SAME SETUP (Y-N)");
-		i$ = (char) ui.readChar(); ui.readChar(); 
-		boolean useSameSetup = i$ != 'Y' && i$ != 'y';
-		return useSameSetup;
 	}
 	public int movePlayerToLocation(int newLocation) {
 		items.setPlayer(newLocation);
