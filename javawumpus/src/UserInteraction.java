@@ -124,10 +124,10 @@ public class UserInteraction {
 		println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
 	}
 
-	public boolean useSameSetup(Wumpus wumpus) throws IOException {
+	public boolean useSameSetup() throws IOException {
 		print("SAME SETUP (Y-N)");
-		wumpus.i$ = (char) readChar(); readChar(); 
-		return wumpus.i$ != 'Y' && wumpus.i$ != 'y';
+		char i$ = (char) readChar(); readChar(); 
+		return i$ != 'Y' && i$ != 'y';
 	}
 
 }

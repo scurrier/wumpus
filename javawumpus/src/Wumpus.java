@@ -7,7 +7,6 @@ public class Wumpus {
 	private static final int PLAYING = 0;
 	private static final int WON = 1;
 	private static final int LOST = -1;
-	char i$ = '\0';
 	Map map = new Map();
 	public MapItemLocations items = new MapItemLocations();
 	private int availableArrows = 5;
@@ -47,7 +46,7 @@ public class Wumpus {
 
 			items.reset();
 		
-			if (ui.useSameSetup(this)) 
+			if (ui.useSameSetup()) 
 				items.randomize(selector);
 		} while (true);
 	}
