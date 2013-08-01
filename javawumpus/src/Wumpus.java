@@ -55,7 +55,7 @@ public class Wumpus {
 		return useSameSetup;
 	}
 	public int movePlayerToLocation(int newLocation) {
-		setPlayer(newLocation);
+		items.setPlayer(newLocation);
 		
 		if (items.isWumpus(newLocation)) {
 			ui.println("... OOPS! BUMPED A WUMPUS!");
@@ -81,9 +81,6 @@ public class Wumpus {
 	private boolean isPit(int newLocation) {
 		return newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4];
 	}
-	private void setPlayer(int newLocation) {
-		items.mapItemLocations[1] = newLocation;
-	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
 		int newLocation;
@@ -97,9 +94,9 @@ public class Wumpus {
 	}
 
 	private boolean isValidPlayerMove(int newLocation) {
-		if (map.isValidMove(playerLocation(), newLocation))
+		if (map.isValidMove(items.getPlayer(), newLocation))
 			return true;
-		if (newLocation == playerLocation())
+		if (newLocation == items.getPlayer())
 			return true;
 		return false;
 	}
@@ -125,14 +122,14 @@ public class Wumpus {
 			int newLocation = map.getRoomExits(items.getWumpus()).room(k);
 			items.setWumpus(newLocation);
 		}																// 950 l(2) = s(l(2),k)
-		if (items.isWumpus(playerLocation())) {												// 955 if l(2) <> l then 970
+		if (items.isWumpus(items.getPlayer())) {												// 955 if l(2) <> l then 970
 			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 			return -1;																		// 965 f = -1
 		}
 		return 0;
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
-		int ll = playerLocation();																		// 800 l = l(1)
+		int ll = items.getPlayer();																		// 800 l = l(1)
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
 			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
 			if (items.isWumpus(ll)) {												// 900 if l <> l(2) then 920
@@ -140,7 +137,7 @@ public class Wumpus {
 				return 1;																			// 910 f = 1
 			}
 																			// 915 return
-			if (ll == playerLocation()) {												// 920 if l <> l(1) then 840
+			if (ll == items.getPlayer()) {												// 920 if l <> l(1) then 840
 				ui.println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
 				return -1;
 			}
@@ -182,18 +179,18 @@ public class Wumpus {
 		ui.println("");														// 660 print
 	}
 	public void printTunnelOptions() {
-		Paths room = map.getRoomExits(playerLocation());
+		Paths room = map.getRoomExits(items.getPlayer());
 		ui.print("TUNNELS LEAD TO "); ui.print(room.room(1));
 					ui.print(" "); ui.print(room.room(2)); 
 					ui.print(" "); ui.println(room.room(3));
 	}
 	public void printPlayerLocation() {
-		ui.print("YOUR ARE IN ROOM "); ui.println(playerLocation());				// 650 print "YOU ARE IN ROOM ";l(1)
+		ui.print("YOUR ARE IN ROOM "); ui.println(items.getPlayer());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 
 	public void printNearbyItemHints() {
 		for (int j = 2; j <= 6; ++j) {
-			Paths roomExits = map.getRoomExits(playerLocation());
+			Paths roomExits = map.getRoomExits(items.getPlayer());
 				if (roomExits.canGetToRoom(items.mapItemLocations[j]))
 					printItemNearbyPlayerHint(j - 1);
 
@@ -208,8 +205,5 @@ public class Wumpus {
 				case 4:
 				case 5: ui.println("BATS NEARBY!"); break;
 				};
-	}
-	private int playerLocation() {
-		return items.mapItemLocations[1];
 	}
 }

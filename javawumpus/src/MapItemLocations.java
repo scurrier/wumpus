@@ -49,4 +49,12 @@ public class MapItemLocations {
 	boolean isWumpus(int location) {
 		return location == getWumpus();
 	}
+
+	int getPlayer() {
+		return mapItemLocations[1];
+	}
+
+	void setPlayer(int newLocation) {
+		mapItemLocations[1] = newLocation;
+	}
 }
