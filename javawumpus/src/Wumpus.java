@@ -64,7 +64,7 @@ public class Wumpus {
 				return f;
 		}
 		
-		if (newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4]) {
+		if (isPit(newLocation)) {
 			ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
 			return -1;
 		}
@@ -74,6 +74,9 @@ public class Wumpus {
 			return movePlayerToLocation(selector.pickRoom());
 		}
 		return 0;
+	}
+	private boolean isPit(int newLocation) {
+		return newLocation == items.mapItemLocations[3] || newLocation == items.mapItemLocations[4];
 	}
 	private void setPlayer(int newLocation) {
 		items.mapItemLocations[1] = newLocation;
