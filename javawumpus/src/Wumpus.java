@@ -178,16 +178,10 @@ public class Wumpus {
 	}
 
 	public void printPlayerStatus() {
-		ui.println("");														// 590 print
+		ui.println("");
 		items.printNearbyItemHints(ui, map.getRoomExits(items.getPlayer()));
 		ui.printLocation(items.getPlayer());
-		printTunnelOptions();
-		ui.println("");														// 660 print
-	}
-	public void printTunnelOptions() {
-		Paths room = map.getRoomExits(items.getPlayer());
-		ui.print("TUNNELS LEAD TO "); ui.print(room.room(1));
-					ui.print(" "); ui.print(room.room(2)); 
-					ui.print(" "); ui.println(room.room(3));
+		ui.printTunnels(map.getRoomExits(items.getPlayer()));
+		ui.println("");
 	}
 }

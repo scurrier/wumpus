@@ -135,4 +135,10 @@ public class UserInteraction {
 		println(player);
 	}
 
+	void printTunnels(Paths room) {
+		print("TUNNELS LEAD TO "); print(room.room(1));
+					print(" "); print(room.room(2)); 
+					print(" "); println(room.room(3));
+	}
+
 }
