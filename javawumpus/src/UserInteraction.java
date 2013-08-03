@@ -141,4 +141,12 @@ public class UserInteraction {
 					print(" "); println(room.room(3));
 	}
 
+	public void printPlayerStatus(Map map, MapItemLocations items) {
+		println("");
+		items.printNearbyItemHints(this, map.getRoomExits(items.getPlayer()));
+		printLocation(items.getPlayer());
+		printTunnels(map.getRoomExits(items.getPlayer()));
+		println("");
+	}
+
 }

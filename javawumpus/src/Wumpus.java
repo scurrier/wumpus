@@ -33,7 +33,7 @@ public class Wumpus {
 			availableArrows = 5;
 			ui.gameStartHeader();
 			do {
-				printPlayerStatus();
+				ui.printPlayerStatus(map, items);
 				if (1 == ui.getMoveShootChoiceFromPlayer())
 					f = shoot();
 				else
@@ -175,13 +175,5 @@ public class Wumpus {
 	}
 	private boolean outOfArrowRange(int numberOfRoomsToShoot) {
 		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
-	}
-
-	public void printPlayerStatus() {
-		ui.println("");
-		items.printNearbyItemHints(ui, map.getRoomExits(items.getPlayer()));
-		ui.printLocation(items.getPlayer());
-		ui.printTunnels(map.getRoomExits(items.getPlayer()));
-		ui.println("");
 	}
 }
