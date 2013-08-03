@@ -180,7 +180,7 @@ public class Wumpus {
 	public void printPlayerStatus() {
 		ui.println("");														// 590 print
 		items.printNearbyItemHints(ui, map.getRoomExits(items.getPlayer()));
-		printPlayerLocation();
+		ui.printLocation(items.getPlayer());
 		printTunnelOptions();
 		ui.println("");														// 660 print
 	}
@@ -189,8 +189,5 @@ public class Wumpus {
 		ui.print("TUNNELS LEAD TO "); ui.print(room.room(1));
 					ui.print(" "); ui.print(room.room(2)); 
 					ui.print(" "); ui.println(room.room(3));
-	}
-	public void printPlayerLocation() {
-		ui.print("YOUR ARE IN ROOM "); ui.println(items.getPlayer());				// 650 print "YOU ARE IN ROOM ";l(1)
 	}
 }

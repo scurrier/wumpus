@@ -130,4 +130,9 @@ public class UserInteraction {
 		return i$ != 'Y' && i$ != 'y';
 	}
 
+	void printLocation(int player) {
+		print("YOU ARE IN ROOM ");
+		println(player);
+	}
+
 }
