@@ -149,4 +149,34 @@ public class UserInteraction {
 		println("");
 	}
 
+	public int getShotDistance() {
+		int numberOfRoomsToShoot;
+		do {
+			print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
+			numberOfRoomsToShoot = readInt();																// 740 input j9
+		} while (outOfArrowRange(numberOfRoomsToShoot));
+		return numberOfRoomsToShoot;
+	}
+
+	private boolean outOfArrowRange(int numberOfRoomsToShoot) {
+		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
+	}
+	
+	public int[] getIntendedFlightPath(int numberOfRooms) {
+		int[] p = new int[6];
+		for (int k = 1; k <= numberOfRooms; ++k) {
+			do {
+				print("ROOM # ");													// 760 print "ROOM #";
+				p[k] = readInt();																// 765 input p(k)
+				if (did180(p, k))
+					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+			} while(did180(p, k));
+		}
+		return p;
+	}
+
+	private boolean did180(int[] path, int roomCount) {
+		return roomCount > 2 && path[roomCount] == path[roomCount-2];
+	}
+	
 }

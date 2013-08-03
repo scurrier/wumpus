@@ -107,8 +107,8 @@ public class Wumpus {
 		return false;
 	}
 	private int shoot() {
-		int j9 = getShotDistanceFromPlayer();
-		int[] p = getIntendedFlightPathFromPlayer(j9);
+		int j9 = ui.getShotDistance();
+		int[] p = ui.getIntendedFlightPath(j9);
 																					// 795 rem *** SHOOT ARROW ***
 		int f = shootArrow(j9, p);
 		boolean gameEnded = (f != 0);
@@ -149,31 +149,5 @@ public class Wumpus {
 			}
 		}
 		return PLAYING;
-	}
-	public int[] getIntendedFlightPathFromPlayer(int numberOfRooms) {
-		int[] p = new int[6];
-		for (int k = 1; k <= numberOfRooms; ++k) {
-			do {
-				ui.print("ROOM # ");													// 760 print "ROOM #";
-				p[k] = ui.readInt();																// 765 input p(k)
-				if (did180(p, k))
-					ui.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-			} while(did180(p, k));
-		}
-		return p;
-	}
-	public boolean did180(int[] path, int roomCount) {
-		return roomCount > 2 && path[roomCount] == path[roomCount-2];
-	}
-	public int getShotDistanceFromPlayer() {
-		int numberOfRoomsToShoot;
-		do {
-			ui.print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
-			numberOfRoomsToShoot = ui.readInt();																// 740 input j9
-		} while (outOfArrowRange(numberOfRoomsToShoot));
-		return numberOfRoomsToShoot;
-	}
-	private boolean outOfArrowRange(int numberOfRoomsToShoot) {
-		return numberOfRoomsToShoot < 1 || numberOfRoomsToShoot > 5;
 	}
 }
