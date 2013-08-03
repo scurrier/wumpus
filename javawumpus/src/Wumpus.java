@@ -119,7 +119,7 @@ public class Wumpus {
 																					// 865 rem *** AMMO CHECK ***
 		availableArrows = availableArrows - 1;																	// 870 a = a-1
 		if (availableArrows <= 0)													// 875 if a > 0 then 885
-			f = -1;																		// 880 f = -1
+			f = LOST;																		// 880 f = -1
 		return f;
 	}
 	public int moveWumpus() {
