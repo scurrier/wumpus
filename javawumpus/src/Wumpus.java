@@ -94,7 +94,7 @@ public class Wumpus {
 			newLocation = ui.getMoveDirection();
 			validMove = isValidPlayerMove(newLocation);
 			if (!validMove)
-				ui.print("NOT POSSIBLE - ");											// 1030 print "NOT POSSIBLE -";
+				ui.print("NOT POSSIBLE - ");
 		} while (!validMove);
 		return newLocation;
 	}
@@ -109,7 +109,7 @@ public class Wumpus {
 	private int shoot() {
 		int j9 = ui.getShotDistance();
 		int[] p = ui.getIntendedFlightPath(j9);
-																					// 795 rem *** SHOOT ARROW ***
+
 		int f = shootArrow(j9, p);
 		boolean gameEnded = (f != 0);
 		if (gameEnded)
