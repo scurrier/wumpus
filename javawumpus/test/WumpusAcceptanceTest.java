@@ -20,33 +20,34 @@ public class WumpusAcceptanceTest {
 		int intInputIndex = 0;
 		int[] intInput;
 		StringBuilder output = new StringBuilder();
+		
 		@Override
-		public void print(int data) {
+		protected void print(int data) {
 			output.append(data);
 		}
 		@Override
-		public void println(int data) {
-			output.append(data);
-			output.append('\n');
-		}
-		@Override
-		public void println(String data) {
+		protected void println(int data) {
 			output.append(data);
 			output.append('\n');
 		}
 		@Override
-		public void print(String data) {
+		protected void println(String data) {
+			output.append(data);
+			output.append('\n');
+		}
+		@Override
+		protected void print(String data) {
 			output.append(data);
 		}
 		@Override
-		public int readChar() throws IOException {
+		protected int readChar() throws IOException {
 			output.append('\n');
 			if (charInputIndex < charInput.length)
 				return (charInput[charInputIndex++]);
 			throw new IOException();
 		}
 		@Override
-		public int readInt()  {
+		protected int readInt()  {
 			output.append('\n');
 			if (intInputIndex < intInput.length)
 				return (intInput[intInputIndex++]);
