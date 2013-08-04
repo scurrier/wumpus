@@ -106,8 +106,8 @@ public class UserInteraction {
 	public int getMoveDirection() {
 		int move;
 		do {
-			print("WHERE TO ");													// 985 print "WHERE TO";
-			move = readInt();																// 990 input l
+			print("WHERE TO ");
+			move = readInt();
 		} while (move < 1 || move > 20);
 		return move;
 	}
@@ -152,8 +152,8 @@ public class UserInteraction {
 	public int getShotDistance() {
 		int numberOfRoomsToShoot;
 		do {
-			print("NO. OF ROOMS (1-5) ");										// 735 print "NO. OF ROOMS (1-5)";
-			numberOfRoomsToShoot = readInt();																// 740 input j9
+			print("NO. OF ROOMS (1-5) ");
+			numberOfRoomsToShoot = readInt();
 		} while (outOfArrowRange(numberOfRoomsToShoot));
 		return numberOfRoomsToShoot;
 	}
@@ -166,10 +166,10 @@ public class UserInteraction {
 		int[] p = new int[6];
 		for (int k = 1; k <= numberOfRooms; ++k) {
 			do {
-				print("ROOM # ");													// 760 print "ROOM #";
-				p[k] = readInt();																// 765 input p(k)
+				print("ROOM # ");
+				p[k] = readInt();
 				if (did180(p, k))
-					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");			// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+					println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");
 			} while(did180(p, k));
 		}
 		return p;
