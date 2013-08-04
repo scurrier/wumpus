@@ -77,18 +77,15 @@ public class Wumpus {
 	}
 	private int foundABat() {
 		ui.encounteredBat();
-		int f = movePlayerToLocation(selector.pickRoom());
-		return f;
+		return movePlayerToLocation(selector.pickRoom());
 	}
 	private int fellInPit() {
 		ui.encounteredPit();
-		int f = LOST;
-		return f;
+		return LOST;
 	}
 	private int bumpedIntoWumpus() {
 		ui.encounteredWumpus();
-		int f = moveWumpus();
-		return f;
+		return moveWumpus();
 	}
 	public int getNewPlayerLocation() {
 		boolean validMove;
