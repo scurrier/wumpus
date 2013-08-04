@@ -73,7 +73,7 @@ public class Wumpus {
 		return PLAYING;
 	}
 	private int foundABat() {
-		ui.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
+		ui.encounteredBat();
 		int f = movePlayerToLocation(selector.pickRoom());
 		return f;
 	}

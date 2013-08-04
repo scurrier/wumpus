@@ -206,5 +206,9 @@ public class UserInteraction {
 	public void encounteredPit() {
 		println("YYYYIIIIEEEE . . . FELL IN PIT");
 	}
+
+	public void encounteredBat() {
+		println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
+	}
 	
 }
