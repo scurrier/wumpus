@@ -144,7 +144,7 @@ public class Wumpus {
 			}
 																			// 915 return
 			if (ll == items.getPlayer()) {												// 920 if l <> l(1) then 840
-				ui.println("OUCH! ARROW GOT YOU!");									// 925 print "OUCH! ARROW GOT YOU!"
+				ui.shotSelf();									// 925 print "OUCH! ARROW GOT YOU!"
 				return LOST;
 			}
 		}

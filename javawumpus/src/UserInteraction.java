@@ -178,5 +178,9 @@ public class UserInteraction {
 	private boolean did180(int[] path, int roomCount) {
 		return roomCount > 2 && path[roomCount] == path[roomCount-2];
 	}
+
+	void shotSelf() {
+		println("OUCH! ARROW GOT YOU!");
+	}
 	
 }
