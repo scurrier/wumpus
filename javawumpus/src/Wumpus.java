@@ -129,16 +129,16 @@ public class Wumpus {
 			items.setWumpus(newLocation);
 		}																// 950 l(2) = s(l(2),k)
 		if (items.isWumpus(items.getPlayer())) {												// 955 if l(2) <> l then 970
-			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");							// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
-			return LOST;																		// 965 f = -1
+			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");
+			return LOST;
 		}
 		return PLAYING;
 	}
 	public int shootArrow(int shotDistance, int[] arrowPath) {
-		int ll = items.getPlayer();																		// 800 l = l(1)
+		int ll = items.getPlayer();
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
-			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
-			if (items.isWumpus(ll)) {												// 900 if l <> l(2) then 920
+			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());
+			if (items.isWumpus(ll)) {
 				ui.shotTheWumpus();
 				return WON;
 			}
