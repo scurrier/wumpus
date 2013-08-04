@@ -186,5 +186,9 @@ public class UserInteraction {
 	public void shotTheWumpus() {
 		println("AHA! YOU GOT THE WUMPUS!");
 	}
+
+	public void wumpusWins() {
+		println("TSK TSK TSK - WUMPUS GOT YOU!");
+	}
 	
 }

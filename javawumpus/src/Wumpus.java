@@ -129,7 +129,7 @@ public class Wumpus {
 			items.setWumpus(newLocation);
 		}																// 950 l(2) = s(l(2),k)
 		if (items.isWumpus(items.getPlayer())) {												// 955 if l(2) <> l then 970
-			ui.println("TSK TSK TSK - WUMPUS GOT YOU!");
+			ui.wumpusWins();
 			return LOST;
 		}
 		return PLAYING;
