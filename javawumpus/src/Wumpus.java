@@ -114,7 +114,7 @@ public class Wumpus {
 		boolean gameEnded = (f != 0);
 		if (gameEnded)
 			return f;
-		ui.println("MISSED");
+		ui.arrowMissed();
 		f = moveWumpus();
 
 		availableArrows = availableArrows - 1;

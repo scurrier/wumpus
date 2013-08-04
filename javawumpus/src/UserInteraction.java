@@ -190,5 +190,9 @@ public class UserInteraction {
 	public void wumpusWins() {
 		println("TSK TSK TSK - WUMPUS GOT YOU!");
 	}
+
+	public void arrowMissed() {
+		println("MISSED");
+	}
 	
 }
