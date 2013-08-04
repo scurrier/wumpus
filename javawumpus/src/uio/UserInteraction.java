@@ -216,5 +216,17 @@ public class UserInteraction {
 	public void encounteredBat() {
 		println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
 	}
+
+	public void wumpusNearby() {
+		println("I SMELL A WUMPUS!");
+	}
+
+	public void pitNearby() {
+		println("I FEEL A DRAFT");
+	}
+
+	public void batNearby() {
+		println("BATS NEARBY!");
+	}
 	
 }

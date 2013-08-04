@@ -84,11 +84,11 @@ public class MapItemLocations {
 
 	private void printItemNearbyPlayerHint(UserInteraction ui, int itemType) {
 		switch(itemType) {																			// 610 on j-1 goto 615,625,x,635,635
-				case 1: ui.println("I SMELL A WUMPUS!"); break;
+				case 1: ui.wumpusNearby(); break;
 				case 2:
-				case 3: ui.println("I FEEL A DRAFT"); break;
+				case 3: ui.pitNearby(); break;
 				case 4:
-				case 5: ui.println("BATS NEARBY!"); break;
+				case 5: ui.batNearby(); break;
 				};
 	}
 }
