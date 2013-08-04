@@ -114,21 +114,21 @@ public class Wumpus {
 		boolean gameEnded = (f != 0);
 		if (gameEnded)
 			return f;
-		ui.println("MISSED");													// 845 print "MISSED"
-		f = moveWumpus();																// 860 gosub 935
-																					// 865 rem *** AMMO CHECK ***
-		availableArrows = availableArrows - 1;																	// 870 a = a-1
-		if (availableArrows <= 0)													// 875 if a > 0 then 885
-			f = LOST;																		// 880 f = -1
+		ui.println("MISSED");
+		f = moveWumpus();
+
+		availableArrows = availableArrows - 1;
+		if (availableArrows <= 0)
+			f = LOST;
 		return f;
 	}
 	public int moveWumpus() {
-		int k = selector.pickMove();																		// 940 k = fnc(0)
-		if (k < 4) {													// 945 if k = 4 then 955
+		int k = selector.pickMove();
+		if (k < 4) {
 			int newLocation = map.getRoomExits(items.getWumpus()).room(k);
 			items.setWumpus(newLocation);
-		}																// 950 l(2) = s(l(2),k)
-		if (items.isWumpus(items.getPlayer())) {												// 955 if l(2) <> l then 970
+		}
+		if (items.isWumpus(items.getPlayer())) {
 			ui.wumpusWins();
 			return LOST;
 		}
