@@ -1,10 +1,15 @@
 import static org.junit.Assert.assertEquals;
 
+import game.Selector;
+import game.Wumpus;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import org.junit.Test;
+
+import uio.UserInteraction;
 
 
 public class WumpusAcceptanceTest {

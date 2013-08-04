@@ -1,3 +1,6 @@
+package game;
+import uio.UserInteraction;
+
 public class MapItemLocations {
 	private int[] mapItemLocations;
 	private int[] copyOfMapItemlocations;
@@ -55,7 +58,7 @@ public class MapItemLocations {
 		return location == getWumpus();
 	}
 
-	int getPlayer() {
+	public int getPlayer() {
 		return mapItemLocations[1];
 	}
 

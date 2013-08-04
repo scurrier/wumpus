@@ -1,4 +1,7 @@
+package game;
 import static org.junit.Assert.assertEquals;
+
+import game.Selector;
 
 import java.util.Random;
 

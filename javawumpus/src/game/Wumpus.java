@@ -1,5 +1,8 @@
+package game;
 import java.io.IOException;
 import java.util.Random;
+
+import uio.UserInteraction;
 
 
 public class Wumpus {

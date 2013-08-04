@@ -1,4 +1,6 @@
+package game;
 import static org.junit.Assert.*;
+import game.Map;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,6 @@
+package game;
 import static org.junit.Assert.*;
+import game.Paths;
 
 import org.junit.Test;
 

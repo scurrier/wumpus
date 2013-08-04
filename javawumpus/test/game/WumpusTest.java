@@ -1,4 +1,9 @@
+package game;
 import static org.junit.Assert.*;
+
+import game.MapItemLocations;
+import game.Selector;
+import game.Wumpus;
 
 import java.util.Random;
 
