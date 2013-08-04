@@ -194,5 +194,9 @@ public class UserInteraction {
 	public void arrowMissed() {
 		println("MISSED");
 	}
+
+	public void invalidMove() {
+		print("NOT POSSIBLE - ");
+	}
 	
 }

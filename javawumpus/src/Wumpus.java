@@ -94,11 +94,10 @@ public class Wumpus {
 			newLocation = ui.getMoveDirection();
 			validMove = isValidPlayerMove(newLocation);
 			if (!validMove)
-				ui.print("NOT POSSIBLE - ");
+				ui.invalidMove();
 		} while (!validMove);
 		return newLocation;
 	}
-
 	private boolean isValidPlayerMove(int newLocation) {
 		if (map.isValidMove(items.getPlayer(), newLocation))
 			return true;
