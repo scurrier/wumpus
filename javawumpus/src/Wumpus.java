@@ -140,11 +140,11 @@ public class Wumpus {
 			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
 			if (items.isWumpus(ll)) {												// 900 if l <> l(2) then 920
 				ui.println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
-				return WON;																			// 910 f = 1
+				return WON;
 			}
-																			// 915 return
-			if (ll == items.getPlayer()) {												// 920 if l <> l(1) then 840
-				ui.shotSelf();									// 925 print "OUCH! ARROW GOT YOU!"
+
+			if (ll == items.getPlayer()) {
+				ui.shotSelf();
 				return LOST;
 			}
 		}
