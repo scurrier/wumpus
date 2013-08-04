@@ -78,7 +78,7 @@ public class Wumpus {
 		return f;
 	}
 	private int fellInPit() {
-		ui.println("YYYYIIIIEEEE . . . FELL IN PIT");
+		ui.encounteredPit();
 		int f = LOST;
 		return f;
 	}

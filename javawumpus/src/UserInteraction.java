@@ -202,5 +202,9 @@ public class UserInteraction {
 	public void encounteredWumpus() {
 		println("... OOPS! BUMPED A WUMPUS!");
 	}
+
+	public void encounteredPit() {
+		println("YYYYIIIIEEEE . . . FELL IN PIT");
+	}
 	
 }
