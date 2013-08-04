@@ -198,5 +198,9 @@ public class UserInteraction {
 	public void invalidMove() {
 		print("NOT POSSIBLE - ");
 	}
+
+	public void encounteredWumpus() {
+		println("... OOPS! BUMPED A WUMPUS!");
+	}
 	
 }

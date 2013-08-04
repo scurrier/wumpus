@@ -83,7 +83,7 @@ public class Wumpus {
 		return f;
 	}
 	private int bumpedIntoWumpus() {
-		ui.println("... OOPS! BUMPED A WUMPUS!");
+		ui.encounteredWumpus();
 		int f = moveWumpus();
 		return f;
 	}
