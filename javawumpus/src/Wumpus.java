@@ -139,7 +139,7 @@ public class Wumpus {
 		for (int k2 = 1; k2 <= shotDistance; ++k2) {
 			ll = map.isValidMove(ll, arrowPath[k2]) ? arrowPath[k2] : map.getRoomExits(ll).room(selector.pickPath());																// 830 l = s(l,fnb(1))
 			if (items.isWumpus(ll)) {												// 900 if l <> l(2) then 920
-				ui.println("AHA! YOU GOT THE WUMPUS!");								// 905 print "AHA! YOU GOT THE WUMPUS!"
+				ui.shotTheWumpus();
 				return WON;
 			}
 

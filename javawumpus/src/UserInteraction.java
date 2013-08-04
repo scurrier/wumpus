@@ -179,8 +179,12 @@ public class UserInteraction {
 		return roomCount > 2 && path[roomCount] == path[roomCount-2];
 	}
 
-	void shotSelf() {
+	public void shotSelf() {
 		println("OUCH! ARROW GOT YOU!");
+	}
+
+	public void shotTheWumpus() {
+		println("AHA! YOU GOT THE WUMPUS!");
 	}
 	
 }
