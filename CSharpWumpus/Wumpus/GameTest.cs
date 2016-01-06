@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Wumpus
 {
     [TestFixture]
-    public class ProgramTest
+    public class GameTest
     {
         private Game testObj;
         [SetUp]
