@@ -1,6 +1,14 @@
-.DS_Store
+DS_Store
 *.class
 TEST-*
 .metadata
 .project
 .buildpath
+*.userprefs
+*.user
+*.suo
+test-results
+packages
+obj
+bin
+.vs
