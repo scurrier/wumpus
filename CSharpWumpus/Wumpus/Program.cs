@@ -7,7 +7,7 @@ namespace Wumpus
     public class Program {
         static void Main(string[] args)
         {
-            var game = new Game();
+            var game = new Game(new ConsoleIO());
             game.Play();
         }
     }

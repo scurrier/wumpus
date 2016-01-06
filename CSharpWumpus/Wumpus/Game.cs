@@ -9,6 +9,12 @@ namespace Wumpus
         private readonly Stack<int> ReturnLine = new Stack<int>();
         private int _nextLine;
         public Random random = new Random();
+        private IO _io;
+
+        public Game(IO io)
+        {
+            this._io = io;
+        }
 
         public void Play()
         {

@@ -6,11 +6,17 @@ namespace Wumpus
     [TestFixture]
     public class GameTest
     {
+        public class FakeIO : IO
+        {
+        }
+
         private Game testObj;
+        private FakeIO io;
         [SetUp]
         public void SetUp()
         {
-            testObj = new Game();
+            io = new FakeIO();
+            testObj = new Game(io);
             testObj.random = new Random(0); //seed random for expected results
         }
 
