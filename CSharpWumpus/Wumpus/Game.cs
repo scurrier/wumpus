@@ -5,12 +5,12 @@ namespace Wumpus
 {
     public class Game
     {
-        private static int _currentLine;
-        private static readonly Stack<int> ReturnLine = new Stack<int>();
-        private static int _nextLine;
-        public static Random random = new Random();
+        private int _currentLine;
+        private readonly Stack<int> ReturnLine = new Stack<int>();
+        private int _nextLine;
+        public Random random = new Random();
 
-        public static void Play()
+        public void Play()
         {
             try
             {
@@ -719,31 +719,31 @@ namespace Wumpus
             }
         }
 
-        private static void gosub(int gosubLine, int lineToReturnTo) {
+        private void gosub(int gosubLine, int lineToReturnTo) {
             _nextLine = gosubLine;
             ReturnLine.Push(lineToReturnTo);
         }
 
-        private static void returnFromGosub() {
+        private void returnFromGosub() {
             if (ReturnLine.Count == 0)
                 _nextLine = 1151;
             else
                 _nextLine = ReturnLine.Pop();
         }
 
-        public static int fnA() {
+        public int fnA() {
             return random.Next(20) + 1;
         }
 
-        public static int fnB() {
+        public int fnB() {
             return random.Next(3) + 1;
         }
 
-        public static int fnC() {
+        public int fnC() {
             return random.Next(4) + 1;
         }
 
-        public static int readInt()
+        public int readInt()
         {
             var readLine = Console.ReadLine() ?? "0";
             return int.Parse(readLine);
