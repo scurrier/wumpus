@@ -8,5 +8,9 @@ namespace Wumpus
 {
     public interface IO
     {
+        void WriteLine(string data);
+        void Prompt(string data);
+        char ReadChar();
+        int readInt();
     }
 }

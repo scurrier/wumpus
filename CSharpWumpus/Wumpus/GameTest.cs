@@ -8,6 +8,25 @@ namespace Wumpus
     {
         public class FakeIO : IO
         {
+            public void WriteLine(string data)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Prompt(string data)
+            {
+                throw new NotImplementedException();
+            }
+
+            public char ReadChar()
+            {
+                throw new NotImplementedException();
+            }
+
+            public int readInt()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private Game testObj;
