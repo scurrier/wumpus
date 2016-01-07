@@ -175,7 +175,6 @@ namespace Wumpus
             testObj.EarlyExit = 35;
             io.CharInput.Enqueue('N');
             testObj.Play();
-            //Assert.AreEqual(2, io.ContinueCount);
             CollectionAssert.AreEqual(new string[]
             {
             }, io.CollectedWrites);
