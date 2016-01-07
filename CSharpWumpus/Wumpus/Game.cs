@@ -261,8 +261,7 @@ namespace Wumpus
                             break; // 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
                         case 440:
                             _io.WriteLine("HIT RETURN TO CONTINUE");
-                            Console.Read();
-                            Console.Read();
+                            Continue();
                             break; // 440 input "HIT RETURN TO CONTINUE";a$
                         case 445:
                             _io.WriteLine("     WUMPUS:");
@@ -332,8 +331,7 @@ namespace Wumpus
                             break; // 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
                         case 540:
                             _io.WriteLine("HIT RETURN TO CONTINUE");
-                            Console.Read();
-                            Console.Read();
+                            Continue();
                             break; // 540 input "HIT RETURN TO CONTINUE";a$
                         case 545:
                             _io.WriteLine("    WARNINGS:");
@@ -717,6 +715,12 @@ namespace Wumpus
                 // TODO Auto-generated catch block
                 _io.WriteLine(e.StackTrace);
             }
+        }
+
+        public void Continue()
+        {
+            Console.Read();
+            Console.Read();
         }
 
         private void gosub(int gosubLine, int lineToReturnTo) {
