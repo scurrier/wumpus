@@ -52,7 +52,7 @@ namespace Wumpus
                         case 10:
                             break; // 10 dim p(5)
                         case 15:
-                            Console.Write("INSTRUCTIONS (Y-N) ");
+                            Prompt("INSTRUCTIONS (Y-N) ");
                             break; // 15 print "INSTRUCTIONS (Y-N)";
                         case 20:
                             istr = ReadChar();
@@ -204,7 +204,7 @@ namespace Wumpus
                             if (j <= 6) _nextLine = 345;
                             break; // 350 next j
                         case 355:
-                            Console.Write("SAME SETUP (Y-N)");
+                            Prompt("SAME SETUP (Y-N)");
                             break; // 355 print "SAME SETUP (Y-N)";
                         case 360:
                             istr = ReadChar();
@@ -416,15 +416,15 @@ namespace Wumpus
                             if (j <= 6) _nextLine = 600;
                             break; // 645 next j
                         case 650:
-                            Console.Write("YOUR ARE IN ROOM ");
+                            Prompt("YOUR ARE IN ROOM ");
                             Console.WriteLine(l[1]);
                             break; // 650 print "YOU ARE IN ROOM ";l(1)
                         case 655:
-                            Console.Write("TUNNELS LEAD TO ");
-                            Console.Write(s[ll, 1]); // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-                            Console.Write(" ");
-                            Console.Write(s[ll, 2]);
-                            Console.Write(" ");
+                            Prompt("TUNNELS LEAD TO ");
+                            Prompt(s[ll, 1].ToString()); // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
+                            Prompt(" ");
+                            Prompt(s[ll, 2].ToString());
+                            Prompt(" ");
                             Console.WriteLine(s[ll, 3]);
                             break;
                         case 660:
@@ -436,7 +436,7 @@ namespace Wumpus
                         case 670:
                             break; // 670 rem *** CHOOSE OPTION ***
                         case 675:
-                            Console.Write("SHOOT OR MOVE (S-M) ");
+                            Prompt("SHOOT OR MOVE (S-M) ");
                             break; // 675 print "SHOOT OR MOVE (S-M)";
                         case 680:
                             istr = ReadChar();
@@ -467,7 +467,7 @@ namespace Wumpus
                         case 725:
                             break; // 725 rem *** PATH OF ARROW ***
                         case 735:
-                            Console.Write("NO. OF ROOMS (1-5) ");
+                            Prompt("NO. OF ROOMS (1-5) ");
                             break; // 735 print "NO. OF ROOMS (1-5)";
                         case 740:
                             j9 = readInt();
@@ -482,7 +482,7 @@ namespace Wumpus
                             k = 1;
                             break; // 755 for k = 1 to j9
                         case 760:
-                            Console.Write("ROOM # ");
+                            Prompt("ROOM # ");
                             break; // 760 print "ROOM #";
                         case 765:
                             p[k] = readInt();
@@ -613,7 +613,7 @@ namespace Wumpus
                             f = 0;
                             break; // 980 f = 0
                         case 985:
-                            Console.Write("WHERE TO ");
+                            Prompt("WHERE TO ");
                             break; // 985 print "WHERE TO";
                         case 990:
                             ll = readInt();
@@ -640,7 +640,7 @@ namespace Wumpus
                             if (ll == l[1]) _nextLine = 1045;
                             break; // 1025 if l = l(1) then 1045
                         case 1030:
-                            Console.Write("NOT POSSIBLE - ");
+                            Prompt("NOT POSSIBLE - ");
                             break; // 1030 print "NOT POSSIBLE -";
                         case 1035:
                             _nextLine = 985;
@@ -717,6 +717,11 @@ namespace Wumpus
                 // TODO Auto-generated catch block
                 Console.WriteLine(e.StackTrace);
             }
+        }
+
+        private void Prompt(string data)
+        {
+            Console.Write(data);
         }
 
         private char ReadChar()
