@@ -285,5 +285,35 @@ namespace Wumpus
             }, io.AllStrings);
         }
 
+        [TestCase]
+        public void pinningShootAndWin()
+        {
+            testObj.EarlyExit = 355;
+            io.CharInput.Enqueue('N');
+            io.CharInput.Enqueue('S');
+            io.IntInput.Enqueue(4);
+            io.IntInput.Enqueue(3);
+            io.IntInput.Enqueue(12);
+            io.IntInput.Enqueue(11);
+            io.IntInput.Enqueue(10);
+            testObj.Play();
+            CollectionAssert.AreEqual(new string[]
+            {
+                "INSTRUCTIONS (Y-N) ",
+                "HUNT THE WUMPUS",
+                "",
+                "YOUR ARE IN ROOM ", "4",
+                "TUNNELS LEAD TO ", "3", " ", "5", " ", "14",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "NO. OF ROOMS (1-5) ",
+                "ROOM # ",
+                "ROOM # ",
+                "ROOM # ",
+                "ROOM # ",
+                "AHA! YOU GOT THE WUMPUS!",
+                "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+            }, io.AllStrings);
+        }
     }
 }
