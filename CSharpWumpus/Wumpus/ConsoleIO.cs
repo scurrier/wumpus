@@ -27,5 +27,11 @@ namespace Wumpus
             var readLine = Console.ReadLine() ?? "0";
             return int.Parse(readLine);
         }
+
+        public void Continue()
+        {
+            Console.Read();
+            Console.Read();
+        }
     }
 }

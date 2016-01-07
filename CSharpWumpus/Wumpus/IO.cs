@@ -12,5 +12,6 @@ namespace Wumpus
         void Prompt(string data);
         char ReadChar();
         int readInt();
+        void Continue();
     }
 }

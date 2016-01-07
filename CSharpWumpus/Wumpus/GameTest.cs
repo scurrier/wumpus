@@ -27,6 +27,11 @@ namespace Wumpus
             {
                 throw new NotImplementedException();
             }
+
+            public void Continue()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private Game testObj;
