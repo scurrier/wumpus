@@ -29,7 +29,7 @@ namespace Wumpus
 
             public char ReadChar()
             {
-                return '0';
+                return CharInput.Dequeue();
             }
 
             public int readInt()
@@ -162,5 +162,18 @@ namespace Wumpus
             ""
             }, io.CollectedWrites);
         }
+
+        [TestCase]
+        public void testNoInstructions()
+        {
+            testObj.EarlyExit = 35;
+            io.CharInput.Enqueue('N');
+            testObj.Play();
+            //Assert.AreEqual(2, io.ContinueCount);
+            CollectionAssert.AreEqual(new string[]
+            {
+            }, io.CollectedWrites);
+        }
+
     }
 }

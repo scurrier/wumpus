@@ -222,143 +222,47 @@ namespace Wumpus
                             break; // 375 rem *** INSTRUCTIONS ***
                         case 380:
                             _io.WriteLine("WELCOME TO 'HUNT THE WUMPUS'");
-                            break; // 380 print "WELCOME TO 'HUNT THE WUMPUS'"
-                        case 385:
-                            _io.WriteLine( // 385 print
-                                "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");
-                            break; // "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
-                        case 390:
+                            _io.WriteLine("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");
                             _io.WriteLine("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");
-                            break; // 390 print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
-                        case 395:
-                            _io.WriteLine( // 395 print
-                                "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");
-                            break; // "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
-                        case 400:
+                            _io.WriteLine("DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");
                             _io.WriteLine("WHAT A DODECAHEDRON IS, ASK SOMEONE)");
-                            break; // 400 print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
-                        case 405:
                             _io.WriteLine("");
-                            break; // 405 print
-                        case 410:
                             _io.WriteLine("     HAZARDS:");
-                            break; // 410 print "     HAZARDS:"
-                        case 415:
-                            _io.WriteLine( // 415 print
-                                " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");
-                            break; // " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
-                        case 420:
-                            _io.WriteLine( // 420 print
-                                "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");
-                            break; // "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
-                        case 425:
-                            _io.WriteLine( // 425 print
-                                " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");
-                            break; // " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
-                        case 430:
-                            _io.WriteLine( // 430 print
-                                "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");
-                            break; // "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
-                        case 435:
+                            _io.WriteLine(" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");
+                            _io.WriteLine("     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");
+                            _io.WriteLine(" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");
+                            _io.WriteLine("     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");
                             _io.WriteLine("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");
-                            break; // 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-                        case 440:
                             _io.WriteLine("HIT RETURN TO CONTINUE");
                             _io.Continue();
-                            break; // 440 input "HIT RETURN TO CONTINUE";a$
-                        case 445:
                             _io.WriteLine("     WUMPUS:");
-                            break; // 445 print "     WUMPUS:"
-                        case 450:
-                            _io.WriteLine( // 450 print
-                                " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");
-                            break; // " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
-                        case 455:
+                            _io.WriteLine(" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");
                             _io.WriteLine(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY");
-                            break; // 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
-                        case 460:
-                            _io.WriteLine( // 460 print
-                                " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");
-                            break; // " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN"
-                        case 465:
+                            _io.WriteLine(" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");
                             _io.WriteLine("ARROW OR YOU ENTERING HIS ROOM.");
-                            break; // 465 print "ARROW OR YOU ENTERING HIS ROOM."
-                        case 470:
-                            _io.WriteLine( // 470 print
-                                "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");
-                            break; // "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
-                        case 475:
-                            _io.WriteLine( // 475 print
-                                " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");
-                            break; // " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
-                        case 480:
+                            _io.WriteLine("     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");
+                            _io.WriteLine(" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");
                             _io.WriteLine(" ARE, HE EATS YOU UP AND YOU LOSE!");
-                            break; // 480 print " ARE, HE EATS YOU UP AND YOU LOSE!"
-                        case 485:
                             _io.WriteLine("");
-                            break; // 485 print
-                        case 490:
                             _io.WriteLine("     YOU:");
-                            break; // 490 print "     YOU:"
-                        case 495:
                             _io.WriteLine(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW");
-                            break; // 495 print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
-                        case 500:
-                            _io.WriteLine( // 500 print
-                                "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");
-                            break; // "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
-                        case 505:
-                            _io.WriteLine( // 505 print
-                                "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");
-                            break; // "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
-                        case 510:
-                            _io.WriteLine( // 510 print
-                                "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");
-                            break; // "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
-                        case 515:
-                            _io.WriteLine( // 515 print
-                                "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");
-                            break; // "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
-                        case 520:
-                            _io.WriteLine( // 520 print
-                                "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES");
-                            break; // "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
-                        case 525:
+                            _io.WriteLine("   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");
+                            _io.WriteLine("   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");
+                            _io.WriteLine("   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");
+                            _io.WriteLine("   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");
+                            _io.WriteLine("   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES");
                             _io.WriteLine("   AT RANDOM TO THE NEXT ROOM.");
-                            break; // 525 print "   AT RANDOM TO THE NEXT ROOM."
-                        case 530:
                             _io.WriteLine("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");
-                            break; // 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
-                        case 535:
                             _io.WriteLine("     IF THE ARROW HITS YOU, YOU LOSE.");
-                            break; // 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-                        case 540:
                             _io.WriteLine("HIT RETURN TO CONTINUE");
                             _io.Continue();
-                            break; // 540 input "HIT RETURN TO CONTINUE";a$
-                        case 545:
                             _io.WriteLine("    WARNINGS:");
-                            break; // 545 print "    WARNINGS:"
-                        case 550:
-                            _io.WriteLine( // 550 print
-                                "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");
-                            break; // "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
-                        case 555:
+                            _io.WriteLine("     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");
                             _io.WriteLine("     THE COMPUTER SAYS:");
-                            break; // 555 print "     THE COMPUTER SAYS:"
-                        case 560:
                             _io.WriteLine(" WUMPUS:  'I SMELL A WUMPUS'");
-                            break; // 560 print " WUMPUS:  'I SMELL A WUMPUS'"
-                        case 565:
                             _io.WriteLine(" BAT   :  'BATS NEARBY'");
-                            break; // 565 print " BAT   :  'BATS NEARBY'"
-                        case 570:
                             _io.WriteLine(" PIT   :  'I FEEL A DRAFT'");
-                            break; // 570 print " PIT   :  'I FEEL A DRAFT'"
-                        case 575:
                             _io.WriteLine("");
-                            break; // 575 print
-                        case 580:
                             returnFromGosub();
                             break; // 580 return
                         case 585:
