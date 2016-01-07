@@ -14,7 +14,10 @@ namespace Wumpus
         public Game(IO io)
         {
             this._io = io;
+            EarlyExit = 1150;
         }
+
+        public int EarlyExit { get; set; } //TODO remove after refactoring so that this isn't needed by tests
 
         public void Play()
         {
@@ -42,7 +45,7 @@ namespace Wumpus
                 int k = 0;
                 int k1 = 0;
                 int j9 = 0;
-                while (_currentLine <= 1150)
+                while (_currentLine <= 1150 && EarlyExit != _currentLine)
                 {
                     _nextLine = _currentLine + 1;
                     switch (_currentLine)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Wumpus
@@ -8,30 +9,35 @@ namespace Wumpus
     {
         public class FakeIO : IO
         {
+            public FakeIO()
+            {
+                CollectedPrompts = new List<string>();
+            }
+
             public void WriteLine(string data)
             {
-                throw new NotImplementedException();
             }
 
             public void Prompt(string data)
             {
-                throw new NotImplementedException();
+                CollectedPrompts.Add(data);
             }
 
             public char ReadChar()
             {
-                throw new NotImplementedException();
+                return '0';
             }
 
             public int readInt()
             {
-                throw new NotImplementedException();
+                return 0;
             }
 
             public void Continue()
             {
-                throw new NotImplementedException();
             }
+
+            public List<string> CollectedPrompts { get; set; }
         }
 
         private Game testObj;
@@ -87,6 +93,14 @@ namespace Wumpus
             Assert.AreEqual(2, testObj.fnC());
             Assert.AreEqual(4, testObj.fnC());
             Assert.AreEqual(2, testObj.fnC());
+        }
+
+        [TestCase]
+        public void testEarlyExit()
+        {
+            testObj.EarlyExit = 20;
+            testObj.Play();
+            CollectionAssert.AreEqual(new string[]{ "INSTRUCTIONS (Y-N) "}, io.CollectedPrompts);
         }
     }
 }
