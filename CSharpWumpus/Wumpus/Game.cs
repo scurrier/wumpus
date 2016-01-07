@@ -55,9 +55,7 @@ namespace Wumpus
                             Console.Write("INSTRUCTIONS (Y-N) ");
                             break; // 15 print "INSTRUCTIONS (Y-N)";
                         case 20:
-                            istr = (char) Console.Read();
-                            Console.Read();
-                            Console.Read();
+                            istr = ReadChar();
                             break; // 20 input i$
                         case 25:
                             if (istr == 'N' || istr == 'n') _nextLine = 35;
@@ -209,9 +207,7 @@ namespace Wumpus
                             Console.Write("SAME SETUP (Y-N)");
                             break; // 355 print "SAME SETUP (Y-N)";
                         case 360:
-                            istr = (char) Console.Read();
-                            Console.Read();
-                            Console.Read();
+                            istr = ReadChar();
                             break; // 360 input i$
                         case 365:
                             if (istr != 'Y' && istr != 'y') _nextLine = 170;
@@ -443,9 +439,7 @@ namespace Wumpus
                             Console.Write("SHOOT OR MOVE (S-M) ");
                             break; // 675 print "SHOOT OR MOVE (S-M)";
                         case 680:
-                            istr = (char) Console.Read();
-                            Console.Read();
-                            Console.Read();
+                            istr = ReadChar();
                             break; // 680 input i$
                         case 685:
                             if (istr != 'S' && istr != 's') _nextLine = 700;
@@ -723,6 +717,14 @@ namespace Wumpus
                 // TODO Auto-generated catch block
                 Console.WriteLine(e.StackTrace);
             }
+        }
+
+        private char ReadChar()
+        {
+            char istr = (char) Console.Read();
+            Console.Read();
+            Console.Read();
+            return istr;
         }
 
         private void gosub(int gosubLine, int lineToReturnTo) {
