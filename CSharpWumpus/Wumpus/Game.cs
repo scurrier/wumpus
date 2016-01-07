@@ -135,7 +135,7 @@ namespace Wumpus
                         case 240:
                             break; // 240 rem *** RUN THE GAME ***
                         case 245:
-                            Console.WriteLine("HUNT THE WUMPUS");
+                            WriteLine("HUNT THE WUMPUS");
                             break; // 245 print "HUNT THE WUMPUS"
                         case 250:
                             break; // 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -183,7 +183,7 @@ namespace Wumpus
                         case 315:
                             break; // 315 rem *** LOSE ***
                         case 320:
-                            Console.WriteLine("HA HA HA - YOU LOSE!");
+                            WriteLine("HA HA HA - YOU LOSE!");
                             break; // 320 print "HA HA HA - YOU LOSE!"
                         case 325:
                             _nextLine = 340;
@@ -191,7 +191,7 @@ namespace Wumpus
                         case 330:
                             break; // 330 rem *** WIN ***
                         case 335:
-                            Console.WriteLine("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
+                            WriteLine("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!");
                             break; // 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
                         case 340:
                             j = 1;
@@ -218,144 +218,144 @@ namespace Wumpus
                         case 375:
                             break; // 375 rem *** INSTRUCTIONS ***
                         case 380:
-                            Console.WriteLine("WELCOME TO 'HUNT THE WUMPUS'");
+                            WriteLine("WELCOME TO 'HUNT THE WUMPUS'");
                             break; // 380 print "WELCOME TO 'HUNT THE WUMPUS'"
                         case 385:
-                            Console.WriteLine( // 385 print
+                            WriteLine( // 385 print
                                 "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");
                             break; // "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
                         case 390:
-                            Console.WriteLine("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");
+                            WriteLine("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");
                             break; // 390 print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
                         case 395:
-                            Console.WriteLine( // 395 print
+                            WriteLine( // 395 print
                                 "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");
                             break; // "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
                         case 400:
-                            Console.WriteLine("WHAT A DODECAHEDRON IS, ASK SOMEONE)");
+                            WriteLine("WHAT A DODECAHEDRON IS, ASK SOMEONE)");
                             break; // 400 print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
                         case 405:
-                            Console.WriteLine("");
+                            WriteLine("");
                             break; // 405 print
                         case 410:
-                            Console.WriteLine("     HAZARDS:");
+                            WriteLine("     HAZARDS:");
                             break; // 410 print "     HAZARDS:"
                         case 415:
-                            Console.WriteLine( // 415 print
+                            WriteLine( // 415 print
                                 " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");
                             break; // " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
                         case 420:
-                            Console.WriteLine( // 420 print
+                            WriteLine( // 420 print
                                 "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");
                             break; // "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
                         case 425:
-                            Console.WriteLine( // 425 print
+                            WriteLine( // 425 print
                                 " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");
                             break; // " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
                         case 430:
-                            Console.WriteLine( // 430 print
+                            WriteLine( // 430 print
                                 "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");
                             break; // "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
                         case 435:
-                            Console.WriteLine("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");
+                            WriteLine("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");
                             break; // 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
                         case 440:
-                            Console.WriteLine("HIT RETURN TO CONTINUE");
+                            WriteLine("HIT RETURN TO CONTINUE");
                             Console.Read();
                             Console.Read();
                             break; // 440 input "HIT RETURN TO CONTINUE";a$
                         case 445:
-                            Console.WriteLine("     WUMPUS:");
+                            WriteLine("     WUMPUS:");
                             break; // 445 print "     WUMPUS:"
                         case 450:
-                            Console.WriteLine( // 450 print
+                            WriteLine( // 450 print
                                 " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");
                             break; // " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
                         case 455:
-                            Console.WriteLine(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY");
+                            WriteLine(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY");
                             break; // 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
                         case 460:
-                            Console.WriteLine( // 460 print
+                            WriteLine( // 460 print
                                 " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");
                             break; // " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN"
                         case 465:
-                            Console.WriteLine("ARROW OR YOU ENTERING HIS ROOM.");
+                            WriteLine("ARROW OR YOU ENTERING HIS ROOM.");
                             break; // 465 print "ARROW OR YOU ENTERING HIS ROOM."
                         case 470:
-                            Console.WriteLine( // 470 print
+                            WriteLine( // 470 print
                                 "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");
                             break; // "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
                         case 475:
-                            Console.WriteLine( // 475 print
+                            WriteLine( // 475 print
                                 " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");
                             break; // " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
                         case 480:
-                            Console.WriteLine(" ARE, HE EATS YOU UP AND YOU LOSE!");
+                            WriteLine(" ARE, HE EATS YOU UP AND YOU LOSE!");
                             break; // 480 print " ARE, HE EATS YOU UP AND YOU LOSE!"
                         case 485:
-                            Console.WriteLine("");
+                            WriteLine("");
                             break; // 485 print
                         case 490:
-                            Console.WriteLine("     YOU:");
+                            WriteLine("     YOU:");
                             break; // 490 print "     YOU:"
                         case 495:
-                            Console.WriteLine(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW");
+                            WriteLine(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW");
                             break; // 495 print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
                         case 500:
-                            Console.WriteLine( // 500 print
+                            WriteLine( // 500 print
                                 "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");
                             break; // "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
                         case 505:
-                            Console.WriteLine( // 505 print
+                            WriteLine( // 505 print
                                 "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");
                             break; // "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
                         case 510:
-                            Console.WriteLine( // 510 print
+                            WriteLine( // 510 print
                                 "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");
                             break; // "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
                         case 515:
-                            Console.WriteLine( // 515 print
+                            WriteLine( // 515 print
                                 "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");
                             break; // "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
                         case 520:
-                            Console.WriteLine( // 520 print
+                            WriteLine( // 520 print
                                 "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES");
                             break; // "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
                         case 525:
-                            Console.WriteLine("   AT RANDOM TO THE NEXT ROOM.");
+                            WriteLine("   AT RANDOM TO THE NEXT ROOM.");
                             break; // 525 print "   AT RANDOM TO THE NEXT ROOM."
                         case 530:
-                            Console.WriteLine("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");
+                            WriteLine("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");
                             break; // 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
                         case 535:
-                            Console.WriteLine("     IF THE ARROW HITS YOU, YOU LOSE.");
+                            WriteLine("     IF THE ARROW HITS YOU, YOU LOSE.");
                             break; // 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
                         case 540:
-                            Console.WriteLine("HIT RETURN TO CONTINUE");
+                            WriteLine("HIT RETURN TO CONTINUE");
                             Console.Read();
                             Console.Read();
                             break; // 540 input "HIT RETURN TO CONTINUE";a$
                         case 545:
-                            Console.WriteLine("    WARNINGS:");
+                            WriteLine("    WARNINGS:");
                             break; // 545 print "    WARNINGS:"
                         case 550:
-                            Console.WriteLine( // 550 print
+                            WriteLine( // 550 print
                                 "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");
                             break; // "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
                         case 555:
-                            Console.WriteLine("     THE COMPUTER SAYS:");
+                            WriteLine("     THE COMPUTER SAYS:");
                             break; // 555 print "     THE COMPUTER SAYS:"
                         case 560:
-                            Console.WriteLine(" WUMPUS:  'I SMELL A WUMPUS'");
+                            WriteLine(" WUMPUS:  'I SMELL A WUMPUS'");
                             break; // 560 print " WUMPUS:  'I SMELL A WUMPUS'"
                         case 565:
-                            Console.WriteLine(" BAT   :  'BATS NEARBY'");
+                            WriteLine(" BAT   :  'BATS NEARBY'");
                             break; // 565 print " BAT   :  'BATS NEARBY'"
                         case 570:
-                            Console.WriteLine(" PIT   :  'I FEEL A DRAFT'");
+                            WriteLine(" PIT   :  'I FEEL A DRAFT'");
                             break; // 570 print " PIT   :  'I FEEL A DRAFT'"
                         case 575:
-                            Console.WriteLine("");
+                            WriteLine("");
                             break; // 575 print
                         case 580:
                             returnFromGosub();
@@ -363,7 +363,7 @@ namespace Wumpus
                         case 585:
                             break; // 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
                         case 590:
-                            Console.WriteLine("");
+                            WriteLine("");
                             break; // 590 print
                         case 595:
                             j = 2;
@@ -393,19 +393,19 @@ namespace Wumpus
                             ;
                             break;
                         case 615:
-                            Console.WriteLine("I SMELL A WUMPUS!");
+                            WriteLine("I SMELL A WUMPUS!");
                             break; // 615 print "I SMELL A WUMPUS!"
                         case 620:
                             _nextLine = 640;
                             break; // 620 goto 640
                         case 625:
-                            Console.WriteLine("I FEEL A DRAFT");
+                            WriteLine("I FEEL A DRAFT");
                             break; // 625 print "I FEEL A DRAFT"
                         case 630:
                             _nextLine = 640;
                             break; // 630 goto 640
                         case 635:
-                            Console.WriteLine("BATS NEARBY!");
+                            WriteLine("BATS NEARBY!");
                             break; // 635 print "BATS NEARBY!"
                         case 640:
                             ++k;
@@ -417,7 +417,7 @@ namespace Wumpus
                             break; // 645 next j
                         case 650:
                             Prompt("YOUR ARE IN ROOM ");
-                            Console.WriteLine(l[1]);
+                            WriteLine(l[1].ToString());
                             break; // 650 print "YOU ARE IN ROOM ";l(1)
                         case 655:
                             Prompt("TUNNELS LEAD TO ");
@@ -425,10 +425,10 @@ namespace Wumpus
                             Prompt(" ");
                             Prompt(s[ll, 2].ToString());
                             Prompt(" ");
-                            Console.WriteLine(s[ll, 3]);
+                            WriteLine(s[ll, 3].ToString());
                             break;
                         case 660:
-                            Console.WriteLine("");
+                            WriteLine("");
                             break; // 660 print
                         case 665:
                             returnFromGosub();
@@ -494,7 +494,7 @@ namespace Wumpus
                             if (p[k] != p[k - 2]) _nextLine = 790;
                             break; // 775 if p(k) <> p(k-2) then 790
                         case 780:
-                            Console.WriteLine("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");
+                            WriteLine("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM");
                             break; // 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
                         case 785:
                             _nextLine = 760;
@@ -534,7 +534,7 @@ namespace Wumpus
                             if (k <= j9) _nextLine = 810;
                             break; // 840 next k
                         case 845:
-                            Console.WriteLine("MISSED");
+                            WriteLine("MISSED");
                             break; // 845 print "MISSED"
                         case 850:
                             ll = l[1];
@@ -567,7 +567,7 @@ namespace Wumpus
                             if (ll != l[2]) _nextLine = 920;
                             break; // 900 if l <> l(2) then 920
                         case 905:
-                            Console.WriteLine("AHA! YOU GOT THE WUMPUS!");
+                            WriteLine("AHA! YOU GOT THE WUMPUS!");
                             break; // 905 print "AHA! YOU GOT THE WUMPUS!"
                         case 910:
                             f = 1;
@@ -579,7 +579,7 @@ namespace Wumpus
                             if (ll != l[1]) _nextLine = 840;
                             break; // 920 if l <> l(1) then 840
                         case 925:
-                            Console.WriteLine("OUCH! ARROW GOT YOU!");
+                            WriteLine("OUCH! ARROW GOT YOU!");
                             break; // 925 print "OUCH! ARROW GOT YOU!"
                         case 930:
                             _nextLine = 880;
@@ -599,7 +599,7 @@ namespace Wumpus
                             if (l[2] != ll) _nextLine = 970;
                             break; // 955 if l(2) <> l then 970
                         case 960:
-                            Console.WriteLine("TSK TSK TSK - WUMPUS GOT YOU!");
+                            WriteLine("TSK TSK TSK - WUMPUS GOT YOU!");
                             break; // 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
                         case 965:
                             f = -1;
@@ -656,7 +656,7 @@ namespace Wumpus
                             if (ll != l[2]) _nextLine = 1090;
                             break; // 1055 if l <> l(2) then 1090
                         case 1060:
-                            Console.WriteLine("... OOPS! BUMPED A WUMPUS!");
+                            WriteLine("... OOPS! BUMPED A WUMPUS!");
                             break; // 1060 print "... OOPS! BUMPED A WUMPUS!"
                         case 1065:
                             break; // 1065 rem *** MOVE WUMPUS ***
@@ -678,7 +678,7 @@ namespace Wumpus
                             if (ll != l[4]) _nextLine = 1120;
                             break; // 1095 if l <> l(4) then 1120
                         case 1100:
-                            Console.WriteLine("YYYYIIIIEEEE . . . FELL IN PIT");
+                            WriteLine("YYYYIIIIEEEE . . . FELL IN PIT");
                             break; // 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
                         case 1105:
                             f = -1;
@@ -695,7 +695,7 @@ namespace Wumpus
                             if (ll != l[6]) _nextLine = 1145;
                             break; // 1125 if l <> l(6) then 1145
                         case 1130:
-                            Console.WriteLine("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
+                            WriteLine("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!");
                             break; // 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
                         case 1135:
                             ll = fnA();
@@ -715,8 +715,13 @@ namespace Wumpus
             catch (Exception e)
             {
                 // TODO Auto-generated catch block
-                Console.WriteLine(e.StackTrace);
+                WriteLine(e.StackTrace);
             }
+        }
+
+        private void WriteLine(string data)
+        {
+            Console.WriteLine(data);
         }
 
         private void Prompt(string data)
