@@ -219,7 +219,7 @@ namespace Wumpus
                             _nextLine = 230;
                             break; // 370 goto 230
                         case 375:
-                            GiveInstructions();
+                            _io.GiveInstructions();
                             returnFromGosub();
                             break; // 580 return
                         case 585:
@@ -579,52 +579,6 @@ namespace Wumpus
                 // TODO Auto-generated catch block
                 _io.WriteLine(e.StackTrace);
             }
-        }
-
-        private void GiveInstructions()
-        {
-            _io.WriteLine("WELCOME TO 'HUNT THE WUMPUS'");
-            _io.WriteLine("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM");
-            _io.WriteLine("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A");
-            _io.WriteLine("DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW");
-            _io.WriteLine("WHAT A DODECAHEDRON IS, ASK SOMEONE)");
-            _io.WriteLine("");
-            _io.WriteLine("     HAZARDS:");
-            _io.WriteLine(" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM");
-            _io.WriteLine("     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)");
-            _io.WriteLine(" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU");
-            _io.WriteLine("     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER");
-            _io.WriteLine("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)");
-            _io.WriteLine("HIT RETURN TO CONTINUE");
-            _io.Continue();
-            _io.WriteLine("     WUMPUS:");
-            _io.WriteLine(" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER");
-            _io.WriteLine(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY");
-            _io.WriteLine(" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN");
-            _io.WriteLine("ARROW OR YOU ENTERING HIS ROOM.");
-            _io.WriteLine("     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM");
-            _io.WriteLine(" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU");
-            _io.WriteLine(" ARE, HE EATS YOU UP AND YOU LOSE!");
-            _io.WriteLine("");
-            _io.WriteLine("     YOU:");
-            _io.WriteLine(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW");
-            _io.WriteLine("   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)");
-            _io.WriteLine("   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT");
-            _io.WriteLine("   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING");
-            _io.WriteLine("   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.");
-            _io.WriteLine("   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES");
-            _io.WriteLine("   AT RANDOM TO THE NEXT ROOM.");
-            _io.WriteLine("     IF THE ARROW HITS THE WUMPUS, YOU WIN.");
-            _io.WriteLine("     IF THE ARROW HITS YOU, YOU LOSE.");
-            _io.WriteLine("HIT RETURN TO CONTINUE");
-            _io.Continue();
-            _io.WriteLine("    WARNINGS:");
-            _io.WriteLine("     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,");
-            _io.WriteLine("     THE COMPUTER SAYS:");
-            _io.WriteLine(" WUMPUS:  'I SMELL A WUMPUS'");
-            _io.WriteLine(" BAT   :  'BATS NEARBY'");
-            _io.WriteLine(" PIT   :  'I FEEL A DRAFT'");
-            _io.WriteLine("");
         }
 
         private void gosub(int gosubLine, int lineToReturnTo) {

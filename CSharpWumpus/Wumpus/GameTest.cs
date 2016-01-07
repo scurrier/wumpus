@@ -17,27 +17,27 @@ namespace Wumpus
                 CharInput = new Queue<char>();
             }
 
-            public void WriteLine(string data)
+            public override void WriteLine(string data)
             {
                 CollectedWrites.Add(data);
             }
 
-            public void Prompt(string data)
+            public override void Prompt(string data)
             {
                 CollectedPrompts.Add(data);
             }
 
-            public char ReadChar()
+            public override char ReadChar()
             {
                 return CharInput.Dequeue();
             }
 
-            public int readInt()
+            public override int readInt()
             {
                 return 0;
             }
 
-            public void Continue()
+            public override void Continue()
             {
                 ContinueCount++;
             }
