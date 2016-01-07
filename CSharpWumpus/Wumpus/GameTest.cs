@@ -214,5 +214,76 @@ namespace Wumpus
             }, io.AllStrings);
         }
 
+        [TestCase]
+        public void pinningCarryBumpMissEaten()
+        {
+            testObj.EarlyExit = 355;
+            io.CharInput.Enqueue('N');
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(14);
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(13);
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(8);
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(9);
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(10);
+            io.CharInput.Enqueue('S');
+            io.IntInput.Enqueue(1);
+            io.IntInput.Enqueue(11);
+            testObj.Play();
+            CollectionAssert.AreEqual(new string[]
+            {
+                "INSTRUCTIONS (Y-N) ",
+                "HUNT THE WUMPUS",
+                "",
+                "YOUR ARE IN ROOM ", "4",
+                "TUNNELS LEAD TO ", "3", " ", "5", " ", "14",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "",
+                "BATS NEARBY!",
+                "YOUR ARE IN ROOM ", "14",
+                "TUNNELS LEAD TO ", "4", " ", "13", " ", "15",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!",
+                "",
+                "YOUR ARE IN ROOM ", "1",
+                "TUNNELS LEAD TO ", "2", " ", "5", " ", "8",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "",
+                "YOUR ARE IN ROOM ", "8",
+                "TUNNELS LEAD TO ", "1", " ", "7", " ", "9",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "",
+                "I SMELL A WUMPUS!",
+                "YOUR ARE IN ROOM ", "9",
+                "TUNNELS LEAD TO ", "8", " ", "10", " ", "18",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "... OOPS! BUMPED A WUMPUS!",
+                "",
+                "I SMELL A WUMPUS!",
+                "YOUR ARE IN ROOM ", "10",
+                "TUNNELS LEAD TO ", "2", " ", "9", " ", "11",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "NO. OF ROOMS (1-5) ",
+                "ROOM # ",
+                "MISSED",
+                "TSK TSK TSK - WUMPUS GOT YOU!",
+                "HA HA HA - YOU LOSE!"
+            }, io.AllStrings);
+        }
+
     }
 }
