@@ -14,16 +14,20 @@ namespace Wumpus
             {
                 CollectedPrompts = new List<string>();
                 CollectedWrites = new List<string>();
+                AllStrings = new List<string>();
                 CharInput = new Queue<char>();
+                IntInput = new Queue<int>();
             }
 
             public override void WriteLine(string data)
             {
+                AllStrings.Add(data);
                 CollectedWrites.Add(data);
             }
 
             public override void Prompt(string data)
             {
+                AllStrings.Add(data);
                 CollectedPrompts.Add(data);
             }
 
@@ -34,7 +38,7 @@ namespace Wumpus
 
             public override int readInt()
             {
-                return 0;
+                return IntInput.Dequeue();
             }
 
             public override void Continue()
@@ -44,7 +48,9 @@ namespace Wumpus
 
             public List<string> CollectedPrompts { get; set; }
             public List<string> CollectedWrites { get; set; }
+            public List<string> AllStrings { get; set; }
             public Queue<char> CharInput { get; set; }
+            public Queue<int> IntInput { get; set; }
             public int ContinueCount { get; set; }
         }
 
@@ -173,6 +179,39 @@ namespace Wumpus
             CollectionAssert.AreEqual(new string[]
             {
             }, io.CollectedWrites);
+        }
+
+        [TestCase]
+        public void pinningFallInPitTest()
+        {
+            testObj.EarlyExit = 355;
+            io.CharInput.Enqueue('N');
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(5);
+            io.CharInput.Enqueue('M');
+            io.IntInput.Enqueue(6);
+            io.CharInput.Enqueue('N');
+            testObj.Play();
+            CollectionAssert.AreEqual(new string[]
+            {
+                "INSTRUCTIONS (Y-N) ",
+                "HUNT THE WUMPUS",
+                "",
+                "YOUR ARE IN ROOM ", "4",
+                "TUNNELS LEAD TO ", "3", " ", "5", " ", "14",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "",
+                "I FEEL A DRAFT",
+                "YOUR ARE IN ROOM ", "5",
+                "TUNNELS LEAD TO ", "1", " ", "4", " ", "6",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "WHERE TO ",
+                "YYYYIIIIEEEE . . . FELL IN PIT",
+                "HA HA HA - YOU LOSE!"
+            }, io.AllStrings);
         }
 
     }
