@@ -410,5 +410,53 @@ namespace Wumpus
             }, io.AllStrings);
 
         }
+
+        [TestCase]
+        public void pinningDifferentSetup()
+        {
+            testObj.EarlyExit = 370;
+            io.CharInput.Enqueue('N');
+            io.CharInput.Enqueue('S');
+            io.IntInput.Enqueue(3);
+            io.IntInput.Enqueue(3);
+            io.IntInput.Enqueue(2);
+            io.IntInput.Enqueue(10);
+            io.CharInput.Enqueue('N');
+            io.CharInput.Enqueue('S');
+            io.IntInput.Enqueue(1);
+            io.IntInput.Enqueue(8);
+            io.CharInput.Enqueue('Y');
+            testObj.Play();
+            CollectionAssert.AreEqual(new string[]
+            {
+                "INSTRUCTIONS (Y-N) ",
+                "HUNT THE WUMPUS",
+                "",
+                "YOUR ARE IN ROOM ", "4",
+                "TUNNELS LEAD TO ", "3", " ", "5", " ", "14",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "NO. OF ROOMS (1-5) ",
+                "ROOM # ",
+                "ROOM # ",
+                "ROOM # ",
+                "AHA! YOU GOT THE WUMPUS!",
+                "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!",
+                "SAME SETUP (Y-N)",
+                "HUNT THE WUMPUS",
+                "",
+                "I SMELL A WUMPUS!",
+                "YOUR ARE IN ROOM ", "1",
+                "TUNNELS LEAD TO ", "2", " ", "5", " ", "8",
+                "",
+                "SHOOT OR MOVE (S-M) ",
+                "NO. OF ROOMS (1-5) ",
+                "ROOM # ",
+                "AHA! YOU GOT THE WUMPUS!",
+                "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!",
+                "SAME SETUP (Y-N)"
+            }, io.AllStrings);
+        }
+
     }
 }

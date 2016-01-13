@@ -8,6 +8,7 @@ namespace Wumpus
         static void Main(string[] args)
         {
             var game = new Game(new ConsoleIO());
+            game.random = new Random(0);
             game.Play();
         }
     }
