@@ -14,11 +14,7 @@ class Wumpus {
 		try {
 			currentLine = 5
 			var iS = '\u0000'
-			val s = arrayOf(arrayOf(0,0,0,0),
-			arrayOf(0,2,5,8), arrayOf(0,1,3,10), arrayOf(0,2,4,12), arrayOf(0,3,5,14), arrayOf(0,1,4,6),
-			arrayOf(0,5,7,15), arrayOf(0,6,8,17), arrayOf(0,1,7,9), arrayOf(0,8,10,18), arrayOf(0,2,9,11),
-			arrayOf(0,10,12,19), arrayOf(0,3,11,13), arrayOf(0,12,14,20), arrayOf(0,4,13,15), arrayOf(0,6,14,16),
-			arrayOf(0,15,17,20), arrayOf(0,7,16,18), arrayOf(0,9,17,19), arrayOf(0,11,18,20), arrayOf(0,13,16,19))
+			val map = Map()
 			val l = Array(7) {0}
             val m = Array(7) {0}
 			val p = Array(6) {0}
@@ -162,7 +158,7 @@ class Wumpus {
 				590 -> console.println("")																				// 590 print
 				595 -> j = 2																					// 595 for j = 2 to 6
 				600 -> k = 1																					// 600 for k = 1 to 3
-				605 -> if (s[l[1]][k] != l[j]) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
+					605 -> if (!map.nearByRoomHas(l[1], k, l[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
 				610 -> when(j-1) {																				// 610 on j-1 goto 615,625,625,635,635
 							1 -> nextLine = 615
 							2,3 -> nextLine = 625
@@ -177,9 +173,9 @@ class Wumpus {
 				645 -> { ++j; if (j <= 6) nextLine = 600 }														// 645 next j
 				650 -> { console.print("YOUR ARE IN ROOM "); console.println(l[1]) }											// 650 print "YOU ARE IN ROOM ";l(1)
 				655 -> { console.print("TUNNELS LEAD TO ")				                                                // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-					console.print(s[ll][1])
-					console.print(" "); console.print(s[ll][2])
-					console.print(" "); console.println(s[ll][3])
+					console.print(map.tunnelFrom(ll, 1))
+					console.print(" "); console.print(map.tunnelFrom(ll, 2))
+					console.print(" "); console.println(map.tunnelFrom(ll, 3))
 				}
 				660 -> console.println("")																		// 660 print
 				665 -> returnFromGosub()																		// 665 return
@@ -211,10 +207,10 @@ class Wumpus {
 				800 -> ll = l[1]																				// 800 l = l(1)
 				805 -> k = 1																					// 805 for k = 1 to j9
 				810 -> k1 = 1																					// 810 for k1 = 1 to 3
-				815 -> if (s[ll][k1] == p[k]) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
+				815 -> if (map.nearByRoomHas(ll, k1, p[k])) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
 				820 -> { ++k1; if (k1 <= 3) nextLine = 815 }													// 820 next k1
 				825 -> {}																						// 825 rem *** NO TUNNEL FOR ARROW ***
-				830 -> ll = s[ll][fnB()]																		// 830 l = s(l,fnb(1))
+				830 -> ll = map.tunnelFrom(ll, fnB())																		// 830 l = s(l,fnb(1))
 				835 -> nextLine = 900																			// 835 goto 900
 				840 -> { ++k; if (k <= j9) nextLine = 810 }														// 840 next k
 				845 -> console.println("MISSED")																		// 845 print "MISSED"
@@ -238,7 +234,7 @@ class Wumpus {
 				935 -> {}																						// 935 rem *** MOVE WUMPUS ROUTINE ***
 				940 -> k = fnC()																				// 940 k = fnc(0)
 				945 -> if (k == 4) nextLine = 955																// 945 if k = 4 then 955
-				950 -> l[2] = s[l[2]][k]																		// 950 l(2) = s(l(2),k)
+				950 -> l[2] = map.tunnelFrom(l[2], k)																		// 950 l(2) = s(l(2),k)
 				955 -> if (l[2] != ll) nextLine = 970															// 955 if l(2) <> l then 970
 				960 -> console.println("TSK TSK TSK - WUMPUS GOT YOU!")													// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 				965 -> f = -1																					// 965 f = -1
@@ -251,7 +247,7 @@ class Wumpus {
 				1000 -> if (ll > 20) nextLine = 985																// 1000 if l > 20 then 985
 				1005 -> k = 1																					// 1005 for k = 1 to 3
 				1010 -> {}																						// 1010 rem *** CHECK IF LEGAL MOVE ***
-				1015 -> if (s[l[1]][k] == ll) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
+				1015 -> if (map.nearByRoomHas(l[1], k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
 				1020 -> { ++k; if (k <= 3) nextLine = 1010 }													// 1020 next k
 				1025 -> if (ll == l[1]) nextLine = 1045															// 1025 if l = l(1) then 1045
 				1030 -> console.print("NOT POSSIBLE - ")																// 1030 print "NOT POSSIBLE -";
