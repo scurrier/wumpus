@@ -26,13 +26,13 @@ class Wumpus {
 		get() = l[5]
 	val bat2: Int
 		get() = l[6]
+	val gameState = GameState()
 
-	fun main(args: Array<String>) {
+	fun main() {
 		try {
 			currentLine = 5
 			val map = Map()
-			var aa = 5
-			var ll = aa
+			var ll = 0
 			var o = 1
 			var f = 0
 
@@ -81,7 +81,7 @@ class Wumpus {
 				215 -> { ++k; if (k <= 6) nextLine = 205 }														// 215 next k
 				220 -> { ++j; if (j <= 6) nextLine = 200 }														// 220 next j
 				225 -> {}																						// 225 rem *** SET NO. OF ARROWS ***
-				230 -> aa = 5																					// 230 a = 5
+				230 -> gameState.resetArrows()																					// 230 a = 5
 				235 -> ll = playerRoom																			// 235 l = l(1)
 				240 -> {}																						// 240 rem *** RUN THE GAME ***
 				245 -> console.println("HUNT THE WUMPUS")														// 245 print "HUNT THE WUMPUS"
@@ -177,8 +177,8 @@ class Wumpus {
 				855 -> {}																						// 855 rem *** MOVE WUMPUS ***
 				860 -> gosub(935, 865)													// 860 gosub 935
 				865 -> {}																						// 865 rem *** AMMO CHECK ***
-				870 -> aa -= 1																					// 870 a = a-1
-				875 -> if (aa > 0) nextLine = 885																// 875 if a > 0 then 885
+				870 -> gameState.consumeArrow()																					// 870 a = a-1
+				875 -> if (gameState.hasArrows()) nextLine = 885																// 875 if a > 0 then 885
 				880 -> f = -1																					// 880 f = -1
 				885 -> returnFromGosub()																		// 885 return
 				890 -> {}																						// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)

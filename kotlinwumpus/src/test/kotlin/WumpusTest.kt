@@ -78,7 +78,7 @@ class WumpusTest {
             2, 8, 9
         ))
         every { console.input(any()) } returns Unit
-        testObj.main(arrayOf())
+        testObj.main()
         verifyOrder {
             console.print("INSTRUCTIONS (Y-N) ")
             console.readln()
