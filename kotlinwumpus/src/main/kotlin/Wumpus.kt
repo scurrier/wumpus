@@ -30,7 +30,6 @@ class Wumpus {
 	fun main(args: Array<String>) {
 		try {
 			currentLine = 5
-			var iS = '\u0000'
 			val map = Map()
 			var aa = 5
 			var ll = aa
@@ -46,11 +45,12 @@ class Wumpus {
 				when (currentLine) {
 				5 -> {}										 													// 5 rem *** HUNT THE WUMPUS ***
 				10 -> {}					 																	// 10 dim p(5)
-				15 -> console.print("INSTRUCTIONS (Y-N) ")																// 15 print "INSTRUCTIONS (Y-N)";
-				20 -> { iS = console.readln() }	 								// 20 input i$
-				25 -> if (iS == 'N' || iS =='n') nextLine = 35													// 25 if (i$ = "N") or (i$ = "n") then 35
-				30 -> directions()
-				35 -> nextLine = 80																				// 35 goto 80
+				15 -> console.print("INSTRUCTIONS (Y-N) ")														// 15 print "INSTRUCTIONS (Y-N)";
+				20 -> {
+					val iS = console.readln()                    	                                                // 20 input i$
+					if (iS != 'N' && iS != 'n') directions()                                                    // 25 if (i$ = "N") or (i$ = "n") then 35
+					nextLine = 80                                                                               // 35 goto 80
+				}
 				80 -> {}																						// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
 																												// 85 dim s(20,3)
 																												// 90 for j = 1 to 20
@@ -106,10 +106,12 @@ class Wumpus {
 				340 -> j = 1																					// 340 for j = 1 to 6
 				345 -> l[j] = m[j]																				// 345 l(j) = m(j)
 				350 -> { ++j; if (j <= 6) nextLine = 345 }														// 350 next j
-				355 -> console.print("SAME SETUP (Y-N)")																// 355 print "SAME SETUP (Y-N)";
-				360 -> { iS = console.readln() }									// 360 input i$
-				365 -> if (iS != 'Y' && iS != 'y') nextLine = 170												// 365 if (i$ <> "Y") and (i$ <> "y") then 170
-				370 -> nextLine = 230																			// 370 goto 230
+				355 -> console.print("SAME SETUP (Y-N)")														// 355 print "SAME SETUP (Y-N)";
+				360 -> {
+					val iS = console.readln()                                                                    // 360 input i$
+					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
+					else nextLine = 230                                                                            // 370 goto 230
+				}
 				375 -> {}																						// 375 rem *** INSTRUCTIONS ***
 				380 -> directions()
 				590 -> console.println("")																				// 590 print
@@ -138,13 +140,13 @@ class Wumpus {
 				665 -> returnFromGosub()																		// 665 return
 				670 -> {}																						// 670 rem *** CHOOSE OPTION ***
 				675 -> console.print("SHOOT OR MOVE (S-M) ")															// 675 print "SHOOT OR MOVE (S-M)";
-				680 -> { iS = console.readln() 								}									// 680 input i$
-				685 -> if (iS != 'S' && iS != 's') nextLine = 700												// 685 if (i$ <> "S") and (i$ <> "s") then 700
-				690 -> o = 1																					// 690 o = 1
-				695 -> returnFromGosub()																		// 695 return
-				700 -> if (iS != 'M' && iS != 'm') nextLine = 675												// 700 if (i$ <> "M") and (i$ <> "m") then 675
-				705 -> o = 2																					// 705 o = 2
-				710 -> returnFromGosub()																		// 710 return
+				680 -> {
+					when (console.readln()) {
+						'S', 's' -> { o = 1; returnFromGosub() }
+						'M', 'm' -> { o = 2; returnFromGosub() }
+						else -> nextLine = 675
+					}
+				}
 				715 -> {}																						// 715 rem *** ARROW ROUTINE ***
 				720 -> f = 0																					// 720 f = 0
 				725 -> {}																						// 725 rem *** PATH OF ARROW ***
@@ -259,7 +261,7 @@ class Wumpus {
 		return random.nextInt(4) + 1
 	}
 	
-	fun directions() {
+	private fun directions() {
 		console.println("WELCOME TO 'HUNT THE WUMPUS'")
 		console.println("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM")
 		console.println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A")
