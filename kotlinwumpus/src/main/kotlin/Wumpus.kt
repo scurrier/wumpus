@@ -9,15 +9,18 @@ class Wumpus {
     var random = Random()
 	var console = Console()
 	var earlyExitHack: Int = 1150
+	val l = Array(7) {0}
+	val m = Array(7) {0}
+	val p = Array(6) {0}
+	var playerRoom: Int
+		get() = l[1]
+		set(v) {l[1] = v}
 
 	fun main(args: Array<String>) {
 		try {
 			currentLine = 5
 			var iS = '\u0000'
 			val map = Map()
-			val l = Array(7) {0}
-            val m = Array(7) {0}
-			val p = Array(6) {0}
 			var aa = 5
 			var ll = aa
 			var o = 1
@@ -68,7 +71,7 @@ class Wumpus {
 				220 -> { ++j; if (j <= 6) nextLine = 200 }														// 220 next j
 				225 -> {}																						// 225 rem *** SET NO. OF ARROWS ***
 				230 -> aa = 5																					// 230 a = 5
-				235 -> ll = l[1]																				// 235 l = l(1)
+				235 -> ll = playerRoom																			// 235 l = l(1)
 				240 -> {}																						// 240 rem *** RUN THE GAME ***
 				245 -> console.println("HUNT THE WUMPUS")														// 245 print "HUNT THE WUMPUS"
 				250 -> {}																						// 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -158,7 +161,7 @@ class Wumpus {
 				590 -> console.println("")																				// 590 print
 				595 -> j = 2																					// 595 for j = 2 to 6
 				600 -> k = 1																					// 600 for k = 1 to 3
-					605 -> if (!map.nearByRoomHas(l[1], k, l[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
+					605 -> if (!map.nearByRoomHas(playerRoom, k, l[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
 				610 -> when(j-1) {																				// 610 on j-1 goto 615,625,625,635,635
 							1 -> nextLine = 615
 							2,3 -> nextLine = 625
@@ -171,7 +174,7 @@ class Wumpus {
 				635 -> console.println("BATS NEARBY!")																	// 635 print "BATS NEARBY!"
 				640 -> { ++k; if (k <= 3) nextLine = 605 }														// 640 next k
 				645 -> { ++j; if (j <= 6) nextLine = 600 }														// 645 next j
-				650 -> { console.print("YOUR ARE IN ROOM "); console.println(l[1]) }											// 650 print "YOU ARE IN ROOM ";l(1)
+				650 -> { console.print("YOUR ARE IN ROOM "); console.println(playerRoom) }											// 650 print "YOU ARE IN ROOM ";l(1)
 				655 -> { console.print("TUNNELS LEAD TO ")				                                                // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 					console.print(map.tunnelFrom(ll, 1))
 					console.print(" "); console.print(map.tunnelFrom(ll, 2))
@@ -204,7 +207,7 @@ class Wumpus {
 				785 -> nextLine = 760																			// 785 goto 760
 				790 -> { ++k; if (k <= j9) nextLine = 760 }														// 790 next k
 				795 -> {}																						// 795 rem *** SHOOT ARROW ***
-				800 -> ll = l[1]																				// 800 l = l(1)
+				800 -> ll = playerRoom																				// 800 l = l(1)
 				805 -> k = 1																					// 805 for k = 1 to j9
 				810 -> k1 = 1																					// 810 for k1 = 1 to 3
 				815 -> if (map.nearByRoomHas(ll, k1, p[k])) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
@@ -214,7 +217,7 @@ class Wumpus {
 				835 -> nextLine = 900																			// 835 goto 900
 				840 -> { ++k; if (k <= j9) nextLine = 810 }														// 840 next k
 				845 -> console.println("MISSED")																		// 845 print "MISSED"
-				850 -> ll = l[1]																				// 850 l = l(1)
+				850 -> ll = playerRoom																				// 850 l = l(1)
 				855 -> {}																						// 855 rem *** MOVE WUMPUS ***
 				860 -> gosub(935, 865)													// 860 gosub 935
 				865 -> {}																						// 865 rem *** AMMO CHECK ***
@@ -228,7 +231,7 @@ class Wumpus {
 				905 -> console.println("AHA! YOU GOT THE WUMPUS!")														// 905 print "AHA! YOU GOT THE WUMPUS!"
 				910 -> f = 1																					// 910 f = 1
 				915 -> returnFromGosub()																		// 915 return
-				920 -> if (ll != l[1]) nextLine = 840															// 920 if l <> l(1) then 840
+				920 -> if (ll != playerRoom) nextLine = 840															// 920 if l <> l(1) then 840
 				925 -> console.println ("OUCH! ARROW GOT YOU!")															// 925 print "OUCH! ARROW GOT YOU!"
 				930 -> nextLine = 880																			// 930 goto 880
 				935 -> {}																						// 935 rem *** MOVE WUMPUS ROUTINE ***
@@ -247,13 +250,13 @@ class Wumpus {
 				1000 -> if (ll > 20) nextLine = 985																// 1000 if l > 20 then 985
 				1005 -> k = 1																					// 1005 for k = 1 to 3
 				1010 -> {}																						// 1010 rem *** CHECK IF LEGAL MOVE ***
-				1015 -> if (map.nearByRoomHas(l[1], k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
+				1015 -> if (map.nearByRoomHas(playerRoom, k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
 				1020 -> { ++k; if (k <= 3) nextLine = 1010 }													// 1020 next k
-				1025 -> if (ll == l[1]) nextLine = 1045															// 1025 if l = l(1) then 1045
+				1025 -> if (ll == playerRoom) nextLine = 1045															// 1025 if l = l(1) then 1045
 				1030 -> console.print("NOT POSSIBLE - ")																// 1030 print "NOT POSSIBLE -";
 				1035 -> nextLine = 985																			// 1035 goto 985
 				1040 -> {}																						// 1040 rem *** CHECK FOR HAZARDS ***
-				1045 -> l[1] = ll																				// 1045 l(1) = l
+				1045 -> playerRoom = ll																				// 1045 l(1) = l
 				1050 -> {}																						// 1050 rem *** WUMPUS ***
 				1055 -> if (ll != l[2]) nextLine = 1090															// 1055 if l <> l(2) then 1090
 				1060 -> console.println("... OOPS! BUMPED A WUMPUS!")													// 1060 print "... OOPS! BUMPED A WUMPUS!"
