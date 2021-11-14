@@ -49,7 +49,7 @@ class Wumpus {
 				15 -> console.print("INSTRUCTIONS (Y-N) ")																// 15 print "INSTRUCTIONS (Y-N)";
 				20 -> { iS = console.readln() }	 								// 20 input i$
 				25 -> if (iS == 'N' || iS =='n') nextLine = 35													// 25 if (i$ = "N") or (i$ = "n") then 35
-				30 -> gosub(375, 35)														// 30 gosub 375
+				30 -> directions()
 				35 -> nextLine = 80																				// 35 goto 80
 				80 -> {}																						// 80 rem *** SET UP CAVE (DODECAHEDRAL NODE LIST) ***
 																												// 85 dim s(20,3)
@@ -111,64 +111,7 @@ class Wumpus {
 				365 -> if (iS != 'Y' && iS != 'y') nextLine = 170												// 365 if (i$ <> "Y") and (i$ <> "y") then 170
 				370 -> nextLine = 230																			// 370 goto 230
 				375 -> {}																						// 375 rem *** INSTRUCTIONS ***
-				380 -> console.println("WELCOME TO 'HUNT THE WUMPUS'")											 		// 380 print "WELCOME TO 'HUNT THE WUMPUS'"
-				385 -> console.println(																					// 385 print
-						"  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM")									// "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
-				390 -> console.println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A")								// 390 print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
-				395 -> console.println(																					// 395 print
-						"DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW")									// "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
-				400 -> console.println("WHAT A DODECAHEDRON IS, ASK SOMEONE)")											// 400 print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
-				405 -> console.println("")																				// 405 print
-				410 -> console.println("     HAZARDS:")																	// 410 print "     HAZARDS:"
-				415 -> console.println(																					// 415 print
-						" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM")							// " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
-				420 -> console.println(																					// 420 print
-						"     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)")								// "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
-				425 -> console.println(																					// 425 print
-						" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU")								// " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
-				430 -> console.println(																					// 430 print
-						"     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER")							// "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
-				435 -> console.println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)")								// 435 print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
-				440 -> { console.input("HIT RETURN TO CONTINUE") }												// 440 input "HIT RETURN TO CONTINUE";a$
-				445 -> console.println("     WUMPUS:")																	// 445 print "     WUMPUS:"
-				450 -> console.println(																					// 450 print
-						" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER")								// " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
-				455 -> console.println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY")						 		// 455 print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
-				460 -> console.println(																					// 460 print
-						" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN")								// " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN"
-				465 -> console.println("ARROW OR YOU ENTERING HIS ROOM.")												// 465 print "ARROW OR YOU ENTERING HIS ROOM."
-				470 -> console.println(																					// 470 print
-						"     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM")									// "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
-				475 -> console.println(																					// 475 print
-						" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU")								// " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
-				480 -> console.println(" ARE, HE EATS YOU UP AND YOU LOSE!")											// 480 print " ARE, HE EATS YOU UP AND YOU LOSE!"
-				485 -> console.println("")																				// 485 print
-				490 -> console.println("     YOU:")																		// 490 print "     YOU:"
-				495 -> console.println(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW")						 		// 495 print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
-				500 -> console.println(																					// 500 print
-						"   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)")									// "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
-				505 -> console.println(																					// 505 print
-						"   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT")							// "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
-				510 -> console.println(																					// 510 print
-						"   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING")							// "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
-				515 -> console.println(																					// 515 print
-						"   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.")								// "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
-				520 -> console.println(																					// 520 print
-						"   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES")		 					// "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
-				525 -> console.println("   AT RANDOM TO THE NEXT ROOM.")												// 525 print "   AT RANDOM TO THE NEXT ROOM."
-				530 -> console.println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.")									// 530 print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
-				535 -> console.println("     IF THE ARROW HITS YOU, YOU LOSE.")											// 535 print "     IF THE ARROW HITS YOU, YOU LOSE."
-				540 -> { console.input("HIT RETURN TO CONTINUE") }												// 540 input "HIT RETURN TO CONTINUE";a$
-				545 -> console.println("    WARNINGS:")																	// 545 print "    WARNINGS:"
-				550 -> console.println(																					// 550 print
-						"     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,")								// "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
-				555 -> console.println("     THE COMPUTER SAYS:")														// 555 print "     THE COMPUTER SAYS:"
-				560 -> console.println(" WUMPUS:  'I SMELL A WUMPUS'")													// 560 print " WUMPUS:  'I SMELL A WUMPUS'"
-				565 -> console.println(" BAT   :  'BATS NEARBY'")														// 565 print " BAT   :  'BATS NEARBY'"
-				570 -> console.println(" PIT   :  'I FEEL A DRAFT'")													// 570 print " PIT   :  'I FEEL A DRAFT'"
-				575 -> console.println("")																				// 575 print
-				580 -> returnFromGosub()																		// 580 return
-				585 -> {}																						// 585 rem *** PRINT LOCATION & HAZARD WARNINGS ***
+				380 -> directions()
 				590 -> console.println("")																				// 590 print
 				595 -> j = 2																					// 595 for j = 2 to 6
 				600 -> k = 1																					// 600 for k = 1 to 3
@@ -314,6 +257,49 @@ class Wumpus {
 	}
 	fun fnC(): Int {
 		return random.nextInt(4) + 1
+	}
+	
+	fun directions() {
+		console.println("WELCOME TO 'HUNT THE WUMPUS'")
+		console.println("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM")
+		console.println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A")
+		console.println("DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW")
+		console.println("WHAT A DODECAHEDRON IS, ASK SOMEONE)")
+		console.println("")
+		console.println("     HAZARDS:")
+		console.println(" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM")
+		console.println("     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)")
+		console.println(" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU")
+		console.println("     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER")
+		console.println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)")
+		console.input("HIT RETURN TO CONTINUE")
+		console.println("     WUMPUS:")
+		console.println(" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER")
+		console.println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY")
+		console.println(" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN")
+		console.println("ARROW OR YOU ENTERING HIS ROOM.")
+		console.println("     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM")
+		console.println(" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU")
+		console.println(" ARE, HE EATS YOU UP AND YOU LOSE!")
+		console.println("")
+		console.println("     YOU:")
+		console.println(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW")
+		console.println("   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)")
+		console.println("   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT")
+		console.println("   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING")
+		console.println("   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.")
+		console.println("   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES")
+		console.println("   AT RANDOM TO THE NEXT ROOM.")
+		console.println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.")
+		console.println("     IF THE ARROW HITS YOU, YOU LOSE.")
+		console.input("HIT RETURN TO CONTINUE")
+		console.println("    WARNINGS:")
+		console.println("     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,")
+		console.println("     THE COMPUTER SAYS:")
+		console.println(" WUMPUS:  'I SMELL A WUMPUS'")
+		console.println(" BAT   :  'BATS NEARBY'")
+		console.println(" PIT   :  'I FEEL A DRAFT'")
+		console.println("")
 	}
 }
 
