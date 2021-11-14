@@ -3,7 +3,7 @@ import java.util.Deque
 import java.util.Random
 
 class Wumpus {
-    private var currentLine: Int = 0
+	private var currentLine: Int = 0
     private val returnLine: Deque<Int> = ArrayDeque()
 	private var nextLine: Int = 0
     var random = Random()
@@ -15,6 +15,17 @@ class Wumpus {
 	var playerRoom: Int
 		get() = l[1]
 		set(v) {l[1] = v}
+	var wumpusRoom: Int
+		get() = l[2]
+		set(v) {l[2] = v}
+	val pit1: Int
+		get() = l[3]
+	val pit2: Int
+		get() = l[4]
+	val bat1: Int
+		get() = l[5]
+	val bat2: Int
+		get() = l[6]
 
 	fun main(args: Array<String>) {
 		try {
@@ -227,7 +238,7 @@ class Wumpus {
 				885 -> returnFromGosub()																		// 885 return
 				890 -> {}																						// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
 				895 -> ll = p[k]																				// 895 l = p(k)
-				900 -> if (ll != l[2]) nextLine = 920															// 900 if l <> l(2) then 920
+				900 -> if (ll != wumpusRoom) nextLine = 920															// 900 if l <> l(2) then 920
 				905 -> console.println("AHA! YOU GOT THE WUMPUS!")														// 905 print "AHA! YOU GOT THE WUMPUS!"
 				910 -> f = 1																					// 910 f = 1
 				915 -> returnFromGosub()																		// 915 return
@@ -237,8 +248,8 @@ class Wumpus {
 				935 -> {}																						// 935 rem *** MOVE WUMPUS ROUTINE ***
 				940 -> k = fnC()																				// 940 k = fnc(0)
 				945 -> if (k == 4) nextLine = 955																// 945 if k = 4 then 955
-				950 -> l[2] = map.tunnelFrom(l[2], k)																		// 950 l(2) = s(l(2),k)
-				955 -> if (l[2] != ll) nextLine = 970															// 955 if l(2) <> l then 970
+				950 -> wumpusRoom = map.tunnelFrom(wumpusRoom, k)																		// 950 l(2) = s(l(2),k)
+				955 -> if (wumpusRoom != ll) nextLine = 970															// 955 if l(2) <> l then 970
 				960 -> console.println("TSK TSK TSK - WUMPUS GOT YOU!")													// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 				965 -> f = -1																					// 965 f = -1
 				970 -> returnFromGosub()																		// 970 return
@@ -258,21 +269,21 @@ class Wumpus {
 				1040 -> {}																						// 1040 rem *** CHECK FOR HAZARDS ***
 				1045 -> playerRoom = ll																				// 1045 l(1) = l
 				1050 -> {}																						// 1050 rem *** WUMPUS ***
-				1055 -> if (ll != l[2]) nextLine = 1090															// 1055 if l <> l(2) then 1090
+				1055 -> if (ll != wumpusRoom) nextLine = 1090															// 1055 if l <> l(2) then 1090
 				1060 -> console.println("... OOPS! BUMPED A WUMPUS!")													// 1060 print "... OOPS! BUMPED A WUMPUS!"
 				1065 -> {}																						// 1065 rem *** MOVE WUMPUS ***
 				1070 -> gosub(940, 1075)													// 1070 gosub 940
 				1075 -> if (f == 0) nextLine = 1090																// 1075 if f = 0 then 1090
 				1080 -> returnFromGosub()																		// 1080 return
 				1085 -> {}																						// 1085 rem *** PIT ***
-				1090 -> if (ll == l[3]) nextLine = 1100															// 1090 if l = l(3) then 1100
-				1095 -> if (ll != l[4]) nextLine = 1120															// 1095 if l <> l(4) then 1120
+				1090 -> if (ll == pit1) nextLine = 1100															// 1090 if l = l(3) then 1100
+				1095 -> if (ll != pit2) nextLine = 1120															// 1095 if l <> l(4) then 1120
 				1100 -> console.println("YYYYIIIIEEEE . . . FELL IN PIT")												// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
 				1105 -> f = -1																					// 1105 f = -1
 				1110 -> returnFromGosub()																		// 1110 return
 				1115 -> {}																						// 1115 rem *** BATS ***
-				1120 -> if (ll == l[5]) nextLine = 1130															// 1120 if l = l(5) then 1130
-				1125 -> if (ll != l[6]) nextLine = 1145															// 1125 if l <> l(6) then 1145
+				1120 -> if (ll == bat1) nextLine = 1130															// 1120 if l = l(5) then 1130
+				1125 -> if (ll != bat2) nextLine = 1145															// 1125 if l <> l(6) then 1145
 				1130 -> console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")								// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
 				1135 -> ll = fnA()																				// 1135 l = fna(1)
 				1140 -> nextLine = 1045																			// 1140 goto 1045
