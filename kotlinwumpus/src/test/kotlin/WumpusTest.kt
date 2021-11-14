@@ -8,59 +8,59 @@ import java.util.*
 
 class WumpusTest {
     private val console = mockk<Console>()
-
+    private val testObj = Wumpus()
     @BeforeEach
     fun setUp() {
-        Wumpus.random = Random(0) 
-        Wumpus.console = console
+        testObj.random = Random(0)
+        testObj.console = console
     }
 
     @Test
     fun fnA() {
-        assertEquals(1, Wumpus.fnA())
-        assertEquals(9, Wumpus.fnA())
-        assertEquals(10, Wumpus.fnA())
-        assertEquals(8, Wumpus.fnA())
-        assertEquals(16, Wumpus.fnA())
-        assertEquals(14, Wumpus.fnA())
-        assertEquals(12, Wumpus.fnA())
-        assertEquals(2, Wumpus.fnA())
-        assertEquals(20, Wumpus.fnA())
-        assertEquals(15, Wumpus.fnA())
+        assertEquals(1, testObj.fnA())
+        assertEquals(9, testObj.fnA())
+        assertEquals(10, testObj.fnA())
+        assertEquals(8, testObj.fnA())
+        assertEquals(16, testObj.fnA())
+        assertEquals(14, testObj.fnA())
+        assertEquals(12, testObj.fnA())
+        assertEquals(2, testObj.fnA())
+        assertEquals(20, testObj.fnA())
+        assertEquals(15, testObj.fnA())
     }
 
     @Test
     fun fnB() {
-        assertEquals(1, Wumpus.fnB())
-        assertEquals(2, Wumpus.fnB())
-        assertEquals(2, Wumpus.fnB())
-        assertEquals(3, Wumpus.fnB())
-        assertEquals(3, Wumpus.fnB())
-        assertEquals(3, Wumpus.fnB())
-        assertEquals(3, Wumpus.fnB())
-        assertEquals(1, Wumpus.fnB())
-        assertEquals(1, Wumpus.fnB())
-        assertEquals(3, Wumpus.fnB())
+        assertEquals(1, testObj.fnB())
+        assertEquals(2, testObj.fnB())
+        assertEquals(2, testObj.fnB())
+        assertEquals(3, testObj.fnB())
+        assertEquals(3, testObj.fnB())
+        assertEquals(3, testObj.fnB())
+        assertEquals(3, testObj.fnB())
+        assertEquals(1, testObj.fnB())
+        assertEquals(1, testObj.fnB())
+        assertEquals(3, testObj.fnB())
     }
 
     @Test
     fun fnC() {
-        assertEquals(3, Wumpus.fnC())
-        assertEquals(4, Wumpus.fnC())
-        assertEquals(1, Wumpus.fnC())
-        assertEquals(3, Wumpus.fnC())
-        assertEquals(3, Wumpus.fnC())
-        assertEquals(2, Wumpus.fnC())
-        assertEquals(3, Wumpus.fnC())
-        assertEquals(1, Wumpus.fnC())
-        assertEquals(3, Wumpus.fnC())
-        assertEquals(4, Wumpus.fnC())
+        assertEquals(3, testObj.fnC())
+        assertEquals(4, testObj.fnC())
+        assertEquals(1, testObj.fnC())
+        assertEquals(3, testObj.fnC())
+        assertEquals(3, testObj.fnC())
+        assertEquals(2, testObj.fnC())
+        assertEquals(3, testObj.fnC())
+        assertEquals(1, testObj.fnC())
+        assertEquals(3, testObj.fnC())
+        assertEquals(4, testObj.fnC())
     }
 
     @Test
     fun pinningTest() {
-        Wumpus.earlyExitHack = 370
-        Wumpus.earlyExitHack = 336
+        testObj.earlyExitHack = 370
+        testObj.earlyExitHack = 336
 
         every { console.print(any<Int>()) } returns Unit
         every { console.print(any<String>()) } returns Unit
@@ -78,7 +78,7 @@ class WumpusTest {
             2, 8, 9
         ))
         every { console.input(any()) } returns Unit
-        Wumpus.main(arrayOf())
+        testObj.main(arrayOf())
         verifyOrder {
             console.print("INSTRUCTIONS (Y-N) ")
             console.readln()

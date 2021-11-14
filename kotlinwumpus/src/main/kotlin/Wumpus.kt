@@ -2,7 +2,7 @@ import java.util.ArrayDeque
 import java.util.Deque
 import java.util.Random
 
-object Wumpus {
+class Wumpus {
     private var currentLine: Int = 0
     private val returnLine: Deque<Int> = ArrayDeque()
 	private var nextLine: Int = 0
