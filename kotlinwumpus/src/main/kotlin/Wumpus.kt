@@ -96,31 +96,8 @@ class Wumpus {
 					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
 					else nextLine = 230                                                                            // 370 goto 230
 				}
-				375 -> {}																						// 375 rem *** INSTRUCTIONS ***
-				380 -> directions()
-				590 -> console.println("")																				// 590 print
-				595 -> j = 2																					// 595 for j = 2 to 6
-				600 -> k = 1																					// 600 for k = 1 to 3
-					605 -> if (!map.nearByRoomHas(gameState.playerRoom, k, gameState.locations[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
-				610 -> when(j-1) {																				// 610 on j-1 goto 615,625,625,635,635
-							1 -> nextLine = 615
-							2,3 -> nextLine = 625
-							4, 5 -> nextLine = 635
-						}
-				615 -> console.println("I SMELL A WUMPUS!")																// 615 print "I SMELL A WUMPUS!"
-				620 -> nextLine = 640																			// 620 goto 640
-				625 -> console.println("I FEEL A DRAFT")																// 625 print "I FEEL A DRAFT"
-				630 -> nextLine = 640																			// 630 goto 640
-				635 -> console.println("BATS NEARBY!")																	// 635 print "BATS NEARBY!"
-				640 -> { ++k; if (k <= 3) nextLine = 605 }														// 640 next k
-				645 -> { ++j; if (j <= 6) nextLine = 600 }														// 645 next j
-				650 -> { console.print("YOUR ARE IN ROOM "); console.println(gameState.playerRoom) }											// 650 print "YOU ARE IN ROOM ";l(1)
-				655 -> { console.print("TUNNELS LEAD TO ")				                                                // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
-					console.print(map.tunnelFrom(ll, 1))
-					console.print(" "); console.print(map.tunnelFrom(ll, 2))
-					console.print(" "); console.println(map.tunnelFrom(ll, 3))
-				}
-				660 -> console.println("")																		// 660 print
+				375 ->  directions()
+				585 -> printRoomDescription()
 				665 -> returnFromGosub()																		// 665 return
 				670 -> {}																						// 670 rem *** CHOOSE OPTION ***
 				675 -> console.print("SHOOT OR MOVE (S-M) ")															// 675 print "SHOOT OR MOVE (S-M)";
@@ -225,6 +202,31 @@ class Wumpus {
 			e.printStackTrace()
 		}
 	}
+
+	private fun printRoomDescription() {
+		val ll = gameState.playerRoom
+		console.println("")
+		(2..6).forEach { j ->
+			(1..3).forEach { k ->
+				if (!map.nearByRoomHas(gameState.playerRoom, k, gameState.locations[j])) return@forEach
+				when (j - 1) {
+					1 -> console.println("I SMELL A WUMPUS!")
+					2, 3 -> console.println("I FEEL A DRAFT")
+					4, 5 -> console.println("BATS NEARBY!")
+				}
+			}
+		}
+		console.print("YOUR ARE IN ROOM ")
+		console.println(gameState.playerRoom)
+		console.print("TUNNELS LEAD TO ")
+		console.print(map.tunnelFrom(ll, 1))
+		console.print(" ");
+		console.print(map.tunnelFrom(ll, 2))
+		console.print(" ")
+		console.println(map.tunnelFrom(ll, 3))
+		console.println("")
+	}
+
 	private fun gosub(gosubLine: Int, lineToReturnTo: Int) {
 		nextLine = gosubLine
 		returnLine.addLast(lineToReturnTo)
