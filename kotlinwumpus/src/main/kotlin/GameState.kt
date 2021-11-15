@@ -11,5 +11,22 @@ class GameState {
 		return arrowCount > 0
 	}
 
+	var playerRoom: Int
+		get() = locations[1]
+		set(v) {locations[1] = v}
+	var wumpusRoom: Int
+		get() = locations[2]
+		set(v) {locations[2] = v}
+	val pit1: Int
+		get() = locations[3]
+	val pit2: Int
+		get() = locations[4]
+	val bat1: Int
+		get() = locations[5]
+	val bat2: Int
+		get() = locations[6]
+
 	private var arrowCount: Int = 5
+	val locations = Array(7) {0}
+	val initialLocations = Array(7) {0}
 }

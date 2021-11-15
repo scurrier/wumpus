@@ -9,23 +9,7 @@ class Wumpus {
     var random = Random()
 	var console = Console()
 	var earlyExitHack: Int = 1150
-	val l = Array(7) {0}
-	val m = Array(7) {0}
 	val p = Array(6) {0}
-	var playerRoom: Int
-		get() = l[1]
-		set(v) {l[1] = v}
-	var wumpusRoom: Int
-		get() = l[2]
-		set(v) {l[2] = v}
-	val pit1: Int
-		get() = l[3]
-	val pit2: Int
-		get() = l[4]
-	val bat1: Int
-		get() = l[5]
-	val bat2: Int
-		get() = l[6]
 	val gameState = GameState()
 
 	fun main() {
@@ -70,19 +54,19 @@ class Wumpus {
 				160 -> {}																						// 160 dim l(6)
 				165 -> {}																						// 165 dim m(6)
 				170 -> j = 1																					// 170 for j = 1 to 6
-				175 -> l[j] = fnA()																				// 175 l(j) = fna(0)
-				180 -> m[j] = l[j]																				// 180 m(j) = l(j)
+				175 -> gameState.locations[j] = fnA()																				// 175 l(j) = fna(0)
+				180 -> gameState.initialLocations[j] = gameState.locations[j]																				// 180 m(j) = l(j)
 				185 -> { ++j; if (j <= 6) nextLine = 175 }														// 185 next j
 				190 -> {}																						// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
 				195 -> j = 1																					// 195 for j = 1 to 6
 				200 -> k = 1																					// 200 for k = 1 to 6
 				205 -> if (j == k ) nextLine = 215																// 205 if j = k then 215
-				210 -> if (l[j] == l[k]) nextLine = 170															// 210 if l(j) = l(k) then 170
+				210 -> if (gameState.locations[j] == gameState.locations[k]) nextLine = 170															// 210 if l(j) = l(k) then 170
 				215 -> { ++k; if (k <= 6) nextLine = 205 }														// 215 next k
 				220 -> { ++j; if (j <= 6) nextLine = 200 }														// 220 next j
 				225 -> {}																						// 225 rem *** SET NO. OF ARROWS ***
 				230 -> gameState.resetArrows()																					// 230 a = 5
-				235 -> ll = playerRoom																			// 235 l = l(1)
+				235 -> ll = gameState.playerRoom																			// 235 l = l(1)
 				240 -> {}																						// 240 rem *** RUN THE GAME ***
 				245 -> console.println("HUNT THE WUMPUS")														// 245 print "HUNT THE WUMPUS"
 				250 -> {}																						// 250 rem *** HAZARD WARNING AND LOCATION ***
@@ -104,7 +88,7 @@ class Wumpus {
 				330 -> {}																						// 330 rem *** WIN ***
 				335 -> console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")								// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
 				340 -> j = 1																					// 340 for j = 1 to 6
-				345 -> l[j] = m[j]																				// 345 l(j) = m(j)
+				345 -> gameState.locations[j] = gameState.initialLocations[j]																				// 345 l(j) = m(j)
 				350 -> { ++j; if (j <= 6) nextLine = 345 }														// 350 next j
 				355 -> console.print("SAME SETUP (Y-N)")														// 355 print "SAME SETUP (Y-N)";
 				360 -> {
@@ -117,7 +101,7 @@ class Wumpus {
 				590 -> console.println("")																				// 590 print
 				595 -> j = 2																					// 595 for j = 2 to 6
 				600 -> k = 1																					// 600 for k = 1 to 3
-					605 -> if (!map.nearByRoomHas(playerRoom, k, l[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
+					605 -> if (!map.nearByRoomHas(gameState.playerRoom, k, gameState.locations[j])) nextLine = 640													// 605 if s(l(1),k) <> l(j) then 640
 				610 -> when(j-1) {																				// 610 on j-1 goto 615,625,625,635,635
 							1 -> nextLine = 615
 							2,3 -> nextLine = 625
@@ -130,7 +114,7 @@ class Wumpus {
 				635 -> console.println("BATS NEARBY!")																	// 635 print "BATS NEARBY!"
 				640 -> { ++k; if (k <= 3) nextLine = 605 }														// 640 next k
 				645 -> { ++j; if (j <= 6) nextLine = 600 }														// 645 next j
-				650 -> { console.print("YOUR ARE IN ROOM "); console.println(playerRoom) }											// 650 print "YOU ARE IN ROOM ";l(1)
+				650 -> { console.print("YOUR ARE IN ROOM "); console.println(gameState.playerRoom) }											// 650 print "YOU ARE IN ROOM ";l(1)
 				655 -> { console.print("TUNNELS LEAD TO ")				                                                // 655 print "TUNNELS LEAD TO ";s(l,1);" ";s(l,2);" ";s(l,3)
 					console.print(map.tunnelFrom(ll, 1))
 					console.print(" "); console.print(map.tunnelFrom(ll, 2))
@@ -163,7 +147,7 @@ class Wumpus {
 				785 -> nextLine = 760																			// 785 goto 760
 				790 -> { ++k; if (k <= j9) nextLine = 760 }														// 790 next k
 				795 -> {}																						// 795 rem *** SHOOT ARROW ***
-				800 -> ll = playerRoom																				// 800 l = l(1)
+				800 -> ll = gameState.playerRoom																				// 800 l = l(1)
 				805 -> k = 1																					// 805 for k = 1 to j9
 				810 -> k1 = 1																					// 810 for k1 = 1 to 3
 				815 -> if (map.nearByRoomHas(ll, k1, p[k])) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
@@ -173,7 +157,7 @@ class Wumpus {
 				835 -> nextLine = 900																			// 835 goto 900
 				840 -> { ++k; if (k <= j9) nextLine = 810 }														// 840 next k
 				845 -> console.println("MISSED")																		// 845 print "MISSED"
-				850 -> ll = playerRoom																				// 850 l = l(1)
+				850 -> ll = gameState.playerRoom																				// 850 l = l(1)
 				855 -> {}																						// 855 rem *** MOVE WUMPUS ***
 				860 -> gosub(935, 865)													// 860 gosub 935
 				865 -> {}																						// 865 rem *** AMMO CHECK ***
@@ -183,18 +167,18 @@ class Wumpus {
 				885 -> returnFromGosub()																		// 885 return
 				890 -> {}																						// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
 				895 -> ll = p[k]																				// 895 l = p(k)
-				900 -> if (ll != wumpusRoom) nextLine = 920															// 900 if l <> l(2) then 920
+				900 -> if (ll != gameState.wumpusRoom) nextLine = 920															// 900 if l <> l(2) then 920
 				905 -> console.println("AHA! YOU GOT THE WUMPUS!")														// 905 print "AHA! YOU GOT THE WUMPUS!"
 				910 -> f = 1																					// 910 f = 1
 				915 -> returnFromGosub()																		// 915 return
-				920 -> if (ll != playerRoom) nextLine = 840															// 920 if l <> l(1) then 840
+				920 -> if (ll != gameState.playerRoom) nextLine = 840															// 920 if l <> l(1) then 840
 				925 -> console.println ("OUCH! ARROW GOT YOU!")															// 925 print "OUCH! ARROW GOT YOU!"
 				930 -> nextLine = 880																			// 930 goto 880
 				935 -> {}																						// 935 rem *** MOVE WUMPUS ROUTINE ***
 				940 -> k = fnC()																				// 940 k = fnc(0)
 				945 -> if (k == 4) nextLine = 955																// 945 if k = 4 then 955
-				950 -> wumpusRoom = map.tunnelFrom(wumpusRoom, k)																		// 950 l(2) = s(l(2),k)
-				955 -> if (wumpusRoom != ll) nextLine = 970															// 955 if l(2) <> l then 970
+				950 -> gameState.wumpusRoom = map.tunnelFrom(gameState.wumpusRoom, k)																		// 950 l(2) = s(l(2),k)
+				955 -> if (gameState.wumpusRoom != ll) nextLine = 970															// 955 if l(2) <> l then 970
 				960 -> console.println("TSK TSK TSK - WUMPUS GOT YOU!")													// 960 print "TSK TSK TSK - WUMPUS GOT YOU!"
 				965 -> f = -1																					// 965 f = -1
 				970 -> returnFromGosub()																		// 970 return
@@ -206,29 +190,29 @@ class Wumpus {
 				1000 -> if (ll > 20) nextLine = 985																// 1000 if l > 20 then 985
 				1005 -> k = 1																					// 1005 for k = 1 to 3
 				1010 -> {}																						// 1010 rem *** CHECK IF LEGAL MOVE ***
-				1015 -> if (map.nearByRoomHas(playerRoom, k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
+				1015 -> if (map.nearByRoomHas(gameState.playerRoom, k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
 				1020 -> { ++k; if (k <= 3) nextLine = 1010 }													// 1020 next k
-				1025 -> if (ll == playerRoom) nextLine = 1045															// 1025 if l = l(1) then 1045
+				1025 -> if (ll == gameState.playerRoom) nextLine = 1045															// 1025 if l = l(1) then 1045
 				1030 -> console.print("NOT POSSIBLE - ")																// 1030 print "NOT POSSIBLE -";
 				1035 -> nextLine = 985																			// 1035 goto 985
 				1040 -> {}																						// 1040 rem *** CHECK FOR HAZARDS ***
-				1045 -> playerRoom = ll																				// 1045 l(1) = l
+				1045 -> gameState.playerRoom = ll																				// 1045 l(1) = l
 				1050 -> {}																						// 1050 rem *** WUMPUS ***
-				1055 -> if (ll != wumpusRoom) nextLine = 1090															// 1055 if l <> l(2) then 1090
+				1055 -> if (ll != gameState.wumpusRoom) nextLine = 1090															// 1055 if l <> l(2) then 1090
 				1060 -> console.println("... OOPS! BUMPED A WUMPUS!")													// 1060 print "... OOPS! BUMPED A WUMPUS!"
 				1065 -> {}																						// 1065 rem *** MOVE WUMPUS ***
 				1070 -> gosub(940, 1075)													// 1070 gosub 940
 				1075 -> if (f == 0) nextLine = 1090																// 1075 if f = 0 then 1090
 				1080 -> returnFromGosub()																		// 1080 return
 				1085 -> {}																						// 1085 rem *** PIT ***
-				1090 -> if (ll == pit1) nextLine = 1100															// 1090 if l = l(3) then 1100
-				1095 -> if (ll != pit2) nextLine = 1120															// 1095 if l <> l(4) then 1120
+				1090 -> if (ll == gameState.pit1) nextLine = 1100															// 1090 if l = l(3) then 1100
+				1095 -> if (ll != gameState.pit2) nextLine = 1120															// 1095 if l <> l(4) then 1120
 				1100 -> console.println("YYYYIIIIEEEE . . . FELL IN PIT")												// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
 				1105 -> f = -1																					// 1105 f = -1
 				1110 -> returnFromGosub()																		// 1110 return
 				1115 -> {}																						// 1115 rem *** BATS ***
-				1120 -> if (ll == bat1) nextLine = 1130															// 1120 if l = l(5) then 1130
-				1125 -> if (ll != bat2) nextLine = 1145															// 1125 if l <> l(6) then 1145
+				1120 -> if (ll == gameState.bat1) nextLine = 1130															// 1120 if l = l(5) then 1130
+				1125 -> if (ll != gameState.bat2) nextLine = 1145															// 1125 if l <> l(6) then 1145
 				1130 -> console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")								// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
 				1135 -> ll = fnA()																				// 1135 l = fna(1)
 				1140 -> nextLine = 1045																			// 1140 goto 1045
