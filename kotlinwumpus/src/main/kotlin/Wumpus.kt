@@ -72,7 +72,7 @@ class Wumpus {
 				250 -> {}																						// 250 rem *** HAZARD WARNING AND LOCATION ***
 				255 -> gosub(585, 260)													// 255 gosub 585
 				260 -> {}																						// 260 rem *** MOVE OR SHOOT ***
-				265 -> gosub(670, 270)													// 265 gosub 670
+				265 -> o = getAction()
 				270 -> when(o) {1 -> nextLine = 280; 2 -> nextLine = 300}										// 270 on o goto 280,300
 				275 -> {}																						// 275 rem *** SHOOT ***
 				280 -> gosub(715, 285)													// 280 gosub 715
@@ -99,15 +99,6 @@ class Wumpus {
 				375 ->  directions()
 				585 -> printRoomDescription()
 				665 -> returnFromGosub()																		// 665 return
-				670 -> {}																						// 670 rem *** CHOOSE OPTION ***
-				675 -> console.print("SHOOT OR MOVE (S-M) ")															// 675 print "SHOOT OR MOVE (S-M)";
-				680 -> {
-					when (console.readln()) {
-						'S', 's' -> { o = 1; returnFromGosub() }
-						'M', 'm' -> { o = 2; returnFromGosub() }
-						else -> nextLine = 675
-					}
-				}
 				715 -> {}																						// 715 rem *** ARROW ROUTINE ***
 				720 -> f = 0																					// 720 f = 0
 				725 -> {}																						// 725 rem *** PATH OF ARROW ***
@@ -201,6 +192,19 @@ class Wumpus {
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
+	}
+
+	private fun getAction(): Int {
+		var result = 0
+		do {
+			console.print("SHOOT OR MOVE (S-M) ")                                                            // 675 print "SHOOT OR MOVE (S-M)";
+			result = when (console.readln()) {
+				'S', 's' -> 1
+				'M', 'm' -> 2
+				else -> 0
+			}
+			} while (result == 0)
+		return result
 	}
 
 	private fun printRoomDescription() {
