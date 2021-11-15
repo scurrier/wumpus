@@ -11,11 +11,11 @@ class Wumpus {
 	var earlyExitHack: Int = 1150
 	val p = Array(6) {0}
 	val gameState = GameState()
+	val map = GameMap()
 
 	fun main() {
 		try {
 			currentLine = 5
-			val map = Map()
 			var ll = 0
 			var o = 1
 			var f = 0

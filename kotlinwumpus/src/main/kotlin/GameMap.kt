@@ -1,4 +1,4 @@
-class Map {
+class GameMap {
 
 	fun nearByRoomHas(room: Int, tunnel: Int, target: Int): Boolean {
 		return tunnelFrom(room, tunnel) == target
