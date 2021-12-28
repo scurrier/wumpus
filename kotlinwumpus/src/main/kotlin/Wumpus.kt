@@ -127,7 +127,7 @@ class Wumpus {
 				845 -> console.println("MISSED")																		// 845 print "MISSED"
 				850 -> ll = gameState.playerRoom																				// 850 l = l(1)
 				855 -> {}																						// 855 rem *** MOVE WUMPUS ***
-				860 -> f = wumpusMove(f)
+				860 -> f = gameState.wumpusMove(f, map, console)
 				865 -> {}																						// 865 rem *** AMMO CHECK ***
 				870 -> gameState.consumeArrow()																					// 870 a = a-1
 				875 -> if (gameState.hasArrows()) nextLine = 885																// 875 if a > 0 then 885
@@ -161,7 +161,7 @@ class Wumpus {
 				1055 -> if (ll != gameState.wumpusRoom) nextLine = 1090															// 1055 if l <> l(2) then 1090
 				1060 -> console.println("... OOPS! BUMPED A WUMPUS!")													// 1060 print "... OOPS! BUMPED A WUMPUS!"
 				1065 -> {}																						// 1065 rem *** MOVE WUMPUS ***
-				1070 -> f = wumpusMove(f)
+				1070 -> f = gameState.wumpusMove(f, map, console)
 				1075 -> if (f == 0) nextLine = 1090																// 1075 if f = 0 then 1090
 				1080 -> returnFromGosub()																		// 1080 return
 				1085 -> {}																						// 1085 rem *** PIT ***
@@ -184,18 +184,6 @@ class Wumpus {
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
-	}
-
-	private fun wumpusMove(f: Int): Int {
-		var k2 = 0
-		var f1 = f
-		k2 = gameState.fnC()
-		if (k2 != 4) gameState.wumpusRoom = map.tunnelFrom(gameState.wumpusRoom, k2)
-		if (gameState.wumpusRoom == gameState.playerRoom) {
-			console.println("TSK TSK TSK - WUMPUS GOT YOU!")
-			f1 = -1
-		}
-		return f1
 	}
 
 	private fun getAction(): Int {
