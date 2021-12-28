@@ -1,10 +1,10 @@
 import io.mockk.every
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import io.mockk.mockk
 import io.mockk.verifyOrder
-import java.util.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import wumpus.UI
+import java.util.Random
 
 class WumpusTest {
     private val console = mockk<Console>()
@@ -13,7 +13,7 @@ class WumpusTest {
     fun setUp() {
         testObj.random = Random(0)
         testObj.gameState = GameState((testObj.random))
-        testObj.console = console
+        testObj.ui = UI(console)
     }
 
     @Test
