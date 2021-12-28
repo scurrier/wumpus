@@ -3,6 +3,7 @@ package wumpus
 import Console
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import io.mockk.verifyOrder
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -12,6 +13,16 @@ import org.junit.jupiter.params.provider.CsvSource
 internal class UITest {
     private val console = mockk<Console>(relaxed = true)
     private val testObj = UI(console)
+
+    @Test
+    fun provideInstructions() {
+        every { console.readln() } returns 'N'
+        testObj.provideInstructions()
+        verify(exactly = 0) { console.println("WELCOME TO 'HUNT THE WUMPUS'") }
+        every { console.readln() } returns 'Y'
+        testObj.provideInstructions()
+        verify { console.println("WELCOME TO 'HUNT THE WUMPUS'") }
+    }
 
     @ParameterizedTest(name = "{0} should be {1}")
     @CsvSource("N, false", "n, false", "Y, true", "y, true")
@@ -24,8 +35,8 @@ internal class UITest {
     fun giveInstructions() {
         testObj.giveInstructions()
         verifyOrder {
+            console.println("WELCOME TO 'HUNT THE WUMPUS'")
             console.println("""
-                WELCOME TO 'HUNT THE WUMPUS'
                   THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM
                 HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A
                 DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW

@@ -4,6 +4,12 @@ import Console
 
 class UI(val console: Console) {
 
+    fun provideInstructions() {
+        if (askIfInstructionsNeeded()) {
+            giveInstructions()
+        }
+    }
+
     fun askIfInstructionsNeeded(): Boolean {
         console.print("INSTRUCTIONS (Y-N) ")
         val iS = console.readln()
@@ -11,8 +17,8 @@ class UI(val console: Console) {
     }
 
     fun giveInstructions() {
+        console.println("WELCOME TO 'HUNT THE WUMPUS'")
         console.println("""
-                WELCOME TO 'HUNT THE WUMPUS'
                   THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM
                 HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A
                 DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW

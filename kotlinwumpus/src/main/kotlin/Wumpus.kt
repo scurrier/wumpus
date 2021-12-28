@@ -11,9 +11,7 @@ class Wumpus {
 
 	fun main() {
 		try {
-			if (ui.askIfInstructionsNeeded()) {
-				ui.giveInstructions()
-			}
+			ui.provideInstructions()
 			gameState.intializeLocations()
 			while (!(exitOnWin && won)) {
 				playGame()

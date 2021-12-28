@@ -39,8 +39,8 @@ class WumpusTest {
         verifyOrder {
             console.print("INSTRUCTIONS (Y-N) ")
             console.readln()
+            console.println("WELCOME TO 'HUNT THE WUMPUS'")
             console.println("""
-                WELCOME TO 'HUNT THE WUMPUS'
                   THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM
                 HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A
                 DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW
