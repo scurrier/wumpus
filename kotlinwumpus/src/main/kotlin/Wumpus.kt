@@ -55,13 +55,7 @@ class Wumpus {
 				}
 				975 -> {}																						// 975 rem *** MOVE ROUTINE ***
 				980 -> f = 0																					// 980 f = 0
-				985 -> do {
-					ll = askForRoomToMoveTo()
-					val isValidRoom = map.roomHasPathTo(gameState.playerRoom, ll) || ll == gameState.playerRoom
-					if (!isValidRoom) {
-						console.print("NOT POSSIBLE - ")
-					}
-				} while (!isValidRoom)
+				985 -> ll = askForValidDestinationRoom()
 				1045 -> {
 					f = movePlayer(ll)
 					returnFromGosub()
@@ -73,6 +67,18 @@ class Wumpus {
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
+	}
+
+	private fun askForValidDestinationRoom(): Int {
+		var temp: Int
+		do {
+			temp = askForDestinationRoom()
+			val isValidRoom = map.roomHasPathTo(gameState.playerRoom, temp) || temp == gameState.playerRoom
+			if (!isValidRoom) {
+				console.print("NOT POSSIBLE - ")
+			}
+		} while (!isValidRoom)
+		return temp
 	}
 
 	private fun movePlayer(newPlayerRoom: Int): Int {
@@ -93,7 +99,7 @@ class Wumpus {
 		return 0
 	}
 
-	private fun askForRoomToMoveTo(): Int {
+	private fun askForDestinationRoom(): Int {
 		var ll1: Int
 		do {
 			console.print("WHERE TO ")
