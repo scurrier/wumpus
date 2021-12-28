@@ -53,7 +53,6 @@ class Wumpus {
 					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
 					else nextLine = 230                                                                            // 370 goto 230
 				}
-				665 -> returnFromGosub()																		// 665 return
 				975 -> {}																						// 975 rem *** MOVE ROUTINE ***
 				980 -> f = 0																					// 980 f = 0
 				985 -> console.print("WHERE TO ")																		// 985 print "WHERE TO";
