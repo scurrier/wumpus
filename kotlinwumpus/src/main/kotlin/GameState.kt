@@ -86,4 +86,10 @@ class GameState(private val random: Random) {
 	fun restoreInitialLocations() {
 		locations = initialLocations.clone()
 	}
+
+	fun resetGame(useNewSetup: Boolean) {
+		if (useNewSetup) intializeLocations()
+		else restoreInitialLocations()
+
+	}
 }

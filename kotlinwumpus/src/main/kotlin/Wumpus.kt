@@ -1,5 +1,3 @@
-import java.util.ArrayDeque
-import java.util.Deque
 import java.util.Random
 
 class Wumpus {
@@ -12,32 +10,34 @@ class Wumpus {
 
 	fun main() {
 		try {
-
 			if (needInstruction()) {giveInstructions()}
 			gameState.intializeLocations()
 			while (!(exitOnWin && won)) {
-				gameState.resetArrows()
-				console.println("HUNT THE WUMPUS")
-				var f = 0
-				do {
-					printRoomDescription()
-					when (getAction()) {
-						1 -> f = shootArrow()
-						2 -> f = movePlayerToRoom(askForValidDestinationRoom())
-					}
-				} while (f == 0)
-				if (f < 0) {
-					console.println("HA HA HA - YOU LOSE!")
-				} else {
-					console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
-					won = true
-				}
+				playGame()
 				val useNewSetup = askIfNewSetup()
-				if (useNewSetup) gameState.intializeLocations()                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
-				else gameState.restoreInitialLocations()
+				gameState.resetGame(useNewSetup)
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
+		}
+	}
+
+	private fun playGame() {
+		gameState.resetArrows()
+		console.println("HUNT THE WUMPUS")
+		var f = 0
+		do {
+			printRoomDescription()
+			when (getAction()) {
+				1 -> f = shootArrow()
+				2 -> f = movePlayerToRoom(askForValidDestinationRoom())
+			}
+		} while (f == 0)
+		if (f < 0) {
+			console.println("HA HA HA - YOU LOSE!")
+		} else {
+			console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+			won = true
 		}
 	}
 
