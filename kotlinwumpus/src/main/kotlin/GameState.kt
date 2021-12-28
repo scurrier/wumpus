@@ -1,4 +1,6 @@
-class GameState {
+import java.util.Random
+
+class GameState(private val random: Random) {
     fun resetArrows() {
 		arrowCount = 5
 	}
@@ -29,4 +31,14 @@ class GameState {
 	private var arrowCount: Int = 5
 	val locations = Array(7) {0}
 	val initialLocations = Array(7) {0}
+
+	fun fnA(): Int {
+		return random.nextInt(20) + 1
+	}
+	fun fnB(): Int {
+		return random.nextInt(3) + 1
+	}
+	fun fnC(): Int {
+		return random.nextInt(4) + 1
+	}
 }

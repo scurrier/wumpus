@@ -10,7 +10,7 @@ class Wumpus {
 	var console = Console()
 	var earlyExitHack: Int = 1150
 	val p = Array(6) {0}
-	val gameState = GameState()
+	var gameState = GameState(random)
 	val map = GameMap()
 
 	fun main() {
@@ -54,7 +54,7 @@ class Wumpus {
 				160 -> {}																						// 160 dim l(6)
 				165 -> {}																						// 165 dim m(6)
 				170 -> j = 1																					// 170 for j = 1 to 6
-				175 -> gameState.locations[j] = fnA()																				// 175 l(j) = fna(0)
+				175 -> gameState.locations[j] = gameState.fnA()																				// 175 l(j) = fna(0)
 				180 -> gameState.initialLocations[j] = gameState.locations[j]																				// 180 m(j) = l(j)
 				185 -> { ++j; if (j <= 6) nextLine = 175 }														// 185 next j
 				190 -> {}																						// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
@@ -121,7 +121,7 @@ class Wumpus {
 				815 -> if (map.nearByRoomHas(ll, k1, p[k])) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
 				820 -> { ++k1; if (k1 <= 3) nextLine = 815 }													// 820 next k1
 				825 -> {}																						// 825 rem *** NO TUNNEL FOR ARROW ***
-				830 -> ll = map.tunnelFrom(ll, fnB())																		// 830 l = s(l,fnb(1))
+				830 -> ll = map.tunnelFrom(ll, gameState.fnB())																		// 830 l = s(l,fnb(1))
 				835 -> nextLine = 900																			// 835 goto 900
 				840 -> { ++k; if (k <= j9) nextLine = 810 }														// 840 next k
 				845 -> console.println("MISSED")																		// 845 print "MISSED"
@@ -174,7 +174,7 @@ class Wumpus {
 				1120 -> if (ll == gameState.bat1) nextLine = 1130															// 1120 if l = l(5) then 1130
 				1125 -> if (ll != gameState.bat2) nextLine = 1145															// 1125 if l <> l(6) then 1145
 				1130 -> console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")								// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
-				1135 -> ll = fnA()																				// 1135 l = fna(1)
+				1135 -> ll = gameState.fnA()																				// 1135 l = fna(1)
 				1140 -> nextLine = 1045																			// 1140 goto 1045
 				1145 -> returnFromGosub()																		// 1145 return
 				1150 -> {}																						// 1150 end
@@ -189,7 +189,7 @@ class Wumpus {
 	private fun wumpusMove(f: Int): Int {
 		var k2 = 0
 		var f1 = f
-		k2 = fnC()
+		k2 = gameState.fnC()
 		if (k2 != 4) gameState.wumpusRoom = map.tunnelFrom(gameState.wumpusRoom, k2)
 		if (gameState.wumpusRoom == gameState.playerRoom) {
 			console.println("TSK TSK TSK - WUMPUS GOT YOU!")
@@ -228,7 +228,7 @@ class Wumpus {
 		console.println(gameState.playerRoom)
 		console.print("TUNNELS LEAD TO ")
 		console.print(map.tunnelFrom(ll, 1))
-		console.print(" ");
+		console.print(" ")
 		console.print(map.tunnelFrom(ll, 2))
 		console.print(" ")
 		console.println(map.tunnelFrom(ll, 3))
@@ -245,16 +245,7 @@ class Wumpus {
 		else
 			returnLine.pollLast()
 	}
-	fun fnA(): Int {
-		return random.nextInt(20) + 1
-	}
-	fun fnB(): Int {
-		return random.nextInt(3) + 1
-	}
-	fun fnC(): Int {
-		return random.nextInt(4) + 1
-	}
-	
+
 	private fun directions() {
 		console.println("WELCOME TO 'HUNT THE WUMPUS'")
 		console.println("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM")
