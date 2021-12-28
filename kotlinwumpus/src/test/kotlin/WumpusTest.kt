@@ -18,9 +18,7 @@ class WumpusTest {
 
     @Test
     fun pinningTest() {
-        testObj.earlyExitHack = 370
-        testObj.earlyExitHack = 336
-
+        testObj.exitOnWin = true
         every { console.print(any<Int>()) } returns Unit
         every { console.print(any<String>()) } returns Unit
         every { console.println(any<Int>()) } returns Unit

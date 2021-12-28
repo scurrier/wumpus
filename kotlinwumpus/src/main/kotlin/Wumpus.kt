@@ -3,23 +3,21 @@ import java.util.Deque
 import java.util.Random
 
 class Wumpus {
+	private var won: Boolean = false
 	private var currentLine: Int = 0
 	private var nextLine: Int = 0
     var random = Random()
 	var console = Console()
-	var earlyExitHack: Int = 1150
+	var exitOnWin = false
 	var gameState = GameState(random)
 	val map = GameMap()
 
 	fun main() {
 		try {
 			currentLine = 5
-			var ll = 0
 			var f = 0
 
-			var j = 0
-			var k = 0
-			while (currentLine <= 1150 && currentLine != earlyExitHack) {
+			while (currentLine <= 1150 && !(exitOnWin && won)) {
 				nextLine = currentLine + 1
 				when (currentLine) {
 				15 -> if (needInstruction()) {giveInstructions()}
@@ -38,13 +36,11 @@ class Wumpus {
 					} while (f == 0)
 					if (f < 0) {
 						console.println("HA HA HA - YOU LOSE!")
-						nextLine = 340
 					} else {
 						console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
-						nextLine = 336
+						won = true
 					}
 				}
-				336 -> {} //end with hack
 				340 -> gameState.restoreInitialLocations()
 				355 -> {
 					val useNewSetup = askIfNewSetup()
