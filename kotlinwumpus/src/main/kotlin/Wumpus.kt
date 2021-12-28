@@ -55,39 +55,17 @@ class Wumpus {
 				}
 				975 -> {}																						// 975 rem *** MOVE ROUTINE ***
 				980 -> f = 0																					// 980 f = 0
-				985 -> console.print("WHERE TO ")																		// 985 print "WHERE TO";
-				990 -> ll = console.readInt()																			// 990 input l
-				995 -> if (ll < 1) nextLine = 985																// 995 if l < 1 then 985
-				1000 -> if (ll > 20) nextLine = 985																// 1000 if l > 20 then 985
-				1005 -> k = 1																					// 1005 for k = 1 to 3
-				1010 -> {}																						// 1010 rem *** CHECK IF LEGAL MOVE ***
-				1015 -> if (map.nearByRoomHas(gameState.playerRoom, k, ll)) nextLine = 1045													// 1015 if s(l(1),k) = l then 1045
-				1020 -> { ++k; if (k <= 3) nextLine = 1010 }													// 1020 next k
-				1025 -> if (ll == gameState.playerRoom) nextLine = 1045															// 1025 if l = l(1) then 1045
-				1030 -> console.print("NOT POSSIBLE - ")																// 1030 print "NOT POSSIBLE -";
-				1035 -> nextLine = 985																			// 1035 goto 985
-				1040 -> {}																						// 1040 rem *** CHECK FOR HAZARDS ***
-				1045 -> gameState.playerRoom = ll																				// 1045 l(1) = l
-				1050 -> {}																						// 1050 rem *** WUMPUS ***
-				1055 -> if (ll != gameState.wumpusRoom) nextLine = 1090															// 1055 if l <> l(2) then 1090
-				1060 -> console.println("... OOPS! BUMPED A WUMPUS!")													// 1060 print "... OOPS! BUMPED A WUMPUS!"
-				1065 -> {}																						// 1065 rem *** MOVE WUMPUS ***
-				1070 -> f = gameState.wumpusMove(f, map, console)
-				1075 -> if (f == 0) nextLine = 1090																// 1075 if f = 0 then 1090
-				1080 -> returnFromGosub()																		// 1080 return
-				1085 -> {}																						// 1085 rem *** PIT ***
-				1090 -> if (ll == gameState.pit1) nextLine = 1100															// 1090 if l = l(3) then 1100
-				1095 -> if (ll != gameState.pit2) nextLine = 1120															// 1095 if l <> l(4) then 1120
-				1100 -> console.println("YYYYIIIIEEEE . . . FELL IN PIT")												// 1100 print "YYYYIIIIEEEE . . . FELL IN PIT"
-				1105 -> f = -1																					// 1105 f = -1
-				1110 -> returnFromGosub()																		// 1110 return
-				1115 -> {}																						// 1115 rem *** BATS ***
-				1120 -> if (ll == gameState.bat1) nextLine = 1130															// 1120 if l = l(5) then 1130
-				1125 -> if (ll != gameState.bat2) nextLine = 1145															// 1125 if l <> l(6) then 1145
-				1130 -> console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")								// 1130 print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
-				1135 -> ll = gameState.fnA()																				// 1135 l = fna(1)
-				1140 -> nextLine = 1045																			// 1140 goto 1045
-				1145 -> returnFromGosub()																		// 1145 return
+				985 -> do {
+					ll = askForRoomToMoveTo()
+					val isValidRoom = map.roomHasPathTo(gameState.playerRoom, ll) || ll == gameState.playerRoom
+					if (!isValidRoom) {
+						console.print("NOT POSSIBLE - ")
+					}
+				} while (!isValidRoom)
+				1045 -> {
+					f = movePlayer(ll)
+					returnFromGosub()
+				}																		// 1145 return
 				1150 -> {}																						// 1150 end
 				}
 				currentLine = nextLine
@@ -95,6 +73,33 @@ class Wumpus {
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
+	}
+
+	private fun movePlayer(newPlayerRoom: Int): Int {
+		gameState.playerRoom = newPlayerRoom
+		if (newPlayerRoom == gameState.wumpusRoom) {
+			console.println("... OOPS! BUMPED A WUMPUS!")
+			val f = gameState.wumpusMove(map, console)
+			if (f != 0) return f
+		}
+		if ((newPlayerRoom == gameState.pit1 || newPlayerRoom == gameState.pit2)) {
+			console.println("YYYYIIIIEEEE . . . FELL IN PIT")
+			return -1
+		}
+		if ((newPlayerRoom == gameState.bat1 || newPlayerRoom == gameState.bat2)) {
+			console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
+			return movePlayer(gameState.fnA())
+		}
+		return 0
+	}
+
+	private fun askForRoomToMoveTo(): Int {
+		var ll1: Int
+		do {
+			console.print("WHERE TO ")
+			ll1 = console.readInt()
+		} while (ll1 < 1 || ll1 > 20)
+		return ll1
 	}
 
 	private fun shootArrow(): Int {
@@ -119,7 +124,7 @@ class Wumpus {
 		}
 		if (f1 == 0) {
 			console.println("MISSED")
-			f1 = gameState.wumpusMove(f1, map, console)
+			f1 = gameState.wumpusMove(map, console)
 			gameState.consumeArrow()
 			if (!gameState.hasArrows()) f1 = -1
 		}

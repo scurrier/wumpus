@@ -32,18 +32,15 @@ class GameState(private val random: Random) {
 	var locations = Array(7) {0}
 	var initialLocations = Array(7) {0}
 
-	fun wumpusMove(f: Int, map: GameMap, console: Console): Int {
-		var k2 = 0
-		var f1 = f
-		k2 = fnC()
+	fun wumpusMove(map: GameMap, console: Console): Int {
+		var k2 = fnC()
 		if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
 		if (wumpusRoom == playerRoom) {
 			console.println("TSK TSK TSK - WUMPUS GOT YOU!")
-			f1 = -1
+			return -1
 		}
-		return f1
+		return 0
 	}
-
 
 	fun fnA(): Int {
 		return random.nextInt(20) + 1
