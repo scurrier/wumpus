@@ -29,8 +29,8 @@ class GameState(private val random: Random) {
 		get() = locations[6]
 
 	private var arrowCount: Int = 5
-	val locations = Array(7) {0}
-	val initialLocations = Array(7) {0}
+	var locations = Array(7) {0}
+	var initialLocations = Array(7) {0}
 
 	fun wumpusMove(f: Int, map: GameMap, console: Console): Int {
 		var k2 = 0
@@ -53,5 +53,36 @@ class GameState(private val random: Random) {
 	}
 	fun fnC(): Int {
 		return random.nextInt(4) + 1
+	}
+
+	fun intializeLocations() {
+		do {
+			setNewLocations(generateLocations())
+		} while (hasCrossovers())
+	}
+
+	fun generateLocations(): Array<Int> {
+		val newLocations = Array(7) { 0 }
+		for (j in 1..6) {
+			newLocations[j] = fnA()
+		}
+		return newLocations
+	}
+
+	fun setNewLocations(newLocations: Array<Int>) {
+		locations = newLocations.clone()
+		initialLocations = newLocations.clone()
+
+	}
+
+	fun hasCrossovers(): Boolean {
+		for (j in 1..6) {
+			for (k in 1..6) {
+				if (j != k && locations[j] == locations[k]) {
+					return true
+				}
+			}
+		}
+		return false
 	}
 }

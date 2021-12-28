@@ -28,17 +28,7 @@ class Wumpus {
 				nextLine = currentLine + 1
 				when (currentLine) {
 				15 -> if (needInstruction()) {giveInstructions()}
-				170 -> j = 1																					// 170 for j = 1 to 6
-				175 -> gameState.locations[j] = gameState.fnA()																				// 175 l(j) = fna(0)
-				180 -> gameState.initialLocations[j] = gameState.locations[j]																				// 180 m(j) = l(j)
-				185 -> { ++j; if (j <= 6) nextLine = 175 }														// 185 next j
-				190 -> {}																						// 190 rem *** CHECK FOR CROSSOVERS (IE l(1)=l(2), ETC) ***
-				195 -> j = 1																					// 195 for j = 1 to 6
-				200 -> k = 1																					// 200 for k = 1 to 6
-				205 -> if (j == k ) nextLine = 215																// 205 if j = k then 215
-				210 -> if (gameState.locations[j] == gameState.locations[k]) nextLine = 170															// 210 if l(j) = l(k) then 170
-				215 -> { ++k; if (k <= 6) nextLine = 205 }														// 215 next k
-				220 -> { ++j; if (j <= 6) nextLine = 200 }														// 220 next j
+				170 -> gameState.intializeLocations()
 				225 -> {}																						// 225 rem *** SET NO. OF ARROWS ***
 				230 -> gameState.resetArrows()																					// 230 a = 5
 				235 -> ll = gameState.playerRoom																			// 235 l = l(1)
