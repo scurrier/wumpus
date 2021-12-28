@@ -11,7 +11,9 @@ class Wumpus {
 
 	fun main() {
 		try {
-			if (needInstruction()) {giveInstructions()}
+			if (ui.askIfInstructionsNeeded()) {
+				giveInstructions()
+			}
 			gameState.intializeLocations()
 			while (!(exitOnWin && won)) {
 				playGame()
@@ -186,12 +188,6 @@ class Wumpus {
 		ui.console.print(" ")
 		ui.console.println(map.tunnelFrom(ll, 3))
 		ui.console.println("")
-	}
-
-	private fun needInstruction(): Boolean {
-		ui.console.print("INSTRUCTIONS (Y-N) ")                                                        // 15 print "INSTRUCTIONS (Y-N)";
-		val iS = ui.console.readln()                                                                        // 20 input i$
-		return (iS != 'N' && iS != 'n')
 	}
 
 	private fun giveInstructions() {
