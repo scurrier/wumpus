@@ -4,7 +4,6 @@ import java.util.Random
 
 class Wumpus {
 	private var currentLine: Int = 0
-    private val returnLine: Deque<Int> = ArrayDeque()
 	private var nextLine: Int = 0
     var random = Random()
 	var console = Console()
@@ -36,7 +35,7 @@ class Wumpus {
 				285 -> if (f == 0) nextLine = 255																// 285 if f = 0 then 255
 				290 -> nextLine = 310																			// 290 goto 310
 				295 -> {}																						// 295 rem *** MOVE ***
-				300 -> gosub(975, 305)													// 300 gosub 975
+				300 -> f = movePlayerToRoom(askForValidDestinationRoom())
 				305 -> if (f == 0) nextLine = 255																// 305 if f = 0 then 255
 				310 -> if (f > 0) nextLine = 335																// 310 if f > 0 then 335
 				315 -> {}																						// 315 rem *** LOSE ***
@@ -53,14 +52,6 @@ class Wumpus {
 					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
 					else nextLine = 230                                                                            // 370 goto 230
 				}
-				975 -> {}																						// 975 rem *** MOVE ROUTINE ***
-				980 -> f = 0																					// 980 f = 0
-				985 -> ll = askForValidDestinationRoom()
-				1045 -> {
-					f = movePlayer(ll)
-					returnFromGosub()
-				}																		// 1145 return
-				1150 -> {}																						// 1150 end
 				}
 				currentLine = nextLine
 			}
@@ -81,7 +72,7 @@ class Wumpus {
 		return temp
 	}
 
-	private fun movePlayer(newPlayerRoom: Int): Int {
+	private fun movePlayerToRoom(newPlayerRoom: Int): Int {
 		gameState.playerRoom = newPlayerRoom
 		if (newPlayerRoom == gameState.wumpusRoom) {
 			console.println("... OOPS! BUMPED A WUMPUS!")
@@ -94,7 +85,7 @@ class Wumpus {
 		}
 		if ((newPlayerRoom == gameState.bat1 || newPlayerRoom == gameState.bat2)) {
 			console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
-			return movePlayer(gameState.fnA())
+			return movePlayerToRoom(gameState.fnA())
 		}
 		return 0
 	}
@@ -206,17 +197,6 @@ class Wumpus {
 		console.print(" ")
 		console.println(map.tunnelFrom(ll, 3))
 		console.println("")
-	}
-
-	private fun gosub(gosubLine: Int, lineToReturnTo: Int) {
-		nextLine = gosubLine
-		returnLine.addLast(lineToReturnTo)
-	}
-	private fun returnFromGosub() {
-		nextLine = if (returnLine.isEmpty())
-			1151
-		else
-			returnLine.pollLast()
 	}
 
 	private fun needInstruction(): Boolean {
