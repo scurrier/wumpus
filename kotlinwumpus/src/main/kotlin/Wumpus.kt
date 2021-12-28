@@ -4,9 +4,7 @@ import java.util.Random
 
 class Wumpus {
 	private var won: Boolean = false
-	private var currentLine: Int = 0
-	private var nextLine: Int = 0
-    var random = Random()
+	var random = Random()
 	var console = Console()
 	var exitOnWin = false
 	var gameState = GameState(random)
@@ -14,41 +12,29 @@ class Wumpus {
 
 	fun main() {
 		try {
-			currentLine = 5
-			var f = 0
 
-			while (currentLine <= 1150 && !(exitOnWin && won)) {
-				nextLine = currentLine + 1
-				when (currentLine) {
-				15 -> if (needInstruction()) {giveInstructions()}
-				170 -> gameState.intializeLocations()
-				230 -> {
-					gameState.resetArrows()
-					console.println("HUNT THE WUMPUS")
-				}
-				255 -> {
-					do {
-						printRoomDescription()
-						when (getAction()) {
-							1 -> f = shootArrow()
-							2 -> f = movePlayerToRoom(askForValidDestinationRoom())
-						}
-					} while (f == 0)
-					if (f < 0) {
-						console.println("HA HA HA - YOU LOSE!")
-					} else {
-						console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
-						won = true
+			if (needInstruction()) {giveInstructions()}
+			gameState.intializeLocations()
+			while (!(exitOnWin && won)) {
+				gameState.resetArrows()
+				console.println("HUNT THE WUMPUS")
+				var f = 0
+				do {
+					printRoomDescription()
+					when (getAction()) {
+						1 -> f = shootArrow()
+						2 -> f = movePlayerToRoom(askForValidDestinationRoom())
 					}
+				} while (f == 0)
+				if (f < 0) {
+					console.println("HA HA HA - YOU LOSE!")
+				} else {
+					console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+					won = true
 				}
-				340 -> gameState.restoreInitialLocations()
-				355 -> {
-					val useNewSetup = askIfNewSetup()
-					if (useNewSetup) nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
-					else nextLine = 230                                                                            // 370 goto 230
-				}
-				}
-				currentLine = nextLine
+				val useNewSetup = askIfNewSetup()
+				if (useNewSetup) gameState.intializeLocations()                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
+				else gameState.restoreInitialLocations()
 			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
