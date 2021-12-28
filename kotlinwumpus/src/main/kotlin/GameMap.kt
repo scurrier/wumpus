@@ -8,7 +8,14 @@ class GameMap {
 		return data[room][tunnel]
 	}
 
-	val data = arrayOf(arrayOf(0,0,0,0),
+	fun roomHasPathTo(room: Int, target: Int): Boolean {
+		for (k in 1..3) {
+			if (nearByRoomHas(room, k, target)) return true
+		}
+		return false
+	}
+
+	private val data = arrayOf(arrayOf(0,0,0,0),
 	arrayOf(0,2,5,8), arrayOf(0,1,3,10), arrayOf(0,2,4,12), arrayOf(0,3,5,14), arrayOf(0,1,4,6),
 	arrayOf(0,5,7,15), arrayOf(0,6,8,17), arrayOf(0,1,7,9), arrayOf(0,8,10,18), arrayOf(0,2,9,11),
 	arrayOf(0,10,12,19), arrayOf(0,3,11,13), arrayOf(0,12,14,20), arrayOf(0,4,13,15), arrayOf(0,6,14,16),

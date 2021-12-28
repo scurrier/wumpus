@@ -9,7 +9,6 @@ class Wumpus {
     var random = Random()
 	var console = Console()
 	var earlyExitHack: Int = 1150
-	val p = Array(6) {0}
 	var gameState = GameState(random)
 	val map = GameMap()
 
@@ -17,13 +16,10 @@ class Wumpus {
 		try {
 			currentLine = 5
 			var ll = 0
-			var o = 1
 			var f = 0
 
 			var j = 0
 			var k = 0
-			var k1 = 0
-			var j9 = 0
 			while (currentLine <= 1150 && currentLine != earlyExitHack) {
 				nextLine = currentLine + 1
 				when (currentLine) {
@@ -34,10 +30,9 @@ class Wumpus {
 					console.println("HUNT THE WUMPUS")
 				}
 				255 -> printRoomDescription()
-				265 -> o = getAction()
-				270 -> when(o) {1 -> nextLine = 280; 2 -> nextLine = 300}										// 270 on o goto 280,300
+				270 -> when(getAction()) {1 -> nextLine = 280; 2 -> nextLine = 300}										// 270 on o goto 280,300
 				275 -> {}																						// 275 rem *** SHOOT ***
-				280 -> gosub(715, 285)													// 280 gosub 715
+				280 -> f = shootArrow()
 				285 -> if (f == 0) nextLine = 255																// 285 if f = 0 then 255
 				290 -> nextLine = 310																			// 290 goto 310
 				295 -> {}																						// 295 rem *** MOVE ***
@@ -59,49 +54,6 @@ class Wumpus {
 					else nextLine = 230                                                                            // 370 goto 230
 				}
 				665 -> returnFromGosub()																		// 665 return
-				715 -> {}																						// 715 rem *** ARROW ROUTINE ***
-				720 -> f = 0																					// 720 f = 0
-				725 -> {}																						// 725 rem *** PATH OF ARROW ***
-				735 -> console.print("NO. OF ROOMS (1-5) ")																// 735 print "NO. OF ROOMS (1-5)";
-				740 -> j9 = console.readInt()																			// 740 input j9
-				745 -> if (j9 < 1) nextLine = 735																// 745 if j9 < 1 then 735
-				750 -> if (j9 > 5) nextLine = 735																// 750 if j9 > 5 then 735
-				755 -> k = 1																					// 755 for k = 1 to j9
-				760 -> console.print("ROOM # ")																			// 760 print "ROOM #";
-				765 -> p[k] = console.readInt()																			// 765 input p(k)
-				770 -> if (k <= 2) nextLine = 790																// 770 if k <= 2 then 790
-				775 -> if (p[k] != p[k-2]) nextLine = 790														// 775 if p(k) <> p(k-2) then 790
-				780 -> console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")									// 780 print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
-				785 -> nextLine = 760																			// 785 goto 760
-				790 -> { ++k; if (k <= j9) nextLine = 760 }														// 790 next k
-				795 -> {}																						// 795 rem *** SHOOT ARROW ***
-				800 -> ll = gameState.playerRoom																				// 800 l = l(1)
-				805 -> k = 1																					// 805 for k = 1 to j9
-				810 -> k1 = 1																					// 810 for k1 = 1 to 3
-				815 -> if (map.nearByRoomHas(ll, k1, p[k])) nextLine = 895													// 815 if s(l,k1) = p(k) then 895
-				820 -> { ++k1; if (k1 <= 3) nextLine = 815 }													// 820 next k1
-				825 -> {}																						// 825 rem *** NO TUNNEL FOR ARROW ***
-				830 -> ll = map.tunnelFrom(ll, gameState.fnB())																		// 830 l = s(l,fnb(1))
-				835 -> nextLine = 900																			// 835 goto 900
-				840 -> { ++k; if (k <= j9) nextLine = 810 }														// 840 next k
-				845 -> console.println("MISSED")																		// 845 print "MISSED"
-				850 -> ll = gameState.playerRoom																				// 850 l = l(1)
-				855 -> {}																						// 855 rem *** MOVE WUMPUS ***
-				860 -> f = gameState.wumpusMove(f, map, console)
-				865 -> {}																						// 865 rem *** AMMO CHECK ***
-				870 -> gameState.consumeArrow()																					// 870 a = a-1
-				875 -> if (gameState.hasArrows()) nextLine = 885																// 875 if a > 0 then 885
-				880 -> f = -1																					// 880 f = -1
-				885 -> returnFromGosub()																		// 885 return
-				890 -> {}																						// 890 rem *** SEE IF ARROW IS AT l(1) OR AT l(2)
-				895 -> ll = p[k]																				// 895 l = p(k)
-				900 -> if (ll != gameState.wumpusRoom) nextLine = 920															// 900 if l <> l(2) then 920
-				905 -> console.println("AHA! YOU GOT THE WUMPUS!")														// 905 print "AHA! YOU GOT THE WUMPUS!"
-				910 -> f = 1																					// 910 f = 1
-				915 -> returnFromGosub()																		// 915 return
-				920 -> if (ll != gameState.playerRoom) nextLine = 840															// 920 if l <> l(1) then 840
-				925 -> console.println ("OUCH! ARROW GOT YOU!")															// 925 print "OUCH! ARROW GOT YOU!"
-				930 -> nextLine = 880																			// 930 goto 880
 				975 -> {}																						// 975 rem *** MOVE ROUTINE ***
 				980 -> f = 0																					// 980 f = 0
 				985 -> console.print("WHERE TO ")																		// 985 print "WHERE TO";
@@ -146,8 +98,72 @@ class Wumpus {
 		}
 	}
 
+	private fun shootArrow(): Int {
+		val j9 = askForNumberOfRooms()
+		val p = getArrowPath(j9)
+		return followArrowPath(p, j9)
+	}
+
+	private fun followArrowPath(p: Array<Int>, j9: Int):Int {
+		var ll1 = gameState.playerRoom
+		var f1 = 0
+		for (k in 1..j9) {
+			ll1 = getNextRoomFromPath(ll1, k, p)
+			if (ll1 == gameState.wumpusRoom) {
+				console.println("AHA! YOU GOT THE WUMPUS!")
+				f1 = 1
+			}
+			if (ll1 == gameState.playerRoom) {
+				console.println("OUCH! ARROW GOT YOU!")
+				f1 = -1
+			}
+		}
+		if (f1 == 0) {
+			console.println("MISSED")
+			ll1 = gameState.playerRoom
+			f1 = gameState.wumpusMove(f1, map, console)
+			gameState.consumeArrow()
+			if (!gameState.hasArrows()) f1 = -1
+		}
+		return f1
+	}
+
+	private fun getNextRoomFromPath(ll: Int, k: Int, p: Array<Int>) = if (map.roomHasPathTo(ll, p[k])) {
+		p[k]
+	} else {
+		map.tunnelFrom(ll, gameState.fnB())
+	}
+
+	private fun getArrowPath(roomCount: Int): Array<Int> {
+		val path = Array(roomCount + 1) {0}
+		for (k in 1..roomCount) {
+			path[k] = getNextRoom(path, k)
+		}
+		return path
+	}
+
+	private fun getNextRoom(path: Array<Int>, k: Int): Int {
+		var nextRoom: Int
+		do {
+			console.print("ROOM # ")
+			nextRoom = console.readInt()
+			val invalidPath = (k > 2) && path[k] == nextRoom
+			if (invalidPath) console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
+		} while (invalidPath)
+		return nextRoom
+	}
+
+	private fun askForNumberOfRooms(): Int {
+		var a: Int
+		do {
+			console.print("NO. OF ROOMS (1-5) ")
+			a = console.readInt()
+		} while (a < 1 || a > 5)
+		return a
+	}
+
 	private fun getAction(): Int {
-		var result = 0
+		var result: Int
 		do {
 			console.print("SHOOT OR MOVE (S-M) ")                                                            // 675 print "SHOOT OR MOVE (S-M)";
 			result = when (console.readln()) {
