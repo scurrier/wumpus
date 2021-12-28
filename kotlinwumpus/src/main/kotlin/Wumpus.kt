@@ -12,7 +12,7 @@ class Wumpus {
 	fun main() {
 		try {
 			if (ui.askIfInstructionsNeeded()) {
-				giveInstructions()
+				ui.giveInstructions()
 			}
 			gameState.intializeLocations()
 			while (!(exitOnWin && won)) {
@@ -187,49 +187,6 @@ class Wumpus {
 		ui.console.print(map.tunnelFrom(ll, 2))
 		ui.console.print(" ")
 		ui.console.println(map.tunnelFrom(ll, 3))
-		ui.console.println("")
-	}
-
-	private fun giveInstructions() {
-		ui.console.println("WELCOME TO 'HUNT THE WUMPUS'")
-		ui.console.println("  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM")
-		ui.console.println("HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A")
-		ui.console.println("DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW")
-		ui.console.println("WHAT A DODECAHEDRON IS, ASK SOMEONE)")
-		ui.console.println("")
-		ui.console.println("     HAZARDS:")
-		ui.console.println(" BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM")
-		ui.console.println("     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)")
-		ui.console.println(" SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU")
-		ui.console.println("     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER")
-		ui.console.println("     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)")
-		ui.console.input("HIT RETURN TO CONTINUE")
-		ui.console.println("     WUMPUS:")
-		ui.console.println(" THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER")
-		ui.console.println(" FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY")
-		ui.console.println(" HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING AN")
-		ui.console.println("ARROW OR YOU ENTERING HIS ROOM.")
-		ui.console.println("     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM")
-		ui.console.println(" OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU")
-		ui.console.println(" ARE, HE EATS YOU UP AND YOU LOSE!")
-		ui.console.println("")
-		ui.console.println("     YOU:")
-		ui.console.println(" EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW")
-		ui.console.println("   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)")
-		ui.console.println("   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT")
-		ui.console.println("   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING")
-		ui.console.println("   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO.")
-		ui.console.println("   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES")
-		ui.console.println("   AT RANDOM TO THE NEXT ROOM.")
-		ui.console.println("     IF THE ARROW HITS THE WUMPUS, YOU WIN.")
-		ui.console.println("     IF THE ARROW HITS YOU, YOU LOSE.")
-		ui.console.input("HIT RETURN TO CONTINUE")
-		ui.console.println("    WARNINGS:")
-		ui.console.println("     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,")
-		ui.console.println("     THE COMPUTER SAYS:")
-		ui.console.println(" WUMPUS:  'I SMELL A WUMPUS'")
-		ui.console.println(" BAT   :  'BATS NEARBY'")
-		ui.console.println(" PIT   :  'I FEEL A DRAFT'")
 		ui.console.println("")
 	}
 }
