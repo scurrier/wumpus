@@ -29,14 +29,11 @@ class Wumpus {
 				when (currentLine) {
 				15 -> if (needInstruction()) {giveInstructions()}
 				170 -> gameState.intializeLocations()
-				225 -> {}																						// 225 rem *** SET NO. OF ARROWS ***
-				230 -> gameState.resetArrows()																					// 230 a = 5
-				235 -> ll = gameState.playerRoom																			// 235 l = l(1)
-				240 -> {}																						// 240 rem *** RUN THE GAME ***
-				245 -> console.println("HUNT THE WUMPUS")														// 245 print "HUNT THE WUMPUS"
-				250 -> {}																						// 250 rem *** HAZARD WARNING AND LOCATION ***
-				255 -> gosub(585, 260)													// 255 gosub 585
-				260 -> {}																						// 260 rem *** MOVE OR SHOOT ***
+				230 -> {
+					gameState.resetArrows()
+					console.println("HUNT THE WUMPUS")
+				}
+				255 -> printRoomDescription()
 				265 -> o = getAction()
 				270 -> when(o) {1 -> nextLine = 280; 2 -> nextLine = 300}										// 270 on o goto 280,300
 				275 -> {}																						// 275 rem *** SHOOT ***
@@ -61,7 +58,6 @@ class Wumpus {
 					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
 					else nextLine = 230                                                                            // 370 goto 230
 				}
-				585 -> printRoomDescription()
 				665 -> returnFromGosub()																		// 665 return
 				715 -> {}																						// 715 rem *** ARROW ROUTINE ***
 				720 -> f = 0																					// 720 f = 0

@@ -90,4 +90,23 @@ internal class GameStateTest {
         assertEquals(7, testObj.bat1)
         assertEquals(8, testObj.bat2)
     }
+
+    @Test
+    fun arrows() {
+        val arrowsConsumed = consumeAllArrows()
+        assertEquals(5, arrowsConsumed)
+        testObj.resetArrows()
+        val resetArrows = consumeAllArrows()
+        assertEquals(5, resetArrows)
+        assertEquals(0, consumeAllArrows(), "Just proving that there are no arrows after consumeAllArrows()")
+    }
+
+    private fun consumeAllArrows(): Int {
+        var c = 0
+        while(testObj.hasArrows()) {
+            c++
+            testObj.consumeArrow()
+        }
+        return c
+    }
 }
