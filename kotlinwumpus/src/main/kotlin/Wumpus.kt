@@ -28,28 +28,27 @@ class Wumpus {
 					gameState.resetArrows()
 					console.println("HUNT THE WUMPUS")
 				}
-				255 -> printRoomDescription()
-				270 -> when(getAction()) {1 -> nextLine = 280; 2 -> nextLine = 300}										// 270 on o goto 280,300
-				275 -> {}																						// 275 rem *** SHOOT ***
-				280 -> f = shootArrow()
-				285 -> if (f == 0) nextLine = 255																// 285 if f = 0 then 255
-				290 -> nextLine = 310																			// 290 goto 310
-				295 -> {}																						// 295 rem *** MOVE ***
-				300 -> f = movePlayerToRoom(askForValidDestinationRoom())
-				305 -> if (f == 0) nextLine = 255																// 305 if f = 0 then 255
-				310 -> if (f > 0) nextLine = 335																// 310 if f > 0 then 335
-				315 -> {}																						// 315 rem *** LOSE ***
-				320 -> console.println("HA HA HA - YOU LOSE!")															// 320 print "HA HA HA - YOU LOSE!"
-				325 -> nextLine = 340																			// 325 goto 340
-				330 -> {}																						// 330 rem *** WIN ***
-				335 -> console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")								// 335 print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
-				340 -> j = 1																					// 340 for j = 1 to 6
-				345 -> gameState.locations[j] = gameState.initialLocations[j]																				// 345 l(j) = m(j)
-				350 -> { ++j; if (j <= 6) nextLine = 345 }														// 350 next j
-				355 -> console.print("SAME SETUP (Y-N)")														// 355 print "SAME SETUP (Y-N)";
-				360 -> {
-					val iS = console.readln()                                                                    // 360 input i$
-					if (iS != 'Y' && iS != 'y') nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
+				255 -> {
+					do {
+						printRoomDescription()
+						when (getAction()) {
+							1 -> f = shootArrow()
+							2 -> f = movePlayerToRoom(askForValidDestinationRoom())
+						}
+					} while (f == 0)
+					if (f < 0) {
+						console.println("HA HA HA - YOU LOSE!")
+						nextLine = 340
+					} else {
+						console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+						nextLine = 336
+					}
+				}
+				336 -> {} //end with hack
+				340 -> gameState.restoreInitialLocations()
+				355 -> {
+					val useNewSetup = askIfNewSetup()
+					if (useNewSetup) nextLine = 170                                                // 365 if (i$ <> "Y") and (i$ <> "y") then 170
 					else nextLine = 230                                                                            // 370 goto 230
 				}
 				}
@@ -58,6 +57,13 @@ class Wumpus {
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
+	}
+
+	private fun askIfNewSetup(): Boolean {
+		console.print("SAME SETUP (Y-N)")                                                        // 355 print "SAME SETUP (Y-N)";
+		val iS = console.readln()                                                                    // 360 input i$
+		val useNewSetup = iS != 'Y' && iS != 'y'
+		return useNewSetup
 	}
 
 	private fun askForValidDestinationRoom(): Int {
