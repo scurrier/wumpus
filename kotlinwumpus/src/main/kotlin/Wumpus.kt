@@ -120,7 +120,6 @@ class Wumpus {
 		}
 		if (f1 == 0) {
 			console.println("MISSED")
-			ll1 = gameState.playerRoom
 			f1 = gameState.wumpusMove(f1, map, console)
 			gameState.consumeArrow()
 			if (!gameState.hasArrows()) f1 = -1
