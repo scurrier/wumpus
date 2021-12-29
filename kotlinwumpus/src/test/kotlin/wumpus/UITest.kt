@@ -1,6 +1,8 @@
 package wumpus
 
 import Console
+import GameMap
+import GameState
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import java.util.Random
 
 internal class UITest {
     private val console = mockk<Console>(relaxed = true)
@@ -81,6 +84,21 @@ internal class UITest {
                  PIT   :  'I FEEL A DRAFT'
                                 
             """.trimIndent())
+        }
+    }
+
+    @Test
+    fun printRoomDescription() {
+        val gameState = GameState(Random())
+        gameState.setNewLocations(arrayOf(0,3,4,12,19,2,20))
+        testObj.printRoomDescription(gameState, GameMap())
+        verify {
+            console.println("I SMELL A WUMPUS!")
+            console.println("I FEEL A DRAFT")
+            console.println("BATS NEARBY!")
+            console.println("YOU ARE IN ROOM 3")
+            console.println("TUNNELS LEAD TO 2 4 12")
+            console.println("")
         }
     }
 }

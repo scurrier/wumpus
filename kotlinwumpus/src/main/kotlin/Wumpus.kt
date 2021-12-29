@@ -25,7 +25,7 @@ class Wumpus {
 		gameState.resetArrows()
 		gameState.startPlaying()
 		do {
-			printRoomDescription()
+			ui.printRoomDescription(gameState, map)
 			when (getAction()) {
 				1 -> gameState.updateGameResult(shootArrow())
 				2 -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
@@ -158,30 +158,6 @@ class Wumpus {
 			}
 			} while (result == 0)
 		return result
-	}
-
-	private fun printRoomDescription() {
-		val ll = gameState.playerRoom
-		ui.console.println("")
-		(2..6).forEach { j ->
-			(1..3).forEach { k ->
-				if (!map.nearByRoomHas(gameState.playerRoom, k, gameState.locations[j])) return@forEach
-				when (j - 1) {
-					1 -> ui.console.println("I SMELL A WUMPUS!")
-					2, 3 -> ui.console.println("I FEEL A DRAFT")
-					4, 5 -> ui.console.println("BATS NEARBY!")
-				}
-			}
-		}
-		ui.console.print("YOUR ARE IN ROOM ")
-		ui.console.println(gameState.playerRoom)
-		ui.console.print("TUNNELS LEAD TO ")
-		ui.console.print(map.tunnelFrom(ll, 1))
-		ui.console.print(" ")
-		ui.console.print(map.tunnelFrom(ll, 2))
-		ui.console.print(" ")
-		ui.console.println(map.tunnelFrom(ll, 3))
-		ui.console.println("")
 	}
 }
 

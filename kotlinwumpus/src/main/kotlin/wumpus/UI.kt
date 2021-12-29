@@ -1,6 +1,8 @@
 package wumpus
 
 import Console
+import GameMap
+import GameState
 
 class UI(val console: Console) {
 
@@ -68,4 +70,21 @@ class UI(val console: Console) {
     fun showTitle() {
         console.println("HUNT THE WUMPUS")
     }
+
+    fun printRoomDescription(gameState: GameState, map: GameMap) {
+        val ll = gameState.playerRoom
+        console.println("")
+        (2..6).forEach { j ->
+            if (!map.roomHasPathTo(gameState.playerRoom, gameState.locations[j])) return@forEach
+            when (j) {
+                2 -> console.println("I SMELL A WUMPUS!")
+                3, 4 -> console.println("I FEEL A DRAFT")
+                5, 6 -> console.println("BATS NEARBY!")
+            }
+        }
+        console.println("YOU ARE IN ROOM ${gameState.playerRoom}")
+        console.println("TUNNELS LEAD TO ${map.tunnelFrom(ll, 1)} ${map.tunnelFrom(ll, 2)} ${map.tunnelFrom(ll, 3)}")
+        console.println("")
+    }
+
 }
