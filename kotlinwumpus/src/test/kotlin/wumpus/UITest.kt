@@ -15,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.converter.ConvertWith
 import org.junit.jupiter.params.converter.SimpleArgumentConverter
 import org.junit.jupiter.params.provider.CsvSource
-import java.util.Random
 
 internal class UITest {
     private val console = mockk<Console>(relaxed = true)
@@ -84,11 +83,11 @@ internal class UITest {
     fun askForNextRoom() {
         every { console.readInt() } returnsMany listOf(1,2,1,1,3)
         val pathSoFar: ArrayList<Int> = arrayListOf(0)
-        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 1))
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar))
         assertEquals(1, pathSoFar.last())
-        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 2))
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar))
         assertEquals(2, pathSoFar.last())
-        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 3))
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar))
         assertEquals(3, pathSoFar.last())
         verifySequence {
             console.print("ROOM # ")
@@ -110,7 +109,7 @@ internal class UITest {
     fun askForArrowPath() {
         every { console.readInt() } returnsMany listOf(1,2,3,4)
         val result = testObj.askForArrowPath(3)
-        assertArrayEquals(arrayOf(0,1,2,3), result)
+        assertArrayEquals(arrayOf(1,2,3), result)
     }
 
     @Test

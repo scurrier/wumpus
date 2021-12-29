@@ -97,33 +97,30 @@ class GameState(
 	fun hasWon(): Boolean = gameResult > 0
 	fun playAgain() = !(exitOnWin && hasWon())
 
-	fun followArrowPath(p: Array<Int>, j9: Int, ui: UI, map: GameMap):Int {
-		var ll1 = playerRoom
-		var f1 = 0
-		for (k in 1..j9) {
-			ll1 = nextArrowRoom(ll1, k, p, map)
-			if (ll1 == wumpusRoom) {
+	fun followArrowPath(path: Array<Int>, ui: UI, map: GameMap):Int {
+		var arrowRoom = playerRoom
+		for (pathRoom in path) {
+			arrowRoom = nextArrowRoom(arrowRoom, pathRoom, map)
+			if (arrowRoom == wumpusRoom) {
 				ui.reportShotWumpus()
-				f1 = 1
+				return 1
 			}
-			if (ll1 == playerRoom) {
+			if (arrowRoom == playerRoom) {
 				ui.reportShotSelf()
-				f1 = -1
+				return -1
 			}
 		}
-		if (f1 == 0) {
-			ui.reportMissedShot()
-			f1 = wumpusMove(map, ui)
-			consumeArrow()
-			if (!hasArrows()) f1 = -1
-		}
-		return f1
+
+		ui.reportMissedShot()
+		consumeArrow()
+		if (!hasArrows()) return -1
+		return wumpusMove(map, ui)
 	}
 
-	fun nextArrowRoom(ll: Int, k: Int, p: Array<Int>, map: GameMap) = if (map.roomHasPathTo(ll, p[k])) {
-		p[k]
+	fun nextArrowRoom(start: Int, destination: Int, map: GameMap) = if (map.roomHasPathTo(start, destination)) {
+		destination
 	} else {
-		map.tunnelFrom(ll, chaos.pickTunnel())
+		map.tunnelFrom(start, chaos.pickTunnel())
 	}
 
 	fun pickRoom(): Int = chaos.pickRoom()

@@ -46,19 +46,19 @@ class UI(val console: Console) {
     }
 
     fun askForArrowPath(roomCount: Int): Array<Int> {
-        val path = Array(roomCount + 1) {0}
-        for (k in 1..roomCount) {
-            path[k] = askForNextRoom(path, k)
+        val path = mutableListOf<Int>()
+        repeat(roomCount) {
+            path.add(askForNextRoom(path))
         }
-        return path
+        return path.toTypedArray()
     }
 
-    fun askForNextRoom(path: Array<Int>, k: Int): Int {
+    fun askForNextRoom(path: List<Int>): Int {
         var nextRoom: Int
         do {
             console.print("ROOM # ")
             nextRoom = console.readInt()
-            val invalidPath = (k > 2) && path[k-2] == nextRoom
+            val invalidPath = (path.size >= 2) && path[path.size - 2] == nextRoom
             if (invalidPath) console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
         } while (invalidPath)
         return nextRoom

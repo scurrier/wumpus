@@ -82,7 +82,7 @@ class Wumpus {
 	private fun shootArrow(): Int {
 		val j9 = ui.askForNumberOfRooms()
 		val p = ui.askForArrowPath(j9)
-		return gameState.followArrowPath(p, j9, ui, map)
+		return gameState.followArrowPath(p, ui, map)
 	}
 }
 
