@@ -12,7 +12,7 @@ class Wumpus {
 			gameState.intializeLocations()
 			do {
 				playGame()
-				val useNewSetup = askIfNewSetup()
+				val useNewSetup = ui.askIfNewSetup()
 				gameState.resetGame(useNewSetup)
 			} while (gameState.playAgain())
 		} catch (e: Throwable) {
@@ -36,13 +36,6 @@ class Wumpus {
 		} else {
 			ui.console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
 		}
-	}
-
-	private fun askIfNewSetup(): Boolean {
-		ui.console.print("SAME SETUP (Y-N)")                                                        // 355 print "SAME SETUP (Y-N)";
-		val iS = ui.console.readln()                                                                    // 360 input i$
-		val useNewSetup = iS != 'Y' && iS != 'y'
-		return useNewSetup
 	}
 
 	private fun askForValidDestinationRoom(): Int {

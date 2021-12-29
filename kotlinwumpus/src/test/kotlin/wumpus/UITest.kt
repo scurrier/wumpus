@@ -34,6 +34,13 @@ internal class UITest {
         assertEquals(expectedResult, testObj.askIfInstructionsNeeded(), "\"${userInput}\" should have been $expectedResult")
     }
 
+    @ParameterizedTest(name = "{0} should be {1}")
+    @CsvSource("N, true", "n, true", "Y, false", "y, false")
+    fun askIfNewSetup(userInput: Char, expectedResult: Boolean) {
+        every { console.readln() } returns userInput
+        assertEquals(expectedResult, testObj.askIfNewSetup(), "\"${userInput}\" should have been $expectedResult")
+    }
+
     @Test
     fun giveInstructions() {
         testObj.giveInstructions()

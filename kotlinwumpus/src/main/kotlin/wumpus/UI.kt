@@ -14,8 +14,17 @@ class UI(val console: Console) {
 
     fun askIfInstructionsNeeded(): Boolean {
         console.print("INSTRUCTIONS (Y-N) ")
+        return readIsYes()
+    }
+
+    private fun readIsYes(): Boolean {
         val iS = console.readln()
         return (iS != 'N' && iS != 'n')
+    }
+
+    fun askIfNewSetup(): Boolean {
+        console.print("SAME SETUP (Y-N)")
+        return !readIsYes()
     }
 
     fun giveInstructions() {
