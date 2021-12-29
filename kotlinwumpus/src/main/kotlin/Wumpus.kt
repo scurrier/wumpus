@@ -2,7 +2,6 @@ import wumpus.UI
 import java.util.Random
 
 class Wumpus {
-	private var won: Boolean = false
 	var random = Random()
 	var ui = UI(Console())
 	var exitOnWin = false
@@ -13,32 +12,33 @@ class Wumpus {
 		try {
 			ui.provideInstructions()
 			gameState.intializeLocations()
-			while (!(exitOnWin && won)) {
+			do {
 				playGame()
 				val useNewSetup = askIfNewSetup()
 				gameState.resetGame(useNewSetup)
-			}
+			} while (playAgain())
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
 	}
 
+	private fun playAgain() = !(exitOnWin && gameState.hasWon())
+
 	private fun playGame() {
+		ui.showTitle()
 		gameState.resetArrows()
-		ui.console.println("HUNT THE WUMPUS")
-		var f = 0
+		gameState.startPlaying()
 		do {
 			printRoomDescription()
 			when (getAction()) {
-				1 -> f = shootArrow()
-				2 -> f = movePlayerToRoom(askForValidDestinationRoom())
+				1 -> gameState.updateGameResult(shootArrow())
+				2 -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
 			}
-		} while (f == 0)
-		if (f < 0) {
+		} while (gameState.stillPlaying())
+		if (gameState.hasLost()) {
 			ui.console.println("HA HA HA - YOU LOSE!")
 		} else {
 			ui.console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
-			won = true
 		}
 	}
 

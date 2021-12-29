@@ -13,6 +13,7 @@ class GameState(private val random: Random) {
 		return arrowCount > 0
 	}
 
+	private var gameResult: Int = 0
 	var playerRoom: Int
 		get() = locations[1]
 		set(v) {locations[1] = v}
@@ -92,4 +93,12 @@ class GameState(private val random: Random) {
 		else restoreInitialLocations()
 
 	}
+
+	fun updateGameResult(newGameResult: Int) {
+		gameResult = newGameResult
+	}
+	fun startPlaying() = updateGameResult(0)
+	fun stillPlaying(): Boolean = gameResult == 0
+	fun hasLost(): Boolean = gameResult < 0
+	fun hasWon(): Boolean = gameResult > 0
 }

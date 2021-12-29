@@ -64,4 +64,8 @@ class UI(val console: Console) {
                                 
             """.trimIndent())
     }
+
+    fun showTitle() {
+        console.println("HUNT THE WUMPUS")
+    }
 }
