@@ -5,18 +5,19 @@ import java.util.Random
 
 class Wumpus {
 	var ui = UI(Console())
-	var gameState = GameState(Random())
+	var gameState = GameState(Random(), true)
 	val map = GameMap()
 
 	fun main() {
 		try {
 			ui.provideInstructions()
 			gameState.intializeLocations()
-			do {
-				playGame()
+			playGame()
+			while (gameState.playAgain()) {
 				val useNewSetup = ui.askIfNewSetup()
 				gameState.resetGame(useNewSetup)
-			} while (gameState.playAgain())
+				playGame()
+			}
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
