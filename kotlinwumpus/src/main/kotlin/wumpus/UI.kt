@@ -45,6 +45,17 @@ class UI(val console: Console) {
         return a
     }
 
+    fun askForNextRoom(path: Array<Int>, k: Int): Int {
+        var nextRoom: Int
+        do {
+            console.print("ROOM # ")
+            nextRoom = console.readInt()
+            val invalidPath = (k > 2) && path[k-2] == nextRoom
+            if (invalidPath) console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
+        } while (invalidPath)
+        return nextRoom
+    }
+
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")
         console.println("""

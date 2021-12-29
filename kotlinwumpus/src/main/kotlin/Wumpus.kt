@@ -118,20 +118,9 @@ class Wumpus {
 	private fun getArrowPath(roomCount: Int): Array<Int> {
 		val path = Array(roomCount + 1) {0}
 		for (k in 1..roomCount) {
-			path[k] = getNextRoom(path, k)
+			path[k] = ui.askForNextRoom(path, k)
 		}
 		return path
-	}
-
-	private fun getNextRoom(path: Array<Int>, k: Int): Int {
-		var nextRoom: Int
-		do {
-			ui.console.print("ROOM # ")
-			nextRoom = ui.console.readInt()
-			val invalidPath = (k > 2) && path[k] == nextRoom
-			if (invalidPath) ui.console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
-		} while (invalidPath)
-		return nextRoom
 	}
 }
 

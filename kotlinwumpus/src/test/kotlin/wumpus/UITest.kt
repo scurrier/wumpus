@@ -7,6 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifyOrder
+import io.mockk.verifySequence
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -76,6 +77,32 @@ internal class UITest {
     fun askForNumberOfRoomsRetries() {
         every { console.readInt() } returnsMany listOf(0,6,3)
         assertEquals(3, testObj.askForNumberOfRooms(), "should have been 3 since that's the first valid answer")
+    }
+
+    @Test
+    fun askForNextRoom() {
+        every { console.readInt() } returnsMany listOf(1,2,1,1,3)
+        val pathSoFar: ArrayList<Int> = arrayListOf(0)
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 1))
+        assertEquals(1, pathSoFar.last())
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 2))
+        assertEquals(2, pathSoFar.last())
+        pathSoFar.add(testObj.askForNextRoom(pathSoFar.toArray(arrayOf(0)), 3))
+        assertEquals(3, pathSoFar.last())
+        verifySequence {
+            console.print("ROOM # ")
+            console.readInt()
+            console.print("ROOM # ")
+            console.readInt()
+            console.print("ROOM # ")
+            console.readInt()
+            console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
+            console.print("ROOM # ")
+            console.readInt()
+            console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
+            console.print("ROOM # ")
+            console.readInt()
+        }
     }
 
     @Test
