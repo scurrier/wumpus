@@ -28,8 +28,8 @@ class Wumpus {
 		gameState.startPlaying()
 		do {
 			ui.printRoomDescription(gameState, map)
-			when (ui.askForAction()) {
-				Shoot -> gameState.updateGameResult(shootArrow())
+			when (val action = ui.askForAction()) {
+				Shoot -> action.doAction(gameState, ui, map)
 				Move -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
 			}
 		} while (gameState.stillPlaying())
@@ -77,12 +77,6 @@ class Wumpus {
 			ll1 = ui.console.readInt()
 		} while (ll1 < 1 || ll1 > 20)
 		return ll1
-	}
-
-	private fun shootArrow(): Int {
-		val j9 = ui.askForNumberOfRooms()
-		val p = ui.askForArrowPath(j9)
-		return gameState.followArrowPath(p, ui, map)
 	}
 }
 
