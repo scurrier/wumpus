@@ -36,6 +36,14 @@ class UI(val console: Console) {
         }
     }
 
+    fun askForNumberOfRooms(): Int {
+        var a: Int
+        do {
+            console.print("NO. OF ROOMS (1-5) ")
+            a = console.readInt()
+        } while (a < 1 || a > 5)
+        return a
+    }
 
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")

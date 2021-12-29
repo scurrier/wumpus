@@ -80,7 +80,7 @@ class Wumpus {
 	}
 
 	private fun shootArrow(): Int {
-		val j9 = askForNumberOfRooms()
+		val j9 = ui.askForNumberOfRooms()
 		val p = getArrowPath(j9)
 		return followArrowPath(p, j9)
 	}
@@ -131,15 +131,6 @@ class Wumpus {
 			if (invalidPath) ui.console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
 		} while (invalidPath)
 		return nextRoom
-	}
-
-	private fun askForNumberOfRooms(): Int {
-		var a: Int
-		do {
-			ui.console.print("NO. OF ROOMS (1-5) ")
-			a = ui.console.readInt()
-		} while (a < 1 || a > 5)
-		return a
 	}
 }
 
