@@ -41,6 +41,19 @@ internal class UITest {
         assertEquals(expectedResult, testObj.askIfNewSetup(), "\"${userInput}\" should have been $expectedResult")
     }
 
+    @ParameterizedTest(name = "{0} should be {1}")
+    @CsvSource("S, 1", "s, 1", "M, 2", "m, 2")
+    fun askForAction(userInput: Char, expectedResult: Int) {
+        every { console.readln() } returns userInput
+        assertEquals(expectedResult, testObj.askForAction(), "\"${userInput}\" should have been $expectedResult")
+    }
+
+    @Test
+    fun askForActionRetries() {
+        every { console.readln() } returnsMany listOf('b', 'a', 'd', 'm')
+        assertEquals(2, testObj.askForAction(), "move should have been selected as the first valid action")
+    }
+
     @Test
     fun giveInstructions() {
         testObj.giveInstructions()

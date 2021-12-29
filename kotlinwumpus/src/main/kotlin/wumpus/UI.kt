@@ -27,6 +27,16 @@ class UI(val console: Console) {
         return !readIsYes()
     }
 
+    fun askForAction(): Int {
+        console.print("SHOOT OR MOVE (S-M) ")
+        return when (console.readln()) {
+            'S', 's' -> 1
+            'M', 'm' -> 2
+            else -> askForAction()
+        }
+    }
+
+
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")
         console.println("""

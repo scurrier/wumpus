@@ -26,7 +26,7 @@ class Wumpus {
 		gameState.startPlaying()
 		do {
 			ui.printRoomDescription(gameState, map)
-			when (getAction()) {
+			when (ui.askForAction()) {
 				1 -> gameState.updateGameResult(shootArrow())
 				2 -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
 			}
@@ -138,19 +138,6 @@ class Wumpus {
 			a = ui.console.readInt()
 		} while (a < 1 || a > 5)
 		return a
-	}
-
-	private fun getAction(): Int {
-		var result: Int
-		do {
-			ui.console.print("SHOOT OR MOVE (S-M) ")                                                            // 675 print "SHOOT OR MOVE (S-M)";
-			result = when (ui.console.readln()) {
-				'S', 's' -> 1
-				'M', 'm' -> 2
-				else -> 0
-			}
-			} while (result == 0)
-		return result
 	}
 }
 
