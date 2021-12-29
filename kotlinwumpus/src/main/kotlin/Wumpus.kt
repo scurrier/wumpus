@@ -2,10 +2,8 @@ import wumpus.UI
 import java.util.Random
 
 class Wumpus {
-	var random = Random()
 	var ui = UI(Console())
-	var exitOnWin = false
-	var gameState = GameState(random)
+	var gameState = GameState(Random())
 	val map = GameMap()
 
 	fun main() {
@@ -16,13 +14,11 @@ class Wumpus {
 				playGame()
 				val useNewSetup = askIfNewSetup()
 				gameState.resetGame(useNewSetup)
-			} while (playAgain())
+			} while (gameState.playAgain())
 		} catch (e: Throwable) {
 			e.printStackTrace()
 		}
 	}
-
-	private fun playAgain() = !(exitOnWin && gameState.hasWon())
 
 	private fun playGame() {
 		ui.showTitle()

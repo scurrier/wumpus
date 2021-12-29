@@ -1,6 +1,8 @@
 import java.util.Random
 
-class GameState(private val random: Random) {
+class GameState(
+	private val random: Random,
+	private val exitOnWin: Boolean = false) {
     fun resetArrows() {
 		arrowCount = 5
 	}
@@ -101,4 +103,6 @@ class GameState(private val random: Random) {
 	fun stillPlaying(): Boolean = gameResult == 0
 	fun hasLost(): Boolean = gameResult < 0
 	fun hasWon(): Boolean = gameResult > 0
+	fun playAgain() = !(exitOnWin && hasWon())
+
 }

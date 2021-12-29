@@ -11,14 +11,12 @@ class WumpusTest {
     private val testObj = Wumpus()
     @BeforeEach
     fun setUp() {
-        testObj.random = Random(0)
-        testObj.gameState = GameState((testObj.random))
+        testObj.gameState = GameState(Random(0), exitOnWin = true)
         testObj.ui = UI(console)
     }
 
     @Test
     fun pinningTest() {
-        testObj.exitOnWin = true
         every { console.print(any<Int>()) } returns Unit
         every { console.print(any<String>()) } returns Unit
         every { console.println(any<Int>()) } returns Unit
