@@ -5,8 +5,7 @@ import java.util.Random
 class GameState(
 	private val chaos: Chaos = Chaos(Random()),
 	private val exitOnWin: Boolean = false) {
-	private val random: Random get() = chaos.random
-    fun resetArrows() {
+	fun resetArrows() {
 		arrowCount = 5
 	}
 
@@ -39,23 +38,13 @@ class GameState(
 	private var initialLocations = Array(7) {0}
 
 	fun wumpusMove(map: GameMap, ui: UI): Int {
-		val k2 = fnC()
+		val k2 = chaos.pickWumpusMovement()
 		if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
 		if (wumpusRoom == playerRoom) {
 			ui.reportWumpusAtePlayer()
 			return -1
 		}
 		return 0
-	}
-
-	fun fnA(): Int {
-		return random.nextInt(20) + 1
-	}
-	fun fnB(): Int {
-		return random.nextInt(3) + 1
-	}
-	fun fnC(): Int {
-		return random.nextInt(4) + 1
 	}
 
 	fun intializeLocations() {
@@ -67,7 +56,7 @@ class GameState(
 	fun generateLocations(): Array<Int> {
 		val newLocations = Array(7) { 0 }
 		for (j in 1..6) {
-			newLocations[j] = fnA()
+			newLocations[j] = chaos.pickRoom()
 		}
 		return newLocations
 	}
@@ -134,7 +123,8 @@ class GameState(
 	fun nextArrowRoom(ll: Int, k: Int, p: Array<Int>, map: GameMap) = if (map.roomHasPathTo(ll, p[k])) {
 		p[k]
 	} else {
-		map.tunnelFrom(ll, fnB())
+		map.tunnelFrom(ll, chaos.pickTunnel())
 	}
 
+	fun pickRoom(): Int = chaos.pickRoom()
 }

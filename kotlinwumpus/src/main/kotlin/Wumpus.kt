@@ -1,8 +1,6 @@
-import wumpus.Chaos
 import wumpus.Move
 import wumpus.Shoot
 import wumpus.UI
-import java.util.Random
 
 class Wumpus {
 	var ui = UI(Console())
@@ -67,7 +65,7 @@ class Wumpus {
 		}
 		if ((newPlayerRoom == gameState.bat1 || newPlayerRoom == gameState.bat2)) {
 			ui.console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
-			return movePlayerToRoom(gameState.fnA())
+			return movePlayerToRoom(gameState.pickRoom())
 		}
 		return 0
 	}
