@@ -3,6 +3,7 @@ import io.mockk.mockk
 import io.mockk.verifyOrder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import wumpus.Chaos
 import wumpus.UI
 import java.util.Random
 
@@ -11,7 +12,7 @@ class WumpusTest {
     private val testObj = Wumpus()
     @BeforeEach
     fun setUp() {
-        testObj.gameState = GameState(Random(0), exitOnWin = true)
+        testObj.gameState = GameState(Chaos(Random(0)), exitOnWin = true)
         testObj.ui = UI(console)
     }
 

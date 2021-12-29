@@ -168,7 +168,7 @@ internal class UITest {
 
     @Test
     fun printRoomDescription() {
-        val gameState = GameState(Random())
+        val gameState = GameState()
         gameState.setNewLocations(arrayOf(0,3,4,12,19,2,20))
         testObj.printRoomDescription(gameState, GameMap())
         verify {

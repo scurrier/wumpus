@@ -1,9 +1,11 @@
+import wumpus.Chaos
 import wumpus.UI
 import java.util.Random
 
 class GameState(
-	private val random: Random,
+	private val chaos: Chaos = Chaos(Random()),
 	private val exitOnWin: Boolean = false) {
+	private val random: Random get() = chaos.random
     fun resetArrows() {
 		arrowCount = 5
 	}
@@ -34,10 +36,10 @@ class GameState(
 
 	private var arrowCount: Int = 5
 	var locations = Array(7) {0}
-	var initialLocations = Array(7) {0}
+	private var initialLocations = Array(7) {0}
 
 	fun wumpusMove(map: GameMap, ui: UI): Int {
-		var k2 = fnC()
+		val k2 = fnC()
 		if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
 		if (wumpusRoom == playerRoom) {
 			ui.reportWumpusAtePlayer()
@@ -87,7 +89,7 @@ class GameState(
 		return false
 	}
 
-	fun restoreInitialLocations() {
+	private fun restoreInitialLocations() {
 		locations = initialLocations.clone()
 	}
 

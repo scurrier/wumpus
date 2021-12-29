@@ -4,11 +4,12 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import wumpus.Chaos
 import wumpus.UI
 import java.util.Random
 
 internal class GameStateTest {
-    private val testObj = GameState(Random(0))
+    private val testObj = GameState(Chaos(Random(0)))
     private val gameMap = GameMap()
     private val ui = mockk<UI>(relaxed = true)
 
@@ -59,7 +60,7 @@ internal class GameStateTest {
         val random = mockk<Random>()
         // first six return values that cross over, second values get used (plus 1)
         every { random.nextInt(20) } returnsMany listOf(1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7)
-        val testObj = GameState(random)
+        val testObj = GameState(Chaos(random))
         testObj.intializeLocations()
         assertEquals(3, testObj.playerRoom)
         assertEquals(4, testObj.wumpusRoom)
@@ -81,7 +82,7 @@ internal class GameStateTest {
     fun generateLocations() {
         val random = mockk<Random>()
         every { random.nextInt(20) }.returnsMany(3, 1, 4, 1, 5, 9)
-        val testObj = GameState(random)
+        val testObj = GameState(Chaos(random))
         val result = testObj.generateLocations()
         assertArrayEquals(arrayOf(0, 4, 2, 5, 2, 6, 10), result)
     }
@@ -141,7 +142,7 @@ internal class GameStateTest {
         val random = mockk<Random>()
         // need to train random move of wumpus after miss
         every { random.nextInt(4) } returns 0
-        val testObj = GameState(random)
+        val testObj = GameState(Chaos(random))
 
         testObj.setNewLocations(arrayOf(0, 1, 5, 11, 12, 13, 14))
         assertEquals(-1, testObj.followArrowPath(arrayOf(0, 2), 1, ui, gameMap), "should miss and be eaten")

@@ -1,3 +1,4 @@
+import wumpus.Chaos
 import wumpus.Move
 import wumpus.Shoot
 import wumpus.UI
@@ -5,7 +6,7 @@ import java.util.Random
 
 class Wumpus {
 	var ui = UI(Console())
-	var gameState = GameState(Random(), true)
+	var gameState = GameState(exitOnWin = true)
 	val map = GameMap()
 
 	fun main() {
