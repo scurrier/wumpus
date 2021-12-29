@@ -1,3 +1,5 @@
+import wumpus.Move
+import wumpus.Shoot
 import wumpus.UI
 import java.util.Random
 
@@ -27,8 +29,8 @@ class Wumpus {
 		do {
 			ui.printRoomDescription(gameState, map)
 			when (ui.askForAction()) {
-				1 -> gameState.updateGameResult(shootArrow())
-				2 -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
+				Shoot -> gameState.updateGameResult(shootArrow())
+				Move -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
 			}
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {

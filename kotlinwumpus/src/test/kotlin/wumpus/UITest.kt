@@ -10,6 +10,8 @@ import io.mockk.verifyOrder
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.converter.ConvertWith
+import org.junit.jupiter.params.converter.SimpleArgumentConverter
 import org.junit.jupiter.params.provider.CsvSource
 import java.util.Random
 
@@ -41,9 +43,18 @@ internal class UITest {
         assertEquals(expectedResult, testObj.askIfNewSetup(), "\"${userInput}\" should have been $expectedResult")
     }
 
+    class PlayerActionConverter : SimpleArgumentConverter() {
+        override fun convert(source: Any?, targetType: Class<*>?): Any {
+            return when (source) {
+                "Move" -> Move
+                "Shoot" -> Shoot
+                else -> error("could not convert $source")
+            }
+        }
+    }
     @ParameterizedTest(name = "{0} should be {1}")
-    @CsvSource("S, 1", "s, 1", "M, 2", "m, 2")
-    fun askForAction(userInput: Char, expectedResult: Int) {
+    @CsvSource("S, Shoot", "s, Shoot", "M, Move", "m, Move")
+    fun askForAction(userInput: Char, @ConvertWith(PlayerActionConverter::class) expectedResult: PlayerAction) {
         every { console.readln() } returns userInput
         assertEquals(expectedResult, testObj.askForAction(), "\"${userInput}\" should have been $expectedResult")
     }
@@ -51,7 +62,7 @@ internal class UITest {
     @Test
     fun askForActionRetries() {
         every { console.readln() } returnsMany listOf('b', 'a', 'd', 'm')
-        assertEquals(2, testObj.askForAction(), "move should have been selected as the first valid action")
+        assertEquals(Move, testObj.askForAction(), "move should have been selected as the first valid action")
     }
 
     @Test

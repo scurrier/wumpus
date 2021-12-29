@@ -27,11 +27,11 @@ class UI(val console: Console) {
         return !readIsYes()
     }
 
-    fun askForAction(): Int {
+    fun askForAction(): PlayerAction {
         console.print("SHOOT OR MOVE (S-M) ")
         return when (console.readln()) {
-            'S', 's' -> 1
-            'M', 'm' -> 2
+            'S', 's' -> Shoot
+            'M', 'm' -> Move
             else -> askForAction()
         }
     }
