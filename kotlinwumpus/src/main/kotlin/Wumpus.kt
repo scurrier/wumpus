@@ -90,7 +90,7 @@ class Wumpus {
 		var ll1 = gameState.playerRoom
 		var f1 = 0
 		for (k in 1..j9) {
-			ll1 = getNextRoomFromPath(ll1, k, p)
+			ll1 = gameState.nextArrowRoom(ll1, k, p, map)
 			if (ll1 == gameState.wumpusRoom) {
 				ui.reportShotWumpus()
 				f1 = 1
@@ -107,12 +107,6 @@ class Wumpus {
 			if (!gameState.hasArrows()) f1 = -1
 		}
 		return f1
-	}
-
-	private fun getNextRoomFromPath(ll: Int, k: Int, p: Array<Int>) = if (map.roomHasPathTo(ll, p[k])) {
-		p[k]
-	} else {
-		map.tunnelFrom(ll, gameState.fnB())
 	}
 }
 

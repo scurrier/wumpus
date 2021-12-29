@@ -92,6 +92,36 @@ internal class GameStateTest {
     }
 
     @Test
+    fun startPlaying() {
+        testObj.startPlaying()
+        assertTrue(testObj.stillPlaying())
+        assertFalse(testObj.hasWon())
+        assertFalse(testObj.hasLost())
+    }
+
+    @Test
+    fun updateGameResult() {
+        testObj.updateGameResult(0)
+        assertTrue(testObj.stillPlaying())
+        assertFalse(testObj.hasWon())
+        assertFalse(testObj.hasLost())
+        testObj.updateGameResult(1)
+        assertFalse(testObj.stillPlaying())
+        assertTrue(testObj.hasWon())
+        assertFalse(testObj.hasLost())
+        testObj.updateGameResult(-1)
+        assertFalse(testObj.stillPlaying())
+        assertFalse(testObj.hasWon())
+        assertTrue(testObj.hasLost())
+    }
+
+    @Test
+    fun nextArrowRoom() {
+        assertEquals(2, testObj.nextArrowRoom(3, 1, arrayOf(0,2), GameMap()))
+        assertEquals(2, testObj.nextArrowRoom(3, 1, arrayOf(0, 5), GameMap()))
+    }
+
+    @Test
     fun arrows() {
         val arrowsConsumed = consumeAllArrows()
         assertEquals(5, arrowsConsumed)

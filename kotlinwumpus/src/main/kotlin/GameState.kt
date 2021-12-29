@@ -105,4 +105,10 @@ class GameState(
 	fun hasWon(): Boolean = gameResult > 0
 	fun playAgain() = !(exitOnWin && hasWon())
 
+	fun nextArrowRoom(ll: Int, k: Int, p: Array<Int>, map: GameMap) = if (map.roomHasPathTo(ll, p[k])) {
+		p[k]
+	} else {
+		map.tunnelFrom(ll, fnB())
+	}
+
 }
