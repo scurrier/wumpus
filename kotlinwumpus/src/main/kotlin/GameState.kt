@@ -1,3 +1,4 @@
+import wumpus.UI
 import java.util.Random
 
 class GameState(
@@ -35,11 +36,11 @@ class GameState(
 	var locations = Array(7) {0}
 	var initialLocations = Array(7) {0}
 
-	fun wumpusMove(map: GameMap, console: Console): Int {
+	fun wumpusMove(map: GameMap, ui: UI): Int {
 		var k2 = fnC()
 		if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
 		if (wumpusRoom == playerRoom) {
-			console.println("TSK TSK TSK - WUMPUS GOT YOU!")
+			ui.reportWumpusAtePlayer()
 			return -1
 		}
 		return 0
@@ -104,6 +105,29 @@ class GameState(
 	fun hasLost(): Boolean = gameResult < 0
 	fun hasWon(): Boolean = gameResult > 0
 	fun playAgain() = !(exitOnWin && hasWon())
+
+	fun followArrowPath(p: Array<Int>, j9: Int, ui: UI, map: GameMap):Int {
+		var ll1 = playerRoom
+		var f1 = 0
+		for (k in 1..j9) {
+			ll1 = nextArrowRoom(ll1, k, p, map)
+			if (ll1 == wumpusRoom) {
+				ui.reportShotWumpus()
+				f1 = 1
+			}
+			if (ll1 == playerRoom) {
+				ui.reportShotSelf()
+				f1 = -1
+			}
+		}
+		if (f1 == 0) {
+			ui.reportMissedShot()
+			f1 = wumpusMove(map, ui)
+			consumeArrow()
+			if (!hasArrows()) f1 = -1
+		}
+		return f1
+	}
 
 	fun nextArrowRoom(ll: Int, k: Int, p: Array<Int>, map: GameMap) = if (map.roomHasPathTo(ll, p[k])) {
 		p[k]

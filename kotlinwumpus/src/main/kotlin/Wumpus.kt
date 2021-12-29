@@ -57,7 +57,7 @@ class Wumpus {
 		gameState.playerRoom = newPlayerRoom
 		if (newPlayerRoom == gameState.wumpusRoom) {
 			ui.console.println("... OOPS! BUMPED A WUMPUS!")
-			val f = gameState.wumpusMove(map, ui.console)
+			val f = gameState.wumpusMove(map, ui)
 			if (f != 0) return f
 		}
 		if ((newPlayerRoom == gameState.pit1 || newPlayerRoom == gameState.pit2)) {
@@ -83,30 +83,7 @@ class Wumpus {
 	private fun shootArrow(): Int {
 		val j9 = ui.askForNumberOfRooms()
 		val p = ui.askForArrowPath(j9)
-		return followArrowPath(p, j9)
-	}
-
-	private fun followArrowPath(p: Array<Int>, j9: Int):Int {
-		var ll1 = gameState.playerRoom
-		var f1 = 0
-		for (k in 1..j9) {
-			ll1 = gameState.nextArrowRoom(ll1, k, p, map)
-			if (ll1 == gameState.wumpusRoom) {
-				ui.reportShotWumpus()
-				f1 = 1
-			}
-			if (ll1 == gameState.playerRoom) {
-				ui.reportShotSelf()
-				f1 = -1
-			}
-		}
-		if (f1 == 0) {
-			ui.console.println("MISSED")
-			f1 = gameState.wumpusMove(map, ui.console)
-			gameState.consumeArrow()
-			if (!gameState.hasArrows()) f1 = -1
-		}
-		return f1
+		return gameState.followArrowPath(p, j9, ui, map)
 	}
 }
 

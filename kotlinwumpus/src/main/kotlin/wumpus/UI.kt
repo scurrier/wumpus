@@ -140,4 +140,12 @@ class UI(val console: Console) {
     fun reportShotSelf() {
         console.println("OUCH! ARROW GOT YOU!")
     }
+
+    fun reportMissedShot() {
+        console.println("MISSED")
+    }
+
+    fun reportWumpusAtePlayer() {
+        console.println("TSK TSK TSK - WUMPUS GOT YOU!")
+    }
 }
