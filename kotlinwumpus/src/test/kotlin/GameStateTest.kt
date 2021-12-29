@@ -5,19 +5,17 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import wumpus.Chaos
 import wumpus.UI
-import java.util.Random
 
 internal class GameStateTest {
-    private val testObj = GameState(Chaos(Random(0)))
+    private val chaos = mockk<Chaos>()
+    private val testObj = GameState(chaos)
     private val gameMap = GameMap()
     private val ui = mockk<UI>(relaxed = true)
 
     @Test
-    fun initalizeLocations() {
-        val random = mockk<Random>()
+    fun initializeLocations() {
         // first six return values that cross over, second values get used (plus 1)
-        every { random.nextInt(20) } returnsMany listOf(1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7)
-        val testObj = GameState(Chaos(random))
+        every { chaos.pickRoom() } returnsMany listOf(2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8)
         testObj.intializeLocations()
         assertEquals(3, testObj.playerRoom)
         assertEquals(4, testObj.wumpusRoom)
@@ -37,11 +35,9 @@ internal class GameStateTest {
 
     @Test
     fun generateLocations() {
-        val random = mockk<Random>()
-        every { random.nextInt(20) }.returnsMany(3, 1, 4, 1, 5, 9)
-        val testObj = GameState(Chaos(random))
+        every { chaos.pickRoom() }.returnsMany(3, 1, 4, 1, 5, 9)
         val result = testObj.generateLocations()
-        assertArrayEquals(arrayOf(0, 4, 2, 5, 2, 6, 10), result)
+        assertArrayEquals(arrayOf(0, 3, 1, 4, 1, 5, 9), result)
     }
 
     @Test
@@ -81,6 +77,8 @@ internal class GameStateTest {
 
     @Test
     fun followArrowPath_miss() {
+        // need to train random move of wumpus after miss
+        every { chaos.pickWumpusMovement() } returns 4
         testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
         assertEquals(0, testObj.followArrowPath(arrayOf(0, 2, 3, 4), 3, ui, gameMap), "should miss")
         verify { ui.reportMissedShot() }
@@ -88,6 +86,9 @@ internal class GameStateTest {
 
     @Test
     fun followArrowPath_outOfAmmo() {
+        // need to train random move of wumpus after miss
+        every { chaos.pickWumpusMovement() } returns 4
+
         repeat(4) { testObj.consumeArrow() }
         testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
         assertEquals(-1, testObj.followArrowPath(arrayOf(0, 2, 3, 4), 3, ui, gameMap), "should miss and run out of ammo")
@@ -96,10 +97,8 @@ internal class GameStateTest {
 
     @Test
     fun followArrowPath_wumpusEatsPlayerAfterMiss() {
-        val random = mockk<Random>()
         // need to train random move of wumpus after miss
-        every { random.nextInt(4) } returns 0
-        val testObj = GameState(Chaos(random))
+        every { chaos.pickWumpusMovement() } returns 1
 
         testObj.setNewLocations(arrayOf(0, 1, 5, 11, 12, 13, 14))
         assertEquals(-1, testObj.followArrowPath(arrayOf(0, 2), 1, ui, gameMap), "should miss and be eaten")
@@ -124,6 +123,7 @@ internal class GameStateTest {
     @Test
     fun nextArrowRoom() {
         assertEquals(2, testObj.nextArrowRoom(3, 1, arrayOf(0, 2), gameMap))
+        every { chaos.pickTunnel() } returns 1
         assertEquals(2, testObj.nextArrowRoom(3, 1, arrayOf(0, 5), gameMap))
     }
 
