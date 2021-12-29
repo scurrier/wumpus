@@ -133,4 +133,11 @@ class UI(val console: Console) {
         console.println("")
     }
 
+    fun reportShotWumpus() {
+        console.println("AHA! YOU GOT THE WUMPUS!")
+    }
+
+    fun reportShotSelf() {
+        console.println("OUCH! ARROW GOT YOU!")
+    }
 }

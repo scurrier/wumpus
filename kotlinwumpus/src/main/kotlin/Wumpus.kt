@@ -92,11 +92,11 @@ class Wumpus {
 		for (k in 1..j9) {
 			ll1 = getNextRoomFromPath(ll1, k, p)
 			if (ll1 == gameState.wumpusRoom) {
-				ui.console.println("AHA! YOU GOT THE WUMPUS!")
+				ui.reportShotWumpus()
 				f1 = 1
 			}
 			if (ll1 == gameState.playerRoom) {
-				ui.console.println("OUCH! ARROW GOT YOU!")
+				ui.reportShotSelf()
 				f1 = -1
 			}
 		}
