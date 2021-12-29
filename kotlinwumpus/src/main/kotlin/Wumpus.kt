@@ -82,7 +82,7 @@ class Wumpus {
 
 	private fun shootArrow(): Int {
 		val j9 = ui.askForNumberOfRooms()
-		val p = getArrowPath(j9)
+		val p = ui.askForArrowPath(j9)
 		return followArrowPath(p, j9)
 	}
 
@@ -113,14 +113,6 @@ class Wumpus {
 		p[k]
 	} else {
 		map.tunnelFrom(ll, gameState.fnB())
-	}
-
-	private fun getArrowPath(roomCount: Int): Array<Int> {
-		val path = Array(roomCount + 1) {0}
-		for (k in 1..roomCount) {
-			path[k] = ui.askForNextRoom(path, k)
-		}
-		return path
 	}
 }
 

@@ -45,6 +45,14 @@ class UI(val console: Console) {
         return a
     }
 
+    fun askForArrowPath(roomCount: Int): Array<Int> {
+        val path = Array(roomCount + 1) {0}
+        for (k in 1..roomCount) {
+            path[k] = askForNextRoom(path, k)
+        }
+        return path
+    }
+
     fun askForNextRoom(path: Array<Int>, k: Int): Int {
         var nextRoom: Int
         do {

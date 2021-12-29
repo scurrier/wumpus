@@ -8,6 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import io.mockk.verifyOrder
 import io.mockk.verifySequence
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -103,6 +104,13 @@ internal class UITest {
             console.print("ROOM # ")
             console.readInt()
         }
+    }
+
+    @Test
+    fun askForArrowPath() {
+        every { console.readInt() } returnsMany listOf(1,2,3,4)
+        val result = testObj.askForArrowPath(3)
+        assertArrayEquals(arrayOf(0,1,2,3), result)
     }
 
     @Test
