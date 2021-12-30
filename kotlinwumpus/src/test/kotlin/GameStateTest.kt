@@ -80,8 +80,9 @@ internal class GameStateTest {
         // need to train random move of wumpus after miss
         every { chaos.pickWumpusMovement() } returns 4
         testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        assertEquals(0, testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap), "should miss")
+        testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
         verify { ui.reportMissedShot() }
+        assertTrue(testObj.stillPlaying())
     }
 
     @Test
@@ -91,8 +92,9 @@ internal class GameStateTest {
 
         repeat(4) { testObj.consumeArrow() }
         testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        assertEquals(-1, testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap), "should miss and run out of ammo")
+        testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
         verify { ui.reportMissedShot() }
+        assertTrue(testObj.hasLost())
     }
 
     @Test
@@ -101,23 +103,26 @@ internal class GameStateTest {
         every { chaos.pickWumpusMovement() } returns 1
 
         testObj.setNewLocations(arrayOf(0, 1, 5, 11, 12, 13, 14))
-        assertEquals(-1, testObj.followArrowPath(arrayOf(2), ui, gameMap), "should miss and be eaten")
+        testObj.followArrowPath(arrayOf(2), ui, gameMap)
         verify { ui.reportMissedShot() }
         verify { ui.reportWumpusAtePlayer() }
+        assertTrue(testObj.hasLost())
     }
 
     @Test
     fun followArrowPath_shootSelf() {
         testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        assertEquals(-1, testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui, gameMap), "should miss and be eaten")
+        testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui, gameMap)
         verify { ui.reportShotSelf() }
+        assertTrue(testObj.hasLost())
     }
 
     @Test
     fun followArrowPath_shootWumpus() {
         testObj.setNewLocations(arrayOf(0, 1, 3, 11, 12, 13, 14))
-        assertEquals(1, testObj.followArrowPath(arrayOf(2, 3), ui, gameMap), "should hit wumpus")
+        testObj.followArrowPath(arrayOf(2, 3), ui, gameMap)
         verify { ui.reportShotWumpus() }
+        assertTrue(testObj.hasWon())
     }
 
     @Test

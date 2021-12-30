@@ -17,7 +17,6 @@ object Shoot : PlayerAction {
     override fun doAction(gameState: GameState, ui: UI, map: GameMap) {
         val roomCount = ui.askForNumberOfRooms()
         val path = ui.askForArrowPath(roomCount)
-        val newGameResult = gameState.followArrowPath(path, ui, map)
-        gameState.updateGameResult(newGameResult)
+        gameState.followArrowPath(path, ui, map)
     }
 }

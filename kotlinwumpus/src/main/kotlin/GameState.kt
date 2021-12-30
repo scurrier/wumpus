@@ -97,24 +97,26 @@ class GameState(
 	fun hasWon(): Boolean = gameResult > 0
 	fun playAgain() = !(exitOnWin && hasWon())
 
-	fun followArrowPath(path: Array<Int>, ui: UI, map: GameMap):Int {
+	fun followArrowPath(path: Array<Int>, ui: UI, map: GameMap) {
 		var arrowRoom = playerRoom
 		for (pathRoom in path) {
 			arrowRoom = nextArrowRoom(arrowRoom, pathRoom, map)
 			if (arrowRoom == wumpusRoom) {
 				ui.reportShotWumpus()
-				return 1
+				return updateGameResult(1)
 			}
 			if (arrowRoom == playerRoom) {
 				ui.reportShotSelf()
-				return -1
+				return updateGameResult(-1)
 			}
 		}
 
 		ui.reportMissedShot()
 		consumeArrow()
-		if (!hasArrows()) return -1
-		return wumpusMove(map, ui)
+		if (!hasArrows()) {
+			return updateGameResult(-1)
+		}
+		return updateGameResult(wumpusMove(map, ui))
 	}
 
 	fun nextArrowRoom(start: Int, destination: Int, map: GameMap) = if (map.roomHasPathTo(start, destination)) {
