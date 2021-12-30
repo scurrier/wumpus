@@ -28,10 +28,7 @@ class Wumpus {
 		gameState.startPlaying()
 		do {
 			ui.printRoomDescription(gameState, map)
-			when (val action = ui.askForAction()) {
-				Shoot -> action.doAction(gameState, ui, map)
-				Move -> gameState.updateGameResult(gameState.movePlayerToRoom(ui.askForValidDestinationRoom(gameState, map), ui, map))
-			}
+			ui.askForAction().doAction(gameState, ui, map)
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
 			ui.console.println("HA HA HA - YOU LOSE!")

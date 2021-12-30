@@ -9,7 +9,9 @@ interface PlayerAction {
 
 object Move : PlayerAction {
     override fun doAction(gameState: GameState, ui: UI, map: GameMap) {
-        TODO("Not yet implemented")
+        val newPlayerRoom = ui.askForValidDestinationRoom(gameState, map)
+        val newGameResult = gameState.movePlayerToRoom(newPlayerRoom, ui, map)
+        gameState.updateGameResult(newGameResult)
     }
 }
 
