@@ -31,9 +31,9 @@ class Wumpus {
 			ui.askForAction().doAction(gameState, ui, map)
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
-			ui.console.println("HA HA HA - YOU LOSE!")
+			ui.reportLoss()
 		} else {
-			ui.console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+			ui.reportWin()
 		}
 	}
 }

@@ -183,4 +183,12 @@ class UI(val console: Console) {
     fun reportBatEncounter() {
         console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
     }
+
+    fun reportLoss() {
+        console.println("HA HA HA - YOU LOSE!")
+    }
+
+    fun reportWin() {
+        console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+    }
 }
