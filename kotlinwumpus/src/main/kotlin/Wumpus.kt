@@ -43,16 +43,16 @@ class Wumpus {
 	private fun movePlayerToRoom(newPlayerRoom: Int): Int {
 		gameState.playerRoom = newPlayerRoom
 		if (newPlayerRoom == gameState.wumpusRoom) {
-			ui.console.println("... OOPS! BUMPED A WUMPUS!")
+			ui.reportWumpusBump()
 			val f = gameState.wumpusMove(map, ui)
 			if (f != 0) return f
 		}
 		if ((newPlayerRoom == gameState.pit1 || newPlayerRoom == gameState.pit2)) {
-			ui.console.println("YYYYIIIIEEEE . . . FELL IN PIT")
+			ui.reportFall()
 			return -1
 		}
 		if ((newPlayerRoom == gameState.bat1 || newPlayerRoom == gameState.bat2)) {
-			ui.console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
+			ui.reportBatEncounter()
 			return movePlayerToRoom(gameState.pickRoom())
 		}
 		return 0

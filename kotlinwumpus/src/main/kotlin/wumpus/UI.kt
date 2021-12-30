@@ -171,4 +171,16 @@ class UI(val console: Console) {
     fun reportWumpusAtePlayer() {
         console.println("TSK TSK TSK - WUMPUS GOT YOU!")
     }
+
+    fun reportWumpusBump() {
+        console.println("... OOPS! BUMPED A WUMPUS!")
+    }
+
+    fun reportFall() {
+        console.println("YYYYIIIIEEEE . . . FELL IN PIT")
+    }
+
+    fun reportBatEncounter() {
+        console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
+    }
 }
