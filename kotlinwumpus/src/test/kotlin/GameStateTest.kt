@@ -2,6 +2,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import wumpus.Chaos
 import wumpus.UI
@@ -75,54 +76,59 @@ internal class GameStateTest {
         assertTrue(testObj.hasLost())
     }
 
-    @Test
-    fun followArrowPath_miss() {
-        // need to train random move of wumpus after miss
-        every { chaos.pickWumpusMovement() } returns 4
-        testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
-        verify { ui.reportMissedShot() }
-        assertTrue(testObj.stillPlaying())
-    }
+    @Nested
+    inner class followArrowPathTest {
+        init {
+            testObj.playerRoom = 1
+            testObj.wumpusRoom = 10
 
-    @Test
-    fun followArrowPath_outOfAmmo() {
-        // need to train random move of wumpus after miss
-        every { chaos.pickWumpusMovement() } returns 4
+        }
+        @Test
+        fun miss() {
+            // need to train random move of wumpus after miss
+            every { chaos.pickWumpusMovement() } returns 4
+            testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
+            verify { ui.reportMissedShot() }
+            assertTrue(testObj.stillPlaying())
+        }
 
-        repeat(4) { testObj.consumeArrow() }
-        testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
-        verify { ui.reportMissedShot() }
-        assertTrue(testObj.hasLost())
-    }
+        @Test
+        fun outOfAmmo() {
+            // need to train random move of wumpus after miss
+            every { chaos.pickWumpusMovement() } returns 4
 
-    @Test
-    fun followArrowPath_wumpusEatsPlayerAfterMiss() {
-        // need to train random move of wumpus after miss
-        every { chaos.pickWumpusMovement() } returns 1
+            repeat(4) { testObj.consumeArrow() }
+            testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
+            verify { ui.reportMissedShot() }
+            assertTrue(testObj.hasLost())
+        }
 
-        testObj.setNewLocations(arrayOf(0, 1, 5, 11, 12, 13, 14))
-        testObj.followArrowPath(arrayOf(2), ui, gameMap)
-        verify { ui.reportMissedShot() }
-        verify { ui.reportWumpusAtePlayer() }
-        assertTrue(testObj.hasLost())
-    }
+        @Test
+        fun wumpusEatsPlayerAfterMiss() {
+            // need to train random move of wumpus after miss
+            every { chaos.pickWumpusMovement() } returns 1
 
-    @Test
-    fun followArrowPath_shootSelf() {
-        testObj.setNewLocations(arrayOf(0, 1, 10, 11, 12, 13, 14))
-        testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui, gameMap)
-        verify { ui.reportShotSelf() }
-        assertTrue(testObj.hasLost())
-    }
+            testObj.wumpusRoom = 5
+            testObj.followArrowPath(arrayOf(2), ui, gameMap)
+            verify { ui.reportMissedShot() }
+            verify { ui.reportWumpusAtePlayer() }
+            assertTrue(testObj.hasLost())
+        }
 
-    @Test
-    fun followArrowPath_shootWumpus() {
-        testObj.setNewLocations(arrayOf(0, 1, 3, 11, 12, 13, 14))
-        testObj.followArrowPath(arrayOf(2, 3), ui, gameMap)
-        verify { ui.reportShotWumpus() }
-        assertTrue(testObj.hasWon())
+        @Test
+        fun shootSelf() {
+            testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui, gameMap)
+            verify { ui.reportShotSelf() }
+            assertTrue(testObj.hasLost())
+        }
+
+        @Test
+        fun shootWumpus() {
+            testObj.wumpusRoom = 3
+            testObj.followArrowPath(arrayOf(2, 3), ui, gameMap)
+            verify { ui.reportShotWumpus() }
+            assertTrue(testObj.hasWon())
+        }
     }
 
     @Test
