@@ -143,12 +143,12 @@ class UI(val console: Console) {
     fun printRoomDescription(gameState: GameState, map: GameMap) {
         val ll = gameState.playerRoom
         console.println("")
-        (2..6).forEach { j ->
+        (1..5).forEach { j ->
             if (!map.roomHasPathTo(gameState.playerRoom, gameState.locations[j])) return@forEach
             when (j) {
-                2 -> console.println("I SMELL A WUMPUS!")
-                3, 4 -> console.println("I FEEL A DRAFT")
-                5, 6 -> console.println("BATS NEARBY!")
+                1 -> console.println("I SMELL A WUMPUS!")
+                2, 3 -> console.println("I FEEL A DRAFT")
+                4, 5 -> console.println("BATS NEARBY!")
             }
         }
         console.println("YOU ARE IN ROOM ${gameState.playerRoom}")

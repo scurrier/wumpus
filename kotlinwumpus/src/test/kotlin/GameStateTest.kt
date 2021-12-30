@@ -26,13 +26,13 @@ internal class GameStateTest {
 
     @Test
     fun hasCrossover() {
-        testObj.setNewLocations(arrayOf(0, 1, 2, 3, 4, 5, 6))
+        testObj.setNewLocations(arrayOf(1, 2, 3, 4, 5, 6))
         assertFalse(testObj.hasCrossovers())
-        testObj.setNewLocations(arrayOf(0, 1, 2, 3, 4, 5, 1))
+        testObj.setNewLocations(arrayOf(1, 2, 3, 4, 5, 1))
         assertTrue(testObj.hasCrossovers())
-        testObj.setNewLocations(arrayOf(0, 6, 2, 3, 4, 5, 6))
+        testObj.setNewLocations(arrayOf(6, 2, 3, 4, 5, 6))
         assertTrue(testObj.hasCrossovers())
-        testObj.setNewLocations(arrayOf(0, 6, 2, 3, 3, 5, 6))
+        testObj.setNewLocations(arrayOf(6, 2, 3, 3, 5, 6))
         assertTrue(testObj.hasCrossovers())
     }
 
@@ -40,12 +40,12 @@ internal class GameStateTest {
     fun generateLocations() {
         every { chaos.pickRoom() }.returnsMany(3, 1, 4, 1, 5, 9)
         val result = testObj.generateLocations()
-        assertArrayEquals(arrayOf(0, 3, 1, 4, 1, 5, 9), result)
+        assertArrayEquals(arrayOf(3, 1, 4, 1, 5, 9), result)
     }
 
     @Test
     fun setNewLocations() {
-        testObj.setNewLocations(arrayOf(0, 3, 4, 5, 6, 7, 8))
+        testObj.setNewLocations(arrayOf(3, 4, 5, 6, 7, 8))
         assertEquals(3, testObj.playerRoom)
         assertEquals(4, testObj.wumpusRoom)
         assertEquals(5, testObj.pit1)
@@ -175,7 +175,7 @@ internal class GameStateTest {
         @ParameterizedTest
         @CsvSource("20, 2", "2, 20")
         fun bats(bat1: Int, bat2: Int) {
-            testObj.setNewLocations(arrayOf(0, 1, 20, 20, 20, bat1, bat2))
+            testObj.setNewLocations(arrayOf(1, 20, 20, 20, bat1, bat2))
             every { chaos.pickRoom() } returns 10
             testObj.movePlayerToRoom(2, ui, gameMap)
             assertTrue(testObj.stillPlaying())
@@ -186,7 +186,7 @@ internal class GameStateTest {
         @ParameterizedTest
         @CsvSource("20, 2", "2, 20")
         fun pits(pit1: Int, pit2: Int) {
-            testObj.setNewLocations(arrayOf(0, 1, 20, pit1, pit2, 20, 20))
+            testObj.setNewLocations(arrayOf(1, 20, pit1, pit2, 20, 20))
             testObj.movePlayerToRoom(2, ui, gameMap)
             assertTrue(testObj.hasLost())
             verify { ui.reportFall() }
@@ -204,7 +204,7 @@ internal class GameStateTest {
         @Test
         fun wumpusThatMovesThenPit() {
             every { chaos.pickWumpusMovement() } returns 1
-            testObj.setNewLocations(arrayOf(0, 1, 2, 2, 20, 20, 20))
+            testObj.setNewLocations(arrayOf(1, 2, 2, 20, 20, 20))
             testObj.movePlayerToRoom(2, ui, gameMap)
             assertTrue(testObj.hasLost())
             verify { ui.reportWumpusBump() }

@@ -203,7 +203,7 @@ internal class UITest {
     @Test
     fun printRoomDescription() {
         val gameState = GameState()
-        gameState.setNewLocations(arrayOf(0,3,4,12,19,2,20))
+        gameState.setNewLocations(arrayOf(3,4,12,19,2,20))
         testObj.printRoomDescription(gameState, GameMap())
         verify {
             console.println("I SMELL A WUMPUS!")

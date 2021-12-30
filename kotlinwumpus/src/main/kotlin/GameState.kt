@@ -20,29 +20,29 @@ class GameState(
 
     private var gameResult: Int = 0
     var playerRoom: Int
+        get() = locations[0]
+        set(v) {
+            locations[0] = v
+        }
+    var wumpusRoom: Int
         get() = locations[1]
         set(v) {
             locations[1] = v
         }
-    var wumpusRoom: Int
-        get() = locations[2]
-        set(v) {
-            locations[2] = v
-        }
     val pit1: Int
-        get() = locations[3]
+        get() = locations[2]
     val pit2: Int
-        get() = locations[4]
+        get() = locations[3]
     val bat1: Int
-        get() = locations[5]
+        get() = locations[4]
     val bat2: Int
-        get() = locations[6]
+        get() = locations[5]
 
     private var arrowCount: Int = 5
-    var locations = Array(7) { 0 }
-    private var initialLocations = Array(7) { 0 }
+    var locations = Array(6) { 0 }
+    private var initialLocations = Array(6) { 0 }
 
-    fun wumpusMove(map: GameMap, ui: UI): Unit {
+    fun wumpusMove(map: GameMap, ui: UI) {
         val k2 = chaos.pickWumpusMovement()
         if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
         if (wumpusRoom == playerRoom) {
@@ -58,8 +58,8 @@ class GameState(
     }
 
     fun generateLocations(): Array<Int> {
-        val newLocations = Array(7) { 0 }
-        for (j in 1..6) {
+        val newLocations = Array(6) { 0 }
+        for (j in 0..5) {
             newLocations[j] = chaos.pickRoom()
         }
         return newLocations
@@ -71,8 +71,8 @@ class GameState(
     }
 
     fun hasCrossovers(): Boolean {
-        for (j in 1..6) {
-            for (k in 1..6) {
+        for (j in 0..5) {
+            for (k in 0..5) {
                 if (j != k && locations[j] == locations[k]) {
                     return true
                 }
@@ -130,7 +130,7 @@ class GameState(
         map.tunnelFrom(start, chaos.pickTunnel())
     }
 
-    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap): Unit {
+    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap) {
         playerRoom = newPlayerRoom
         if (newPlayerRoom == wumpusRoom) {
             ui.reportWumpusBump()
@@ -144,11 +144,8 @@ class GameState(
         }
         if ((newPlayerRoom == bat1 || newPlayerRoom == bat2)) {
             ui.reportBatEncounter()
-            return movePlayerToRoom(pickRoom(), ui, map)
+            return movePlayerToRoom(chaos.pickRoom(), ui, map)
         }
         return
     }
-
-
-    fun pickRoom(): Int = chaos.pickRoom()
 }

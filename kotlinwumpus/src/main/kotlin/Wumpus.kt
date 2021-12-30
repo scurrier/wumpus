@@ -1,5 +1,3 @@
-import wumpus.Move
-import wumpus.Shoot
 import wumpus.UI
 
 class Wumpus {
