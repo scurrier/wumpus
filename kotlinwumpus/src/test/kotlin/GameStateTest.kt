@@ -4,6 +4,8 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import wumpus.Chaos
 import wumpus.UI
 
@@ -155,5 +157,53 @@ internal class GameStateTest {
             testObj.consumeArrow()
         }
         return c
+    }
+
+    @Nested
+    inner class movePlayerToRoomTest {
+        init {
+            testObj.playerRoom = 1
+        }
+
+        @Test
+        fun noEncounters() {
+            assertEquals(0, testObj.movePlayerToRoom(2, ui, gameMap))
+            assertEquals(2, testObj.playerRoom)
+        }
+
+        @ParameterizedTest
+        @CsvSource("20, 2", "2, 20")
+        fun bats(bat1: Int, bat2: Int) {
+            testObj.setNewLocations(arrayOf(0, 1, 20, 20, 20, bat1, bat2))
+            every { chaos.pickRoom() } returns 10
+            assertEquals(0, testObj.movePlayerToRoom(2, ui, gameMap))
+            assertEquals(10, testObj.playerRoom)
+            verify { ui.reportBatEncounter() }
+        }
+
+        @ParameterizedTest
+        @CsvSource("20, 2", "2, 20")
+        fun pits(pit1: Int, pit2: Int) {
+            testObj.setNewLocations(arrayOf(0, 1, 20, pit1, pit2, 20, 20))
+            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            verify { ui.reportFall() }
+        }
+
+        @Test
+        fun wumpusThatStays() {
+            every { chaos.pickWumpusMovement() } returns 4
+            testObj.wumpusRoom = 2
+            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            verify { ui.reportWumpusBump() }
+        }
+
+        @Test
+        fun wumpusThatMovesThenPit() {
+            every { chaos.pickWumpusMovement() } returns 1
+            testObj.setNewLocations(arrayOf(0, 1, 2, 2, 20, 20, 20))
+            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            verify { ui.reportWumpusBump() }
+            verify { ui.reportFall() }
+        }
     }
 }

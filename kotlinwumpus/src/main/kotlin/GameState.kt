@@ -131,5 +131,24 @@ class GameState(
         map.tunnelFrom(start, chaos.pickTunnel())
     }
 
+    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap): Int {
+        playerRoom = newPlayerRoom
+        if (newPlayerRoom == wumpusRoom) {
+            ui.reportWumpusBump()
+            val f = wumpusMove(map, ui)
+            if (f != 0) return f
+        }
+        if ((newPlayerRoom == pit1 || newPlayerRoom == pit2)) {
+            ui.reportFall()
+            return -1
+        }
+        if ((newPlayerRoom == bat1 || newPlayerRoom == bat2)) {
+            ui.reportBatEncounter()
+            return movePlayerToRoom(pickRoom(), ui, map)
+        }
+        return 0
+    }
+
+
     fun pickRoom(): Int = chaos.pickRoom()
 }

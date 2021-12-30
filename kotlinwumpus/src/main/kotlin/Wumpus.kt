@@ -30,7 +30,7 @@ class Wumpus {
 			ui.printRoomDescription(gameState, map)
 			when (val action = ui.askForAction()) {
 				Shoot -> action.doAction(gameState, ui, map)
-				Move -> gameState.updateGameResult(movePlayerToRoom(ui.askForValidDestinationRoom(gameState, map)))
+				Move -> gameState.updateGameResult(gameState.movePlayerToRoom(ui.askForValidDestinationRoom(gameState, map), ui, map))
 			}
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
@@ -38,24 +38,6 @@ class Wumpus {
 		} else {
 			ui.console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
 		}
-	}
-
-	private fun movePlayerToRoom(newPlayerRoom: Int): Int {
-		gameState.playerRoom = newPlayerRoom
-		if (newPlayerRoom == gameState.wumpusRoom) {
-			ui.reportWumpusBump()
-			val f = gameState.wumpusMove(map, ui)
-			if (f != 0) return f
-		}
-		if ((newPlayerRoom == gameState.pit1 || newPlayerRoom == gameState.pit2)) {
-			ui.reportFall()
-			return -1
-		}
-		if ((newPlayerRoom == gameState.bat1 || newPlayerRoom == gameState.bat2)) {
-			ui.reportBatEncounter()
-			return movePlayerToRoom(gameState.pickRoom())
-		}
-		return 0
 	}
 }
 
