@@ -2,7 +2,7 @@ package wumpus
 
 import java.util.Random
 
-class Chaos(val random: Random) {
+internal class Chaos(val random: Random) {
     fun pickRoom(): Int {
         return random.nextInt(20) + 1
     }

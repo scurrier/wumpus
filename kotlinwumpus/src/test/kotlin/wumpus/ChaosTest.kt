@@ -4,9 +4,10 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.Random
 
-internal class ChaosTest {
+internal class SomeOtherTest {
     val testObj = Chaos(Random(0))
 
+    @Test
     fun pickRoom() {
         assertEquals(1, testObj.pickRoom())
         assertEquals(9, testObj.pickRoom())

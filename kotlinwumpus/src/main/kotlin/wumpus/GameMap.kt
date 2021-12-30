@@ -1,3 +1,5 @@
+package wumpus
+
 class GameMap {
 
 	fun tunnelFrom(room: Int, tunnel: Int): Int {

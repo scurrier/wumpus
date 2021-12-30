@@ -1,11 +1,12 @@
-import wumpus.Chaos
-import wumpus.UI
+package wumpus
+
 import java.util.Random
 
-class GameState(
+internal class GameState(
     private val chaos: Chaos = Chaos(Random()),
     private val exitOnWin: Boolean = false
 ) {
+
     fun resetArrows() {
         arrowCount = 5
     }

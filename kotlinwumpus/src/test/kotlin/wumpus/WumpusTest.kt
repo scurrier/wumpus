@@ -1,15 +1,16 @@
+package wumpus
+
+import Console
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verifyOrder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import wumpus.Chaos
-import wumpus.UI
 import java.util.Random
 
 class WumpusTest {
     private val console = mockk<Console>()
-    private val testObj = Wumpus()
+    private val testObj = Game()
     @BeforeEach
     fun setUp() {
         testObj.gameState = GameState(Chaos(Random(0)), exitOnWin = true)

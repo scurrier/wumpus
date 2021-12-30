@@ -1,3 +1,5 @@
+package wumpus
+
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -6,8 +8,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import wumpus.Chaos
-import wumpus.UI
 
 internal class GameStateTest {
     private val chaos = mockk<Chaos>()

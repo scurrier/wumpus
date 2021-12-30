@@ -1,10 +1,8 @@
 package wumpus
 
 import Console
-import GameMap
-import GameState
 
-class UI(val console: Console) {
+internal class UI(val console: Console) {
 
     fun provideInstructions() {
         if (askIfInstructionsNeeded()) {

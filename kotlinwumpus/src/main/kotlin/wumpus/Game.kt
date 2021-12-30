@@ -1,9 +1,11 @@
-import wumpus.UI
+package wumpus
 
-class Wumpus {
-	var ui = UI(Console())
-	var gameState = GameState(exitOnWin = true)
-	val map = GameMap()
+import Console
+
+class Game {
+	internal var ui = UI(Console())
+	internal var gameState = GameState(exitOnWin = true)
+	private val map = GameMap()
 
 	fun main() {
 		try {

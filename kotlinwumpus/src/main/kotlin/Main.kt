@@ -1,3 +1,3 @@
 fun main(args: Array<String>) {
-    Wumpus().main()
+    wumpus.Game().main()
 }

@@ -1,8 +1,6 @@
 package wumpus
 
 import Console
-import GameMap
-import GameState
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
