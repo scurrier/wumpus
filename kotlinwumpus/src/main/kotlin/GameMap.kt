@@ -1,18 +1,11 @@
 class GameMap {
 
-	fun nearByRoomHas(room: Int, tunnel: Int, target: Int): Boolean {
-		return tunnelFrom(room, tunnel) == target
-	}
-
-    fun tunnelFrom(room: Int, tunnel: Int): Int {
+	fun tunnelFrom(room: Int, tunnel: Int): Int {
 		return data[room-1][tunnel-1]
 	}
 
 	fun roomHasPathTo(room: Int, target: Int): Boolean {
-		for (k in 1..3) {
-			if (nearByRoomHas(room, k, target)) return true
-		}
-		return false
+		return target in data[room-1]
 	}
 
 	private val data = arrayOf(
