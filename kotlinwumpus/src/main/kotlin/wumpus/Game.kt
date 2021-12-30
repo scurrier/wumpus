@@ -5,7 +5,7 @@ import Console
 class Game {
 	internal var ui = UI(Console())
 	internal var gameState = GameState(exitOnWin = true)
-	private val map = GameMap()
+	private val map get() = gameState.map
 
 	fun main() {
 		try {

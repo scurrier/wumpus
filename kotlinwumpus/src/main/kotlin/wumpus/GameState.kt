@@ -19,33 +19,35 @@ internal class GameState(
         return arrowCount > 0
     }
 
+    val map: GameMap = GameMap()
+
     private var gameResult: Int = 0
-    var playerRoom: Int
+    var playerRoom: Room
         get() = locations[0]
         set(v) {
             locations[0] = v
         }
-    var wumpusRoom: Int
+    var wumpusRoom: Room
         get() = locations[1]
         set(v) {
             locations[1] = v
         }
-    val pit1: Int
+    val pit1: Room
         get() = locations[2]
-    val pit2: Int
+    val pit2: Room
         get() = locations[3]
-    val bat1: Int
+    val bat1: Room
         get() = locations[4]
-    val bat2: Int
+    val bat2: Room
         get() = locations[5]
 
     private var arrowCount: Int = 5
-    var locations = Array(6) { 0 }
-    private var initialLocations = Array(6) { 0 }
+    var locations = Array(6) { Room(0,0,0,0) }
+    private var initialLocations = Array(6) { Room(0,0,0,0) }
 
     fun wumpusMove(map: GameMap, ui: UI) {
         val k2 = chaos.pickWumpusMovement()
-        if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
+        if (k2 != 4) wumpusRoom = map.room(wumpusRoom[k2])
         if (wumpusRoom == playerRoom) {
             ui.reportWumpusAtePlayer()
             lose()
@@ -67,8 +69,12 @@ internal class GameState(
     }
 
     fun setNewLocations(newLocations: Array<Int>) {
-        locations = newLocations.clone()
-        initialLocations = newLocations.clone()
+        var index = 0
+        for (newRoom in newLocations) {
+            locations[index] = map.room(newRoom)
+            initialLocations[index] = map.room(newRoom)
+            index++
+        }
     }
 
     fun hasCrossovers(): Boolean {
@@ -106,7 +112,7 @@ internal class GameState(
     fun followArrowPath(path: Array<Int>, ui: UI, map: GameMap) {
         var arrowRoom = playerRoom
         for (pathRoom in path) {
-            arrowRoom = nextArrowRoom(arrowRoom, pathRoom, map)
+            arrowRoom = map.room(nextArrowRoom(arrowRoom, pathRoom, map))
             if (arrowRoom == wumpusRoom) {
                 ui.reportShotWumpus()
                 return win()
@@ -125,25 +131,25 @@ internal class GameState(
         return wumpusMove(map, ui)
     }
 
-    fun nextArrowRoom(start: Int, destination: Int, map: GameMap) = if (map.roomHasPathTo(start, destination)) {
+    fun nextArrowRoom(start: Room, destination: Int, map: GameMap) = if (destination in start) {
         destination
     } else {
-        map.tunnelFrom(start, chaos.pickTunnel())
+        start[chaos.pickTunnel()]
     }
 
     fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap) {
-        playerRoom = newPlayerRoom
-        if (newPlayerRoom == wumpusRoom) {
+        playerRoom = map.room(newPlayerRoom)
+        if (playerRoom == wumpusRoom) {
             ui.reportWumpusBump()
             wumpusMove(map, ui)
             if (!stillPlaying()) return
         }
-        if ((newPlayerRoom == pit1 || newPlayerRoom == pit2)) {
+        if ((playerRoom == pit1 || playerRoom == pit2)) {
             ui.reportFall()
             lose()
             return
         }
-        if ((newPlayerRoom == bat1 || newPlayerRoom == bat2)) {
+        if ((playerRoom == bat1 || playerRoom == bat2)) {
             ui.reportBatEncounter()
             return movePlayerToRoom(chaos.pickRoom(), ui, map)
         }

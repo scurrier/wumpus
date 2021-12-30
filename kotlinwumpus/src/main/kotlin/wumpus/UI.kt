@@ -75,7 +75,7 @@ internal class UI(val console: Console) {
         var result: Int
         do {
             result = askForDestinationRoom()
-            val isValidRoom = map.roomHasPathTo(gameState.playerRoom, result) || result == gameState.playerRoom
+            val isValidRoom = result in gameState.playerRoom || gameState.playerRoom.isIndex(result)
             if (!isValidRoom) {
                 console.print("NOT POSSIBLE - ")
             }
@@ -139,18 +139,18 @@ internal class UI(val console: Console) {
     }
 
     fun printRoomDescription(gameState: GameState, map: GameMap) {
-        val ll = gameState.playerRoom
+        val room = gameState.playerRoom
         console.println("")
         (1..5).forEach { j ->
-            if (!map.roomHasPathTo(gameState.playerRoom, gameState.locations[j])) return@forEach
+            if (!room.hasPathTo(gameState.locations[j])) return@forEach
             when (j) {
                 1 -> console.println("I SMELL A WUMPUS!")
                 2, 3 -> console.println("I FEEL A DRAFT")
                 4, 5 -> console.println("BATS NEARBY!")
             }
         }
-        console.println("YOU ARE IN ROOM ${gameState.playerRoom}")
-        console.println("TUNNELS LEAD TO ${map.tunnelFrom(ll, 1)} ${map.tunnelFrom(ll, 2)} ${map.tunnelFrom(ll, 3)}")
+        console.println("YOU ARE IN ROOM $room")
+        console.println("TUNNELS LEAD TO ${room[1]} ${room[2]} ${room[3]}")
         console.println("")
     }
 

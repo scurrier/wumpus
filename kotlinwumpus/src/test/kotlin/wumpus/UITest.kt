@@ -130,7 +130,7 @@ internal class UITest {
     @Test
     fun askForValidDestinationRoom() {
         val gameState = GameState()
-        gameState.playerRoom = 1
+        gameState.playerRoom = gameState.map.room(1)
         every { console.readInt() } returnsMany listOf(1,3,2)
         assertEquals(1, testObj.askForValidDestinationRoom(gameState, GameMap()), "it's possible to move to the same room")
         assertEquals(2, testObj.askForValidDestinationRoom(gameState, GameMap()), "3 is invalid so retry and get 2")
