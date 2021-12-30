@@ -73,6 +73,20 @@ class UI(val console: Console) {
         return result
     }
 
+    fun askForValidDestinationRoom(gameState: GameState, map: GameMap): Int {
+        var result: Int
+        do {
+            result = askForDestinationRoom()
+            val isValidRoom = map.roomHasPathTo(gameState.playerRoom, result) || result == gameState.playerRoom
+            if (!isValidRoom) {
+                console.print("NOT POSSIBLE - ")
+            }
+        } while (!isValidRoom)
+        return result
+    }
+
+
+
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")
         console.println("""

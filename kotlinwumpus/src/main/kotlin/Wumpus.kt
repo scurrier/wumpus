@@ -30,7 +30,7 @@ class Wumpus {
 			ui.printRoomDescription(gameState, map)
 			when (val action = ui.askForAction()) {
 				Shoot -> action.doAction(gameState, ui, map)
-				Move -> gameState.updateGameResult(movePlayerToRoom(askForValidDestinationRoom()))
+				Move -> gameState.updateGameResult(movePlayerToRoom(ui.askForValidDestinationRoom(gameState, map)))
 			}
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
@@ -38,18 +38,6 @@ class Wumpus {
 		} else {
 			ui.console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
 		}
-	}
-
-	private fun askForValidDestinationRoom(): Int {
-		var temp: Int
-		do {
-			temp = ui.askForDestinationRoom()
-			val isValidRoom = map.roomHasPathTo(gameState.playerRoom, temp) || temp == gameState.playerRoom
-			if (!isValidRoom) {
-				ui.console.print("NOT POSSIBLE - ")
-			}
-		} while (!isValidRoom)
-		return temp
 	}
 
 	private fun movePlayerToRoom(newPlayerRoom: Int): Int {

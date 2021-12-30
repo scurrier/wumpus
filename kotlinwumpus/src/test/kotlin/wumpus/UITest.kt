@@ -130,6 +130,24 @@ internal class UITest {
     }
 
     @Test
+    fun askForValidDestinationRoom() {
+        val gameState = GameState()
+        gameState.playerRoom = 1
+        every { console.readInt() } returnsMany listOf(1,3,2)
+        assertEquals(1, testObj.askForValidDestinationRoom(gameState, GameMap()), "it's possible to move to the same room")
+        assertEquals(2, testObj.askForValidDestinationRoom(gameState, GameMap()), "3 is invalid so retry and get 2")
+        verifySequence {
+            console.print("WHERE TO ")
+            console.readInt()
+            console.print("WHERE TO ")
+            console.readInt()
+            console.print("NOT POSSIBLE - ")
+            console.print("WHERE TO ")
+            console.readInt()
+        }
+    }
+
+    @Test
     fun giveInstructions() {
         testObj.giveInstructions()
         verifyOrder {
