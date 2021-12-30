@@ -113,6 +113,23 @@ internal class UITest {
     }
 
     @Test
+    fun askForDestinationRoom() {
+        every { console.readInt() } returnsMany listOf(0,1,21,20)
+        assertEquals(1, testObj.askForDestinationRoom())
+        assertEquals(20, testObj.askForDestinationRoom())
+        verifySequence {
+            console.print("WHERE TO ")
+            console.readInt()
+            console.print("WHERE TO ")
+            console.readInt()
+            console.print("WHERE TO ")
+            console.readInt()
+            console.print("WHERE TO ")
+            console.readInt()
+        }
+    }
+
+    @Test
     fun giveInstructions() {
         testObj.giveInstructions()
         verifyOrder {

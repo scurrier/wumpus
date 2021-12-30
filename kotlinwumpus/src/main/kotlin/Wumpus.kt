@@ -43,7 +43,7 @@ class Wumpus {
 	private fun askForValidDestinationRoom(): Int {
 		var temp: Int
 		do {
-			temp = askForDestinationRoom()
+			temp = ui.askForDestinationRoom()
 			val isValidRoom = map.roomHasPathTo(gameState.playerRoom, temp) || temp == gameState.playerRoom
 			if (!isValidRoom) {
 				ui.console.print("NOT POSSIBLE - ")
@@ -68,15 +68,6 @@ class Wumpus {
 			return movePlayerToRoom(gameState.pickRoom())
 		}
 		return 0
-	}
-
-	private fun askForDestinationRoom(): Int {
-		var ll1: Int
-		do {
-			ui.console.print("WHERE TO ")
-			ll1 = ui.console.readInt()
-		} while (ll1 < 1 || ll1 > 20)
-		return ll1
 	}
 }
 

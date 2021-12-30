@@ -81,8 +81,8 @@ internal class GameStateTest {
         init {
             testObj.playerRoom = 1
             testObj.wumpusRoom = 10
-
         }
+
         @Test
         fun miss() {
             // need to train random move of wumpus after miss

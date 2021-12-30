@@ -64,6 +64,15 @@ class UI(val console: Console) {
         return nextRoom
     }
 
+    fun askForDestinationRoom(): Int {
+        var result: Int
+        do {
+            console.print("WHERE TO ")
+            result = console.readInt()
+        } while (result < 1 || result > 20)
+        return result
+    }
+
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")
         console.println("""
