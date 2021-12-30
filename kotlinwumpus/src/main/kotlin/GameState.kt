@@ -42,14 +42,13 @@ class GameState(
     var locations = Array(7) { 0 }
     private var initialLocations = Array(7) { 0 }
 
-    fun wumpusMove(map: GameMap, ui: UI): Int {
+    fun wumpusMove(map: GameMap, ui: UI): Unit {
         val k2 = chaos.pickWumpusMovement()
         if (k2 != 4) wumpusRoom = map.tunnelFrom(wumpusRoom, k2)
         if (wumpusRoom == playerRoom) {
             ui.reportWumpusAtePlayer()
-            return -1
+            lose()
         }
-        return 0
     }
 
     fun intializeLocations() {
@@ -122,7 +121,7 @@ class GameState(
         if (!hasArrows()) {
             return lose()
         }
-        return updateGameResult(wumpusMove(map, ui))
+        return wumpusMove(map, ui)
     }
 
     fun nextArrowRoom(start: Int, destination: Int, map: GameMap) = if (map.roomHasPathTo(start, destination)) {
@@ -131,22 +130,23 @@ class GameState(
         map.tunnelFrom(start, chaos.pickTunnel())
     }
 
-    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap): Int {
+    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap): Unit {
         playerRoom = newPlayerRoom
         if (newPlayerRoom == wumpusRoom) {
             ui.reportWumpusBump()
-            val f = wumpusMove(map, ui)
-            if (f != 0) return f
+            wumpusMove(map, ui)
+            if (!stillPlaying()) return
         }
         if ((newPlayerRoom == pit1 || newPlayerRoom == pit2)) {
             ui.reportFall()
-            return -1
+            lose()
+            return
         }
         if ((newPlayerRoom == bat1 || newPlayerRoom == bat2)) {
             ui.reportBatEncounter()
             return movePlayerToRoom(pickRoom(), ui, map)
         }
-        return 0
+        return
     }
 
 

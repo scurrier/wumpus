@@ -167,7 +167,8 @@ internal class GameStateTest {
 
         @Test
         fun noEncounters() {
-            assertEquals(0, testObj.movePlayerToRoom(2, ui, gameMap))
+            testObj.movePlayerToRoom(2, ui, gameMap)
+            assertTrue(testObj.stillPlaying())
             assertEquals(2, testObj.playerRoom)
         }
 
@@ -176,7 +177,8 @@ internal class GameStateTest {
         fun bats(bat1: Int, bat2: Int) {
             testObj.setNewLocations(arrayOf(0, 1, 20, 20, 20, bat1, bat2))
             every { chaos.pickRoom() } returns 10
-            assertEquals(0, testObj.movePlayerToRoom(2, ui, gameMap))
+            testObj.movePlayerToRoom(2, ui, gameMap)
+            assertTrue(testObj.stillPlaying())
             assertEquals(10, testObj.playerRoom)
             verify { ui.reportBatEncounter() }
         }
@@ -185,7 +187,8 @@ internal class GameStateTest {
         @CsvSource("20, 2", "2, 20")
         fun pits(pit1: Int, pit2: Int) {
             testObj.setNewLocations(arrayOf(0, 1, 20, pit1, pit2, 20, 20))
-            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            testObj.movePlayerToRoom(2, ui, gameMap)
+            assertTrue(testObj.hasLost())
             verify { ui.reportFall() }
         }
 
@@ -193,7 +196,8 @@ internal class GameStateTest {
         fun wumpusThatStays() {
             every { chaos.pickWumpusMovement() } returns 4
             testObj.wumpusRoom = 2
-            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            testObj.movePlayerToRoom(2, ui, gameMap)
+            assertTrue(testObj.hasLost())
             verify { ui.reportWumpusBump() }
         }
 
@@ -201,9 +205,42 @@ internal class GameStateTest {
         fun wumpusThatMovesThenPit() {
             every { chaos.pickWumpusMovement() } returns 1
             testObj.setNewLocations(arrayOf(0, 1, 2, 2, 20, 20, 20))
-            assertEquals(-1, testObj.movePlayerToRoom(2, ui, gameMap))
+            testObj.movePlayerToRoom(2, ui, gameMap)
+            assertTrue(testObj.hasLost())
             verify { ui.reportWumpusBump() }
             verify { ui.reportFall() }
+        }
+    }
+
+    @Nested
+    inner class wumpusMoveTest {
+        init {
+            testObj.playerRoom = 2
+            testObj.wumpusRoom = 1
+        }
+
+        @Test
+        fun noMove() {
+            every {chaos.pickWumpusMovement()} returns 4
+            testObj.wumpusMove(GameMap(), ui)
+            assertEquals(1, testObj.wumpusRoom)
+            assertTrue(testObj.stillPlaying())
+        }
+
+        @Test
+        fun relocates() {
+            every {chaos.pickWumpusMovement()} returns 2
+            testObj.wumpusMove(GameMap(), ui)
+            assertEquals(5, testObj.wumpusRoom)
+            assertTrue(testObj.stillPlaying())
+        }
+
+        @Test
+        fun catchesPlayer() {
+            every {chaos.pickWumpusMovement()} returns 1
+            testObj.wumpusMove(GameMap(), ui)
+            assertEquals(2, testObj.wumpusRoom)
+            assertTrue(testObj.hasLost())
         }
     }
 }
