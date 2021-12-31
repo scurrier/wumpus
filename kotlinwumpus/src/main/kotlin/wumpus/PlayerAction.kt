@@ -7,7 +7,7 @@ internal interface PlayerAction {
 internal object Move : PlayerAction {
     override fun doAction(gameState: GameState, ui: UI) {
         val newPlayerRoom = ui.askForValidDestinationRoom(gameState.playerRoom)
-        gameState.movePlayerToRoom(newPlayerRoom, ui)
+        gameState.player.movePlayerToRoom(newPlayerRoom, ui, gameState)
     }
 }
 

@@ -3,7 +3,7 @@ package wumpus
 import java.util.Random
 
 internal class GameState(
-    private val chaos: Chaos = Chaos(Random()),
+    val chaos: Chaos = Chaos(Random()),
     private val exitOnWin: Boolean = false
 ) {
 
@@ -11,41 +11,23 @@ internal class GameState(
     private var arrows: Arrows = Arrows()
 
     private var gameResult: Int = 0
+    val player: Player = Player()
     var playerRoom: Room
-        get() = locations[0].room
+        get() = player.room
         set(v) {
-            locations[0].room = v
+            player.room = v
         }
+    private val wumpus: Wumpus = Wumpus()
     var wumpusRoom: Room
-        get() = locations[1].room
+        get() = wumpus.room
         set(v) {
-            locations[1].room = v
+            wumpus.room = v
         }
-    val pit1: Room
-        get() = locations[2].room
-    val pit2: Room
-        get() = locations[3].room
-    val bat1: Room
-        get() = locations[4].room
-    val bat2: Room
-        get() = locations[5].room
 
-    private var locations = arrayOf(Player(), Wumpus(), Pit(), Pit(), Bat(), Bat())
+    private var locations = arrayOf(player, wumpus, Pit(), Pit(), Bat(), Bat())
     private val hazards = locations.slice(1..5)
     private var initialLocations = locations.map { it.room }.toMutableList()
-
-    fun wumpusMove(ui: UI) {
-        val k2 = chaos.pickWumpusMovement()
-        if (k2 != 4)
-            wumpusRoom = map.room(wumpusRoom[k2])
-        if (wumpusRoom == playerRoom)
-            wumpusWin(ui)
-    }
-
-    private fun wumpusWin(ui: UI) {
-        ui.reportWumpusAtePlayer()
-        lose()
-    }
+    fun hazardIterator(): Iterator<Piece> = hazards.iterator()
 
     fun initializeLocations() {
         var newLocations: List<Int>
@@ -94,7 +76,7 @@ internal class GameState(
 
     fun startPlaying() = updateGameResult(0)
     private fun win() = updateGameResult(1)
-    private fun lose() = updateGameResult(-1)
+    fun lose() = updateGameResult(-1)
     fun stillPlaying(): Boolean = gameResult == 0
     fun hasLost(): Boolean = gameResult < 0
     fun hasWon(): Boolean = gameResult > 0
@@ -117,7 +99,7 @@ internal class GameState(
         arrows.consumeArrow()
         if (!arrows.hasArrows())
             return lose()
-        return wumpusMove(ui)
+        return wumpus.wumpusMove(ui, this)
     }
 
     private fun playerHitByArrow(ui: UI) {
@@ -134,25 +116,6 @@ internal class GameState(
         destination
     } else {
         start[chaos.pickTunnel()]
-    }
-
-    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI) {
-        playerRoom = map.room(newPlayerRoom)
-        if (playerRoom == wumpusRoom) {
-            ui.reportWumpusBump()
-            wumpusMove(ui)
-            if (!stillPlaying()) return
-        }
-        if ((playerRoom == pit1 || playerRoom == pit2)) {
-            ui.reportFall()
-            lose()
-            return
-        }
-        if ((playerRoom == bat1 || playerRoom == bat2)) {
-            ui.reportBatEncounter()
-            return movePlayerToRoom(chaos.pickRoom(), ui)
-        }
-        return
     }
 
     fun hazardsNearby(): List<Piece> {
