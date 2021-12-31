@@ -13,10 +13,10 @@ internal class GameState(
     val playerRoom: Room get() = player.room
     private val wumpus: Wumpus = Wumpus()
     val wumpusRoom: Room get() = wumpus.room
-    private var locations = arrayOf(player, wumpus, Pit(), Pit(), Bat(), Bat())
-    private val hazards = locations.slice(1..5)
+    private val hazards = arrayOf(wumpus, Pit(), Pit(), Bat(), Bat())
+    private var locations = arrayOf(player, *hazards)
     private var initialLocations = locations.map { it.room }.toMutableList()
-    fun hazardIterator(): Iterator<Piece> = hazards.iterator()
+    fun hazardIterator(): Iterator<Hazard> = hazards.iterator()
 
     fun initializeLocations() {
         var newLocations: List<Int>
@@ -97,7 +97,7 @@ internal class GameState(
         start[chaos.pickTunnel()]
     }
 
-    fun hazardsNearby(): List<Piece> {
+    fun hazardsNearby(): List<Hazard> {
         return hazards.filter { playerRoom.hasPathTo(it.room) }
     }
 }

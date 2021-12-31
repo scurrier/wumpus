@@ -1,6 +1,9 @@
 package wumpus
 
 internal abstract class Piece(var room: Room = Room(0, 0, 0, 0)) {
+}
+
+internal abstract class Hazard() : Piece() {
     abstract fun nearby(ui: UI)
     fun checkForEncounter(ui: UI, gameState: GameState) {
         if (gameState.playerRoom == room)
@@ -10,8 +13,6 @@ internal abstract class Piece(var room: Room = Room(0, 0, 0, 0)) {
 }
 
 internal class Player() : Piece() {
-    override fun nearby(ui: UI) {}
-    override fun encountered(ui: UI, gameState: GameState) {}
     fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, gameState: GameState) {
         room = gameState.map.room(newPlayerRoom)
         val hazardIterator = gameState.hazardIterator()
@@ -21,7 +22,7 @@ internal class Player() : Piece() {
     }
 }
 
-internal class Wumpus() : Piece() {
+internal class Wumpus() : Hazard() {
     override fun nearby(ui: UI) = ui.reportWumpusNearby()
 
     override fun encountered(ui: UI, gameState: GameState) {
@@ -43,7 +44,7 @@ internal class Wumpus() : Piece() {
     }
 }
 
-internal class Pit() : Piece() {
+internal class Pit() : Hazard() {
     override fun nearby(ui: UI) = ui.reportPitNearby()
 
     override fun encountered(ui: UI, gameState: GameState) {
@@ -52,7 +53,7 @@ internal class Pit() : Piece() {
     }
 }
 
-internal class Bat() : Piece() {
+internal class Bat() : Hazard() {
     override fun nearby(ui: UI) = ui.reportBatNearby()
 
     override fun encountered(ui: UI, gameState: GameState) {

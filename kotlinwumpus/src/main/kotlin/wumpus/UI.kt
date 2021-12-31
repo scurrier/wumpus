@@ -145,7 +145,7 @@ internal class UI(private val console: Console) {
         console.println("HUNT THE WUMPUS")
     }
 
-    fun printRoomDescription(playerRoom: Room, nearbyHazards: List<Piece>) {
+    fun printRoomDescription(playerRoom: Room, nearbyHazards: List<Hazard>) {
         val room = playerRoom
         console.println("")
         nearbyHazards.forEach { it.nearby(this) }
