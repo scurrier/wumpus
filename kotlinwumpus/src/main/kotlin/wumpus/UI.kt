@@ -56,11 +56,14 @@ internal class UI(val console: Console) {
         do {
             console.print("ROOM # ")
             nextRoom = console.readInt()
-            val invalidPath = (path.size >= 2) && path[path.size - 2] == nextRoom
+            val invalidPath = triedA180(path, nextRoom)
             if (invalidPath) console.println("ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM")
         } while (invalidPath)
         return nextRoom
     }
+
+    // arrows cannot do a 180° turn
+    private fun triedA180(path: List<Int>, nextRoom: Int) = (path.size >= 2) && path[path.size - 2] == nextRoom
 
     fun askForDestinationRoom(): Int {
         var result: Int
@@ -71,11 +74,11 @@ internal class UI(val console: Console) {
         return result
     }
 
-    fun askForValidDestinationRoom(gameState: GameState): Int {
+    fun askForValidDestinationRoom(fromRoom: Room): Int {
         var result: Int
         do {
             result = askForDestinationRoom()
-            val isValidRoom = result in gameState.playerRoom || gameState.playerRoom.isIndex(result)
+            val isValidRoom = result in fromRoom || fromRoom.isIndex(result)
             if (!isValidRoom) {
                 console.print("NOT POSSIBLE - ")
             }

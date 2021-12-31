@@ -20,8 +20,8 @@ internal class GameStateTest {
         // first six return values that cross over, second values get used (plus 1)
         every { chaos.pickRoom() } returnsMany listOf(2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8)
         testObj.initializeLocations()
-        assertEquals(gameMap.room(3), testObj.playerRoom)
-        assertEquals(gameMap.room(4), testObj.wumpusRoom)
+        assertTrue(testObj.playerRoom.isIndex(3))
+        assertTrue(testObj.wumpusRoom.isIndex(4))
     }
 
     @Test
@@ -46,12 +46,12 @@ internal class GameStateTest {
     @Test
     fun setNewLocations() {
         testObj.setNewLocations(arrayOf(3, 4, 5, 6, 7, 8))
-        assertEquals(gameMap.room(3), testObj.playerRoom)
-        assertEquals(gameMap.room(4), testObj.wumpusRoom)
-        assertEquals(gameMap.room(5), testObj.pit1)
-        assertEquals(gameMap.room(6), testObj.pit2)
-        assertEquals(gameMap.room(7), testObj.bat1)
-        assertEquals(gameMap.room(8), testObj.bat2)
+        assertTrue(testObj.playerRoom.isIndex(3))
+        assertTrue(testObj.wumpusRoom.isIndex(4))
+        assertTrue(testObj.pit1.isIndex(5))
+        assertTrue(testObj.pit2.isIndex(6))
+        assertTrue(testObj.bat1.isIndex(7))
+        assertTrue(testObj.bat2.isIndex(8))
     }
 
     @Test
@@ -154,7 +154,7 @@ internal class GameStateTest {
         fun noEncounters() {
             testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.stillPlaying())
-            assertEquals(gameMap.room(2), testObj.playerRoom)
+            assertTrue(testObj.playerRoom.isIndex(2))
         }
 
         @ParameterizedTest
@@ -164,7 +164,7 @@ internal class GameStateTest {
             every { chaos.pickRoom() } returns 10
             testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.stillPlaying())
-            assertEquals(gameMap.room(10), testObj.playerRoom)
+            assertTrue(testObj.playerRoom.isIndex(10))
             verify { ui.reportBatEncounter() }
         }
 
@@ -208,7 +208,7 @@ internal class GameStateTest {
         fun noMove() {
             every {chaos.pickWumpusMovement()} returns 4
             testObj.wumpusMove(ui)
-            assertEquals(gameMap.room(1), testObj.wumpusRoom)
+            assertTrue(testObj.wumpusRoom.isIndex(1))
             assertTrue(testObj.stillPlaying())
         }
 
@@ -216,7 +216,7 @@ internal class GameStateTest {
         fun relocates() {
             every {chaos.pickWumpusMovement()} returns 2
             testObj.wumpusMove(ui)
-            assertEquals(gameMap.room(5), testObj.wumpusRoom)
+            assertTrue(testObj.wumpusRoom.isIndex(5))
             assertTrue(testObj.stillPlaying())
         }
 
@@ -224,7 +224,7 @@ internal class GameStateTest {
         fun catchesPlayer() {
             every {chaos.pickWumpusMovement()} returns 1
             testObj.wumpusMove(ui)
-            assertEquals(gameMap.room(2), testObj.wumpusRoom)
+            assertTrue(testObj.wumpusRoom.isIndex(2))
             assertTrue(testObj.hasLost())
         }
     }
