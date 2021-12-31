@@ -12,34 +12,38 @@ internal class GameState(
 
     private var gameResult: Int = 0
     var playerRoom: Room
-        get() = locations[0]
+        get() = locations[0].room
         set(v) {
-            locations[0] = v
+            locations[0].room = v
         }
     var wumpusRoom: Room
-        get() = locations[1]
+        get() = locations[1].room
         set(v) {
-            locations[1] = v
+            locations[1].room = v
         }
     val pit1: Room
-        get() = locations[2]
+        get() = locations[2].room
     val pit2: Room
-        get() = locations[3]
+        get() = locations[3].room
     val bat1: Room
-        get() = locations[4]
+        get() = locations[4].room
     val bat2: Room
-        get() = locations[5]
+        get() = locations[5].room
 
-    var locations = Array(6) { Room(0, 0, 0, 0) }
-    private var initialLocations = Array(6) { Room(0, 0, 0, 0) }
+    var locations = Array(6) { Piece(Room(0, 0, 0, 0)) }
+    private var initialLocations = Array(6) { Piece(Room(0, 0, 0, 0)) }
 
     fun wumpusMove(ui: UI) {
         val k2 = chaos.pickWumpusMovement()
-        if (k2 != 4) wumpusRoom = map.room(wumpusRoom[k2])
-        if (wumpusRoom == playerRoom) {
-            ui.reportWumpusAtePlayer()
-            lose()
-        }
+        if (k2 != 4)
+            wumpusRoom = map.room(wumpusRoom[k2])
+        if (wumpusRoom == playerRoom)
+            wumpusWin(ui)
+    }
+
+    private fun wumpusWin(ui: UI) {
+        ui.reportWumpusAtePlayer()
+        lose()
     }
 
     fun initializeLocations() {
@@ -58,29 +62,30 @@ internal class GameState(
 
     fun setNewLocations(newLocations: Array<Int>) {
         for ((index, newRoom) in newLocations.withIndex()) {
-            locations[index] = map.room(newRoom)
-            initialLocations[index] = map.room(newRoom)
+            locations[index] = Piece(map.room(newRoom))
+            initialLocations[index] = Piece(map.room(newRoom))
         }
     }
 
     fun hasCrossovers(): Boolean {
         for (j in 0..5) {
             for (k in 0..5) {
-                if (j != k && locations[j] == locations[k]) {
+                if (j != k && locations[j].room == locations[k].room)
                     return true
-                }
             }
         }
         return false
     }
 
     private fun restoreInitialLocations() {
-        locations = initialLocations.clone()
+        for ((i, location) in initialLocations.withIndex())
+            locations[i].room = location.room
     }
 
     fun resetGame(useNewSetup: Boolean) {
         arrows.resetArrows()
-        if (useNewSetup) initializeLocations()
+        if (useNewSetup)
+            initializeLocations()
         else restoreInitialLocations()
     }
 
@@ -111,9 +116,8 @@ internal class GameState(
     private fun arrowMissed(ui: UI) {
         ui.reportMissedShot()
         arrows.consumeArrow()
-        if (!arrows.hasArrows()) {
+        if (!arrows.hasArrows())
             return lose()
-        }
         return wumpusMove(ui)
     }
 

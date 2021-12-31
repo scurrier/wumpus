@@ -2,7 +2,7 @@ package wumpus
 
 import Console
 
-internal class UI(val console: Console) {
+internal class UI(private val console: Console) {
 
     fun provideInstructions() {
         if (askIfInstructionsNeeded()) {
@@ -145,7 +145,7 @@ internal class UI(val console: Console) {
         val room = gameState.playerRoom
         console.println("")
         (1..5).forEach { j ->
-            if (!room.hasPathTo(gameState.locations[j])) return@forEach
+            if (!room.hasPathTo(gameState.locations[j].room)) return@forEach
             when (j) {
                 1 -> console.println("I SMELL A WUMPUS!")
                 2, 3 -> console.println("I FEEL A DRAFT")

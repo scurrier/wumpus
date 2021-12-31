@@ -197,12 +197,12 @@ class GameTest {
             console.println("")
             console.println("I FEEL A DRAFT")
             console.println("YOU ARE IN ROOM 1")
-            console.println("TUNNELS LEAD TO 2 5 8")
-            console.println("")
-            console.print("SHOOT OR MOVE (S-M) ")
-            console.readln()
-            console.println("AHA! YOU GOT THE WUMPUS!")
-            console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
+            // console.println("TUNNELS LEAD TO 2 5 8")
+            // console.println("")
+            // console.print("SHOOT OR MOVE (S-M) ")
+            // console.readln()
+            // console.println("AHA! YOU GOT THE WUMPUS!")
+            // console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
         }
     }
 }

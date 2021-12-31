@@ -25,6 +25,17 @@ internal class GameStateTest {
     }
 
     @Test
+    fun resetWithSameSetup() {
+        testObj.setNewLocations(arrayOf(1, 2, 3, 4, 5, 6))
+        assertTrue(testObj.playerRoom.isIndex(1))
+        testObj.resetGame(false)
+        assertTrue(testObj.playerRoom.isIndex(1))
+        testObj.playerRoom = gameMap.room(10)
+        testObj.resetGame(false)
+        assertTrue(testObj.playerRoom.isIndex(1), "expected 1 but was ${testObj.playerRoom}")
+    }
+
+    @Test
     fun hasCrossover() {
         testObj.setNewLocations(arrayOf(1, 2, 3, 4, 5, 6))
         assertFalse(testObj.hasCrossovers())

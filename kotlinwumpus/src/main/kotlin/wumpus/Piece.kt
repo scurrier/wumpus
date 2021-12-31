@@ -1,4 +1,4 @@
 package wumpus
 
-internal class Piece (val room: Room) {
+internal data class Piece (var room: Room) {
 }
