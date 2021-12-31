@@ -4,7 +4,8 @@ import Console
 
 class Game {
 	internal var ui = UI(Console())
-	internal var gameState = GameState(exitOnWin = true)
+	internal val gameResult = GameResult()
+	internal var gameState = GameState(gameResult, exitOnWin = true)
 
 	fun main() {
 		try {
@@ -23,12 +24,12 @@ class Game {
 
 	private fun playGame() {
 		ui.showTitle()
-		gameState.startPlaying()
+		gameResult.startPlaying()
 		do {
 			ui.printRoomDescription(gameState.playerRoom, gameState.hazardsNearby())
 			ui.askForAction().doAction(gameState, ui)
-		} while (gameState.stillPlaying())
-		if (gameState.hasLost()) {
+		} while (gameResult.stillPlaying())
+		if (gameResult.hasLost()) {
 			ui.reportLoss()
 		} else {
 			ui.reportWin()

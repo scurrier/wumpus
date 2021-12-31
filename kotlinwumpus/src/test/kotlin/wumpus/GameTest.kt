@@ -13,7 +13,8 @@ class GameTest {
     private val testObj = Game()
     @BeforeEach
     fun setUp() {
-        testObj.gameState = GameState(Chaos(Random(0)), exitOnWin = true)
+
+        testObj.gameState = GameState(testObj.gameResult, Chaos(Random(0)), exitOnWin = true)
         testObj.ui = UI(console)
     }
 

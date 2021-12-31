@@ -8,12 +8,13 @@ import org.junit.jupiter.api.Test
 internal class WumpusTest {
     private val testObj = Wumpus()
     private val chaos = mockk<Chaos>()
-    private val gameState = GameState(chaos)
+    private val gameResult = GameResult()
+    private val gameState = GameState(gameResult, chaos, true)
     private val ui = mockk<UI>(relaxed = true)
     private val gameMap = gameState.map
 
     init {
-        gameState.playerRoom = gameMap.room(2)
+        gameState.setNewLocations(listOf(2, 20, 20, 20, 20, 20))
         testObj.room = gameMap.room(1)
     }
 
@@ -22,7 +23,7 @@ internal class WumpusTest {
         every { chaos.pickWumpusMovement() } returns 4
         testObj.wumpusMove(ui, gameState)
         assertTrue(testObj.room.isIndex(1))
-        assertTrue(gameState.stillPlaying())
+        assertTrue(gameResult.stillPlaying())
     }
 
     @Test
@@ -30,7 +31,7 @@ internal class WumpusTest {
         every { chaos.pickWumpusMovement() } returns 2
         testObj.wumpusMove(ui, gameState)
         assertTrue(testObj.room.isIndex(5))
-        assertTrue(gameState.stillPlaying())
+        assertTrue(gameResult.stillPlaying())
     }
 
     @Test
@@ -38,6 +39,6 @@ internal class WumpusTest {
         every { chaos.pickWumpusMovement() } returns 1
         testObj.wumpusMove(ui, gameState)
         assertTrue(testObj.room.isIndex(2))
-        assertTrue(gameState.hasLost())
+        assertTrue(gameResult.hasLost())
     }
 }

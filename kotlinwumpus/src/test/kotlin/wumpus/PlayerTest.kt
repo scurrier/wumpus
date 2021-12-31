@@ -11,7 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource
 
 internal class PlayerTest {
     private val chaos = mockk<Chaos>()
-    private val gameState = GameState(chaos)
+    private val gameResult = GameResult()
+    private val gameState = GameState(gameResult, chaos, true)
     private val testObj = gameState.player
     private val ui = mockk<UI>(relaxed = true)
     private val gameMap = gameState.map
@@ -24,7 +25,7 @@ internal class PlayerTest {
     fun noEncounters() {
         testObj.movePlayerToRoom(2, ui, gameState)
         assertTrue(testObj.room.isIndex(2))
-        assertTrue(gameState.stillPlaying())
+        assertTrue(gameResult.stillPlaying())
     }
 
     @ParameterizedTest
@@ -33,7 +34,7 @@ internal class PlayerTest {
         gameState.setNewLocations(listOf(1, 20, 20, 20, bat1, bat2))
         every { chaos.pickRoom() } returns 10
         testObj.movePlayerToRoom(2, ui, gameState)
-        assertTrue(gameState.stillPlaying())
+        assertTrue(gameResult.stillPlaying())
         assertTrue(testObj.room.isIndex(10), "expected 10 but was ${testObj}")
         verify { ui.reportBatEncounter() }
     }
@@ -43,16 +44,16 @@ internal class PlayerTest {
     fun pits(pit1: Int, pit2: Int) {
         gameState.setNewLocations(listOf(1, 20, pit1, pit2, 20, 20))
         testObj.movePlayerToRoom(2, ui, gameState)
-        assertTrue(gameState.hasLost())
+        assertTrue(gameResult.hasLost())
         verify { ui.reportFall() }
     }
 
     @Test
     fun wumpusThatStays() {
         every { chaos.pickWumpusMovement() } returns 4
-        gameState.wumpusRoom = gameMap.room(2)
+        gameState.setNewLocations(listOf(1, 2, 20, 20, 20, 20))
         testObj.movePlayerToRoom(2, ui, gameState)
-        assertTrue(gameState.hasLost())
+        assertTrue(gameResult.hasLost())
         verify { ui.reportWumpusBump() }
     }
 
@@ -61,7 +62,7 @@ internal class PlayerTest {
         every { chaos.pickWumpusMovement() } returns 1
         gameState.setNewLocations(listOf(1, 2, 2, 20, 20, 20))
         testObj.movePlayerToRoom(2, ui, gameState)
-        assertTrue(gameState.hasLost())
+        assertTrue(gameResult.hasLost())
         verify { ui.reportWumpusBump() }
         verify { ui.reportFall() }
     }

@@ -15,7 +15,7 @@ internal class Player() : Piece() {
     fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, gameState: GameState) {
         room = gameState.map.room(newPlayerRoom)
         val hazardIterator = gameState.hazardIterator()
-        while (hazardIterator.hasNext() && gameState.stillPlaying()) {
+        while (hazardIterator.hasNext() && gameState.gameResult.stillPlaying()) {
             hazardIterator.next().checkForEncounter(ui, gameState)
         }
     }
@@ -39,7 +39,7 @@ internal class Wumpus() : Piece() {
 
     fun wumpusWin(ui: UI, gameState: GameState) {
         ui.reportWumpusAtePlayer()
-        gameState.lose()
+        gameState.gameResult.lose()
     }
 }
 
@@ -48,7 +48,7 @@ internal class Pit() : Piece() {
 
     override fun encountered(ui: UI, gameState: GameState) {
         ui.reportFall()
-        gameState.lose()
+        gameState.gameResult.lose()
     }
 }
 

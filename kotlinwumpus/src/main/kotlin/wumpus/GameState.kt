@@ -3,27 +3,16 @@ package wumpus
 import java.util.Random
 
 internal class GameState(
+    var gameResult: GameResult,
     val chaos: Chaos = Chaos(Random()),
-    private val exitOnWin: Boolean = false
+    private val exitOnWin: Boolean
 ) {
-
     val map: GameMap = GameMap()
     private var arrows: Arrows = Arrows()
-
-    private var gameResult: Int = 0
     val player: Player = Player()
-    var playerRoom: Room
-        get() = player.room
-        set(v) {
-            player.room = v
-        }
+    val playerRoom: Room get() = player.room
     private val wumpus: Wumpus = Wumpus()
-    var wumpusRoom: Room
-        get() = wumpus.room
-        set(v) {
-            wumpus.room = v
-        }
-
+    val wumpusRoom: Room get() = wumpus.room
     private var locations = arrayOf(player, wumpus, Pit(), Pit(), Bat(), Bat())
     private val hazards = locations.slice(1..5)
     private var initialLocations = locations.map { it.room }.toMutableList()
@@ -70,17 +59,7 @@ internal class GameState(
         else restoreInitialLocations()
     }
 
-    fun updateGameResult(newGameResult: Int) {
-        gameResult = newGameResult
-    }
-
-    fun startPlaying() = updateGameResult(0)
-    private fun win() = updateGameResult(1)
-    fun lose() = updateGameResult(-1)
-    fun stillPlaying(): Boolean = gameResult == 0
-    fun hasLost(): Boolean = gameResult < 0
-    fun hasWon(): Boolean = gameResult > 0
-    fun playAgain() = !(exitOnWin && hasWon())
+    fun playAgain() = !(exitOnWin && gameResult.hasWon())
 
     fun followArrowPath(path: Array<Int>, ui: UI) {
         var arrowRoom = playerRoom
@@ -98,18 +77,18 @@ internal class GameState(
         ui.reportMissedShot()
         arrows.consumeArrow()
         if (!arrows.hasArrows())
-            return lose()
+            return gameResult.lose()
         return wumpus.wumpusMove(ui, this)
     }
 
     private fun playerHitByArrow(ui: UI) {
         ui.reportShotSelf()
-        lose()
+        gameResult.lose()
     }
 
     private fun wumpusHitByArrow(ui: UI) {
         ui.reportShotWumpus()
-        win()
+        gameResult.win()
     }
 
     fun nextArrowRoom(start: Room, destination: Int) = if (destination in start) {
