@@ -199,11 +199,13 @@ internal class UITest {
 
     @Test
     fun printRoomDescription() {
-        val gameState = GameState()
-        gameState.setNewLocations(arrayOf(3,4,12,19,2,20))
-        testObj.printRoomDescription(gameState)
-        verify {
+        val playerRoom = Room(3,2,4,12)
+        val nearbyHazards = listOf(Wumpus(), Pit(), Pit(), Bat())
+        testObj.printRoomDescription(playerRoom, nearbyHazards)
+        verifySequence {
+            console.println("")
             console.println("I SMELL A WUMPUS!")
+            console.println("I FEEL A DRAFT")
             console.println("I FEEL A DRAFT")
             console.println("BATS NEARBY!")
             console.println("YOU ARE IN ROOM 3")

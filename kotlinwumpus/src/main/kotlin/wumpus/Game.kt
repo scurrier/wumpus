@@ -25,7 +25,7 @@ class Game {
 		ui.showTitle()
 		gameState.startPlaying()
 		do {
-			ui.printRoomDescription(gameState)
+			ui.printRoomDescription(gameState.playerRoom, gameState.hazardsNearby())
 			ui.askForAction().doAction(gameState, ui)
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
