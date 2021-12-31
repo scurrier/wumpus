@@ -144,17 +144,28 @@ internal class UI(private val console: Console) {
     fun printRoomDescription(gameState: GameState) {
         val room = gameState.playerRoom
         console.println("")
-        (1..5).forEach { j ->
-            if (!room.hasPathTo(gameState.locations[j].room)) return@forEach
-            when (j) {
-                1 -> console.println("I SMELL A WUMPUS!")
-                2, 3 -> console.println("I FEEL A DRAFT")
-                4, 5 -> console.println("BATS NEARBY!")
+        for (hazard in gameState.hazardsNearby()) {
+            when (hazard) {
+                is Wumpus -> reportWumpusNearby()
+                is Pit -> reportPitNearby()
+                is Bat -> reportBatNearby()
             }
         }
         console.println("YOU ARE IN ROOM $room")
         console.println("TUNNELS LEAD TO ${room[1]} ${room[2]} ${room[3]}")
         console.println("")
+    }
+
+    private fun reportBatNearby() {
+        console.println("BATS NEARBY!")
+    }
+
+    private fun reportPitNearby() {
+        console.println("I FEEL A DRAFT")
+    }
+
+    private fun reportWumpusNearby() {
+        console.println("I SMELL A WUMPUS!")
     }
 
     fun reportShotWumpus() {

@@ -30,8 +30,8 @@ internal class GameState(
     val bat2: Room
         get() = locations[5].room
 
-    var locations = Array(6) { Piece(Room(0, 0, 0, 0)) }
-    private var initialLocations = Array(6) { Piece(Room(0, 0, 0, 0)) }
+    var locations = arrayOf(Player(), Wumpus(), Pit(), Pit(), Bat(), Bat())
+    private var initialLocations = locations.map { Piece(it.room) }
 
     fun wumpusMove(ui: UI) {
         val k2 = chaos.pickWumpusMovement()
@@ -62,8 +62,8 @@ internal class GameState(
 
     fun setNewLocations(newLocations: Array<Int>) {
         for ((index, newRoom) in newLocations.withIndex()) {
-            locations[index] = Piece(map.room(newRoom))
-            initialLocations[index] = Piece(map.room(newRoom))
+            locations[index].room = map.room(newRoom)
+            initialLocations[index].room = map.room(newRoom)
         }
     }
 
@@ -154,5 +154,9 @@ internal class GameState(
             return movePlayerToRoom(chaos.pickRoom(), ui)
         }
         return
+    }
+
+    fun hazardsNearby(): List<Piece> {
+        return locations.slice(1..5).filter { playerRoom.hasPathTo(it.room) }
     }
 }
