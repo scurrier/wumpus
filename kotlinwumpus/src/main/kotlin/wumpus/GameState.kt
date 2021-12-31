@@ -48,33 +48,31 @@ internal class GameState(
     }
 
     fun initializeLocations() {
+        var newLocations: List<Int>
         do {
-            setNewLocations(generateLocations())
-        } while (hasCrossovers())
+            newLocations = generateLocations()
+        } while (hasCrossovers(newLocations))
+        setNewLocations(newLocations)
     }
 
-    fun generateLocations(): Array<Int> {
-        val newLocations = Array(6) { 0 }
-        for (j in 0..5) {
-            newLocations[j] = chaos.pickRoom()
-        }
+    fun generateLocations(): List<Int> {
+        val newLocations = mutableListOf<Int>()
+        repeat(6) { newLocations.add(chaos.pickRoom()) }
         return newLocations
     }
 
-    fun setNewLocations(newLocations: Array<Int>) {
+    fun setNewLocations(newLocations: List<Int>) {
         for ((index, newRoom) in newLocations.withIndex()) {
             locations[index].room = map.room(newRoom)
             initialLocations[index] = map.room(newRoom)
         }
     }
 
-    fun hasCrossovers(): Boolean {
-        for (j in 0..5) {
-            for (k in 0..5) {
-                if (j != k && locations[j].room == locations[k].room)
+    fun hasCrossovers(newLocations: List<Int>): Boolean {
+        for ((j, room) in newLocations.withIndex())
+            for ((k, otherRoom) in newLocations.withIndex())
+                if (j != k && room == otherRoom)
                     return true
-            }
-        }
         return false
     }
 
@@ -156,7 +154,6 @@ internal class GameState(
         }
         return
     }
-
 
     fun hazardsNearby(): List<Piece> {
         return hazards.filter { playerRoom.hasPathTo(it.room) }
