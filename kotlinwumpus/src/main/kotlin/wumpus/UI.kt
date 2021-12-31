@@ -86,11 +86,10 @@ internal class UI(private val console: Console) {
         return result
     }
 
-
-
     fun giveInstructions() {
         console.println("WELCOME TO 'HUNT THE WUMPUS'")
-        console.println("""
+        console.println(
+            """
                   THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM
                 HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A
                 DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW
@@ -102,9 +101,11 @@ internal class UI(private val console: Console) {
                  SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU
                      GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER
                      ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)
-            """.trimIndent())
+            """.trimIndent()
+        )
         console.input("HIT RETURN TO CONTINUE")
-        console.println("""
+        console.println(
+            """
                      WUMPUS:
                  THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER
                  FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY
@@ -124,9 +125,11 @@ internal class UI(private val console: Console) {
                    AT RANDOM TO THE NEXT ROOM.
                      IF THE ARROW HITS THE WUMPUS, YOU WIN.
                      IF THE ARROW HITS YOU, YOU LOSE.                
-            """.trimIndent())
+            """.trimIndent()
+        )
         console.input("HIT RETURN TO CONTINUE")
-        console.println("""
+        console.println(
+            """
                     WARNINGS:
                      WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,
                      THE COMPUTER SAYS:
@@ -134,7 +137,8 @@ internal class UI(private val console: Console) {
                  BAT   :  'BATS NEARBY'
                  PIT   :  'I FEEL A DRAFT'
                                 
-            """.trimIndent())
+            """.trimIndent()
+        )
     }
 
     fun showTitle() {
@@ -144,63 +148,22 @@ internal class UI(private val console: Console) {
     fun printRoomDescription(gameState: GameState) {
         val room = gameState.playerRoom
         console.println("")
-        for (hazard in gameState.hazardsNearby()) {
-            when (hazard) {
-                is Wumpus -> reportWumpusNearby()
-                is Pit -> reportPitNearby()
-                is Bat -> reportBatNearby()
-            }
-        }
+        gameState.hazardsNearby().forEach { it.nearby(this) }
         console.println("YOU ARE IN ROOM $room")
         console.println("TUNNELS LEAD TO ${room[1]} ${room[2]} ${room[3]}")
         console.println("")
     }
 
-    private fun reportBatNearby() {
-        console.println("BATS NEARBY!")
-    }
-
-    private fun reportPitNearby() {
-        console.println("I FEEL A DRAFT")
-    }
-
-    private fun reportWumpusNearby() {
-        console.println("I SMELL A WUMPUS!")
-    }
-
-    fun reportShotWumpus() {
-        console.println("AHA! YOU GOT THE WUMPUS!")
-    }
-
-    fun reportShotSelf() {
-        console.println("OUCH! ARROW GOT YOU!")
-    }
-
-    fun reportMissedShot() {
-        console.println("MISSED")
-    }
-
-    fun reportWumpusAtePlayer() {
-        console.println("TSK TSK TSK - WUMPUS GOT YOU!")
-    }
-
-    fun reportWumpusBump() {
-        console.println("... OOPS! BUMPED A WUMPUS!")
-    }
-
-    fun reportFall() {
-        console.println("YYYYIIIIEEEE . . . FELL IN PIT")
-    }
-
-    fun reportBatEncounter() {
-        console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
-    }
-
-    fun reportLoss() {
-        console.println("HA HA HA - YOU LOSE!")
-    }
-
-    fun reportWin() {
-        console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
-    }
+    fun reportBatNearby() = console.println("BATS NEARBY!")
+    fun reportPitNearby() = console.println("I FEEL A DRAFT")
+    fun reportWumpusNearby() = console.println("I SMELL A WUMPUS!")
+    fun reportShotWumpus() = console.println("AHA! YOU GOT THE WUMPUS!")
+    fun reportShotSelf() = console.println("OUCH! ARROW GOT YOU!")
+    fun reportMissedShot() = console.println("MISSED")
+    fun reportWumpusAtePlayer() = console.println("TSK TSK TSK - WUMPUS GOT YOU!")
+    fun reportWumpusBump() = console.println("... OOPS! BUMPED A WUMPUS!")
+    fun reportFall() = console.println("YYYYIIIIEEEE . . . FELL IN PIT")
+    fun reportBatEncounter() = console.println("ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!")
+    fun reportLoss() = console.println("HA HA HA - YOU LOSE!")
+    fun reportWin() = console.println("HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!")
 }
