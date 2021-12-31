@@ -19,7 +19,7 @@ internal class GameStateTest {
     fun initializeLocations() {
         // first six return values that cross over, second values get used (plus 1)
         every { chaos.pickRoom() } returnsMany listOf(2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8)
-        testObj.intializeLocations()
+        testObj.initializeLocations()
         assertEquals(gameMap.room(3), testObj.playerRoom)
         assertEquals(gameMap.room(4), testObj.wumpusRoom)
     }
@@ -89,7 +89,7 @@ internal class GameStateTest {
         fun miss() {
             // need to train random move of wumpus after miss
             every { chaos.pickWumpusMovement() } returns 4
-            testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
+            testObj.followArrowPath(arrayOf(2, 3, 4), ui)
             verify { ui.reportMissedShot() }
             assertTrue(testObj.stillPlaying())
         }
@@ -99,10 +99,14 @@ internal class GameStateTest {
             // need to train random move of wumpus after miss
             every { chaos.pickWumpusMovement() } returns 4
 
-            repeat(4) { testObj.consumeArrow() }
-            testObj.followArrowPath(arrayOf(2, 3, 4), ui, gameMap)
+            consume4Arrows()
+            testObj.followArrowPath(arrayOf(2, 3, 4), ui)
             verify { ui.reportMissedShot() }
             assertTrue(testObj.hasLost())
+        }
+
+        private fun consume4Arrows() {
+            repeat(4) { testObj.followArrowPath(arrayOf(), ui) }
         }
 
         @Test
@@ -111,7 +115,7 @@ internal class GameStateTest {
             every { chaos.pickWumpusMovement() } returns 1
 
             testObj.wumpusRoom = gameMap.room(5)
-            testObj.followArrowPath(arrayOf(2), ui, gameMap)
+            testObj.followArrowPath(arrayOf(2), ui)
             verify { ui.reportMissedShot() }
             verify { ui.reportWumpusAtePlayer() }
             assertTrue(testObj.hasLost())
@@ -119,7 +123,7 @@ internal class GameStateTest {
 
         @Test
         fun shootSelf() {
-            testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui, gameMap)
+            testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui)
             verify { ui.reportShotSelf() }
             assertTrue(testObj.hasLost())
         }
@@ -127,7 +131,7 @@ internal class GameStateTest {
         @Test
         fun shootWumpus() {
             testObj.wumpusRoom = gameMap.room(3)
-            testObj.followArrowPath(arrayOf(2, 3), ui, gameMap)
+            testObj.followArrowPath(arrayOf(2, 3), ui)
             verify { ui.reportShotWumpus() }
             assertTrue(testObj.hasWon())
         }
@@ -135,28 +139,9 @@ internal class GameStateTest {
 
     @Test
     fun nextArrowRoom() {
-        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 2, gameMap))
+        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 2))
         every { chaos.pickTunnel() } returns 1
-        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 5, gameMap))
-    }
-
-    @Test
-    fun arrows() {
-        val arrowsConsumed = consumeAllArrows()
-        assertEquals(5, arrowsConsumed)
-        testObj.resetArrows()
-        val resetArrows = consumeAllArrows()
-        assertEquals(5, resetArrows)
-        assertEquals(0, consumeAllArrows(), "Just proving that there are no arrows after consumeAllArrows()")
-    }
-
-    private fun consumeAllArrows(): Int {
-        var c = 0
-        while (testObj.hasArrows()) {
-            c++
-            testObj.consumeArrow()
-        }
-        return c
+        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 5))
     }
 
     @Nested
@@ -167,7 +152,7 @@ internal class GameStateTest {
 
         @Test
         fun noEncounters() {
-            testObj.movePlayerToRoom(2, ui, gameMap)
+            testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.stillPlaying())
             assertEquals(gameMap.room(2), testObj.playerRoom)
         }
@@ -177,7 +162,7 @@ internal class GameStateTest {
         fun bats(bat1: Int, bat2: Int) {
             testObj.setNewLocations(arrayOf(1, 20, 20, 20, bat1, bat2))
             every { chaos.pickRoom() } returns 10
-            testObj.movePlayerToRoom(2, ui, gameMap)
+            testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.stillPlaying())
             assertEquals(gameMap.room(10), testObj.playerRoom)
             verify { ui.reportBatEncounter() }
@@ -187,7 +172,7 @@ internal class GameStateTest {
         @CsvSource("20, 2", "2, 20")
         fun pits(pit1: Int, pit2: Int) {
             testObj.setNewLocations(arrayOf(1, 20, pit1, pit2, 20, 20))
-            testObj.movePlayerToRoom(2, ui, gameMap)
+            testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.hasLost())
             verify { ui.reportFall() }
         }
@@ -196,7 +181,7 @@ internal class GameStateTest {
         fun wumpusThatStays() {
             every { chaos.pickWumpusMovement() } returns 4
             testObj.wumpusRoom = gameMap.room(2)
-            testObj.movePlayerToRoom(2, ui, gameMap)
+            testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.hasLost())
             verify { ui.reportWumpusBump() }
         }
@@ -205,7 +190,7 @@ internal class GameStateTest {
         fun wumpusThatMovesThenPit() {
             every { chaos.pickWumpusMovement() } returns 1
             testObj.setNewLocations(arrayOf(1, 2, 2, 20, 20, 20))
-            testObj.movePlayerToRoom(2, ui, gameMap)
+            testObj.movePlayerToRoom(2, ui)
             assertTrue(testObj.hasLost())
             verify { ui.reportWumpusBump() }
             verify { ui.reportFall() }
@@ -222,7 +207,7 @@ internal class GameStateTest {
         @Test
         fun noMove() {
             every {chaos.pickWumpusMovement()} returns 4
-            testObj.wumpusMove(gameMap, ui)
+            testObj.wumpusMove(ui)
             assertEquals(gameMap.room(1), testObj.wumpusRoom)
             assertTrue(testObj.stillPlaying())
         }
@@ -230,7 +215,7 @@ internal class GameStateTest {
         @Test
         fun relocates() {
             every {chaos.pickWumpusMovement()} returns 2
-            testObj.wumpusMove(gameMap, ui)
+            testObj.wumpusMove(ui)
             assertEquals(gameMap.room(5), testObj.wumpusRoom)
             assertTrue(testObj.stillPlaying())
         }
@@ -238,7 +223,7 @@ internal class GameStateTest {
         @Test
         fun catchesPlayer() {
             every {chaos.pickWumpusMovement()} returns 1
-            testObj.wumpusMove(gameMap, ui)
+            testObj.wumpusMove(ui)
             assertEquals(gameMap.room(2), testObj.wumpusRoom)
             assertTrue(testObj.hasLost())
         }

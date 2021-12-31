@@ -71,7 +71,7 @@ internal class UI(val console: Console) {
         return result
     }
 
-    fun askForValidDestinationRoom(gameState: GameState, map: GameMap): Int {
+    fun askForValidDestinationRoom(gameState: GameState): Int {
         var result: Int
         do {
             result = askForDestinationRoom()
@@ -138,7 +138,7 @@ internal class UI(val console: Console) {
         console.println("HUNT THE WUMPUS")
     }
 
-    fun printRoomDescription(gameState: GameState, map: GameMap) {
+    fun printRoomDescription(gameState: GameState) {
         val room = gameState.playerRoom
         console.println("")
         (1..5).forEach { j ->

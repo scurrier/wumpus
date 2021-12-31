@@ -132,8 +132,8 @@ internal class UITest {
         val gameState = GameState()
         gameState.playerRoom = gameState.map.room(1)
         every { console.readInt() } returnsMany listOf(1,3,2)
-        assertEquals(1, testObj.askForValidDestinationRoom(gameState, GameMap()), "it's possible to move to the same room")
-        assertEquals(2, testObj.askForValidDestinationRoom(gameState, GameMap()), "3 is invalid so retry and get 2")
+        assertEquals(1, testObj.askForValidDestinationRoom(gameState), "it's possible to move to the same room")
+        assertEquals(2, testObj.askForValidDestinationRoom(gameState), "3 is invalid so retry and get 2")
         verifySequence {
             console.print("WHERE TO ")
             console.readInt()
@@ -202,7 +202,7 @@ internal class UITest {
     fun printRoomDescription() {
         val gameState = GameState()
         gameState.setNewLocations(arrayOf(3,4,12,19,2,20))
-        testObj.printRoomDescription(gameState, GameMap())
+        testObj.printRoomDescription(gameState)
         verify {
             console.println("I SMELL A WUMPUS!")
             console.println("I FEEL A DRAFT")

@@ -5,12 +5,11 @@ import Console
 class Game {
 	internal var ui = UI(Console())
 	internal var gameState = GameState(exitOnWin = true)
-	private val map get() = gameState.map
 
 	fun main() {
 		try {
 			ui.provideInstructions()
-			gameState.intializeLocations()
+			gameState.initializeLocations()
 			playGame()
 			while (gameState.playAgain()) {
 				val useNewSetup = ui.askIfNewSetup()
@@ -24,11 +23,10 @@ class Game {
 
 	private fun playGame() {
 		ui.showTitle()
-		gameState.resetArrows()
 		gameState.startPlaying()
 		do {
-			ui.printRoomDescription(gameState, map)
-			ui.askForAction().doAction(gameState, ui, map)
+			ui.printRoomDescription(gameState)
+			ui.askForAction().doAction(gameState, ui)
 		} while (gameState.stillPlaying())
 		if (gameState.hasLost()) {
 			ui.reportLoss()

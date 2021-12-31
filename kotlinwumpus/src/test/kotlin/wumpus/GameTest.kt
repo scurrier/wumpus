@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.Random
 
-class WumpusTest {
+class GameTest {
     private val console = mockk<Console>()
     private val testObj = Game()
     @BeforeEach

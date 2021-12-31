@@ -7,19 +7,8 @@ internal class GameState(
     private val exitOnWin: Boolean = false
 ) {
 
-    fun resetArrows() {
-        arrowCount = 5
-    }
-
-    fun consumeArrow() {
-        arrowCount -= 1
-    }
-
-    fun hasArrows(): Boolean {
-        return arrowCount > 0
-    }
-
     val map: GameMap = GameMap()
+    private var arrows: Arrows = Arrows()
 
     private var gameResult: Int = 0
     var playerRoom: Room
@@ -41,11 +30,10 @@ internal class GameState(
     val bat2: Room
         get() = locations[5]
 
-    private var arrowCount: Int = 5
-    var locations = Array(6) { Room(0,0,0,0) }
-    private var initialLocations = Array(6) { Room(0,0,0,0) }
+    var locations = Array(6) { Room(0, 0, 0, 0) }
+    private var initialLocations = Array(6) { Room(0, 0, 0, 0) }
 
-    fun wumpusMove(map: GameMap, ui: UI) {
+    fun wumpusMove(ui: UI) {
         val k2 = chaos.pickWumpusMovement()
         if (k2 != 4) wumpusRoom = map.room(wumpusRoom[k2])
         if (wumpusRoom == playerRoom) {
@@ -54,7 +42,7 @@ internal class GameState(
         }
     }
 
-    fun intializeLocations() {
+    fun initializeLocations() {
         do {
             setNewLocations(generateLocations())
         } while (hasCrossovers())
@@ -69,11 +57,9 @@ internal class GameState(
     }
 
     fun setNewLocations(newLocations: Array<Int>) {
-        var index = 0
-        for (newRoom in newLocations) {
+        for ((index, newRoom) in newLocations.withIndex()) {
             locations[index] = map.room(newRoom)
             initialLocations[index] = map.room(newRoom)
-            index++
         }
     }
 
@@ -93,7 +79,8 @@ internal class GameState(
     }
 
     fun resetGame(useNewSetup: Boolean) {
-        if (useNewSetup) intializeLocations()
+        arrows.resetArrows()
+        if (useNewSetup) initializeLocations()
         else restoreInitialLocations()
     }
 
@@ -109,39 +96,48 @@ internal class GameState(
     fun hasWon(): Boolean = gameResult > 0
     fun playAgain() = !(exitOnWin && hasWon())
 
-    fun followArrowPath(path: Array<Int>, ui: UI, map: GameMap) {
+    fun followArrowPath(path: Array<Int>, ui: UI) {
         var arrowRoom = playerRoom
         for (pathRoom in path) {
-            arrowRoom = map.room(nextArrowRoom(arrowRoom, pathRoom, map))
-            if (arrowRoom == wumpusRoom) {
-                ui.reportShotWumpus()
-                return win()
-            }
-            if (arrowRoom == playerRoom) {
-                ui.reportShotSelf()
-                return lose()
+            arrowRoom = map.room(nextArrowRoom(arrowRoom, pathRoom))
+            when (arrowRoom) {
+                wumpusRoom -> return wumpusHitByArrow(ui)
+                playerRoom -> return playerHitByArrow(ui)
             }
         }
-
-        ui.reportMissedShot()
-        consumeArrow()
-        if (!hasArrows()) {
-            return lose()
-        }
-        return wumpusMove(map, ui)
+        return arrowMissed(ui)
     }
 
-    fun nextArrowRoom(start: Room, destination: Int, map: GameMap) = if (destination in start) {
+    private fun arrowMissed(ui: UI) {
+        ui.reportMissedShot()
+        arrows.consumeArrow()
+        if (!arrows.hasArrows()) {
+            return lose()
+        }
+        return wumpusMove(ui)
+    }
+
+    private fun playerHitByArrow(ui: UI) {
+        ui.reportShotSelf()
+        lose()
+    }
+
+    private fun wumpusHitByArrow(ui: UI) {
+        ui.reportShotWumpus()
+        win()
+    }
+
+    fun nextArrowRoom(start: Room, destination: Int) = if (destination in start) {
         destination
     } else {
         start[chaos.pickTunnel()]
     }
 
-    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, map: GameMap) {
+    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI) {
         playerRoom = map.room(newPlayerRoom)
         if (playerRoom == wumpusRoom) {
             ui.reportWumpusBump()
-            wumpusMove(map, ui)
+            wumpusMove(ui)
             if (!stillPlaying()) return
         }
         if ((playerRoom == pit1 || playerRoom == pit2)) {
@@ -151,7 +147,7 @@ internal class GameState(
         }
         if ((playerRoom == bat1 || playerRoom == bat2)) {
             ui.reportBatEncounter()
-            return movePlayerToRoom(chaos.pickRoom(), ui, map)
+            return movePlayerToRoom(chaos.pickRoom(), ui)
         }
         return
     }
