@@ -66,7 +66,7 @@ internal class GameStateTest {
         fun miss() {
             // need to train random move of wumpus after miss
             every { chaos.pickWumpusMovement() } returns 4
-            testObj.followArrowPath(arrayOf(2, 3, 4), ui)
+            testObj.arrow.followArrowPath(arrayOf(2, 3, 4), ui)
             verify { ui.reportMissedShot() }
             assertTrue(gameResult.stillPlaying())
         }
@@ -77,13 +77,13 @@ internal class GameStateTest {
             every { chaos.pickWumpusMovement() } returns 4
 
             consume4Arrows()
-            testObj.followArrowPath(arrayOf(2, 3, 4), ui)
+            testObj.arrow.followArrowPath(arrayOf(2, 3, 4), ui)
             verify { ui.reportMissedShot() }
             assertTrue(gameResult.hasLost())
         }
 
         private fun consume4Arrows() {
-            repeat(4) { testObj.followArrowPath(arrayOf(), ui) }
+            repeat(4) { testObj.arrow.followArrowPath(arrayOf(), ui) }
         }
 
         @Test
@@ -92,7 +92,7 @@ internal class GameStateTest {
             every { chaos.pickWumpusMovement() } returns 1
             testObj.setNewLocations(listOf(1, 5, 20, 20, 20, 20))
 
-            testObj.followArrowPath(arrayOf(2), ui)
+            testObj.arrow.followArrowPath(arrayOf(2), ui)
             verify { ui.reportMissedShot() }
             verify { ui.reportWumpusAtePlayer() }
             assertTrue(gameResult.hasLost())
@@ -100,7 +100,7 @@ internal class GameStateTest {
 
         @Test
         fun shootSelf() {
-            testObj.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui)
+            testObj.arrow.followArrowPath(arrayOf(5, 6, 7, 8, 1), ui)
             verify { ui.reportShotSelf() }
             assertTrue(gameResult.hasLost())
         }
@@ -108,16 +108,9 @@ internal class GameStateTest {
         @Test
         fun shootWumpus() {
             testObj.setNewLocations(listOf(1, 3, 20, 20, 20, 20))
-            testObj.followArrowPath(arrayOf(2, 3), ui)
+            testObj.arrow.followArrowPath(arrayOf(2, 3), ui)
             verify { ui.reportShotWumpus() }
             assertTrue(gameResult.hasWon())
         }
-    }
-
-    @Test
-    fun nextArrowRoom() {
-        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 2))
-        every { chaos.pickTunnel() } returns 1
-        assertEquals(2, testObj.nextArrowRoom(gameMap.room(3), 5))
     }
 }
