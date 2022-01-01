@@ -17,7 +17,7 @@ internal class GameState(
     private var locations = listOf(player, *hazards.toTypedArray())
     private var initialLocations = locations.map { it.room }.toMutableList()
     private val shootables = listOf<Shootable>(player, wumpus)
-
+    private val arrow = Arrow()
     fun initializeLocations() {
         var newLocations: List<Int>
         do {
