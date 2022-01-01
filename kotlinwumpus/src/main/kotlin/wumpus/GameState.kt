@@ -16,6 +16,7 @@ internal class GameState(
     val wumpusRoom: Room get() = wumpus.room
     private var locations = listOf(player, *hazards.toTypedArray())
     private var initialLocations = locations.map { it.room }.toMutableList()
+    private val shootables = listOf<Shootable>(player, wumpus)
 
     fun initializeLocations() {
         var newLocations: List<Int>
@@ -62,14 +63,15 @@ internal class GameState(
 
     fun followArrowPath(path: Array<Int>, ui: UI) {
         var arrowRoom = playerRoom
-        for (pathRoom in path) {
+        val pathIterator = path.iterator()
+        while (pathIterator.hasNext() && gameResult.stillPlaying()) {
+            val pathRoom = pathIterator.next()
             arrowRoom = map.room(nextArrowRoom(arrowRoom, pathRoom))
-            when (arrowRoom) {
-                wumpusRoom -> return wumpusHitByArrow(ui)
-                playerRoom -> return playerHitByArrow(ui)
-            }
+            shootables.forEach { it.checkShot(arrowRoom, ui) }
+            if (!gameResult.stillPlaying())
+                return
         }
-        return arrowMissed(ui)
+        arrowMissed(ui)
     }
 
     private fun arrowMissed(ui: UI) {
@@ -78,16 +80,6 @@ internal class GameState(
         if (!arrows.hasArrows())
             return gameResult.lose()
         return wumpus.wumpusMove(ui, player)
-    }
-
-    private fun playerHitByArrow(ui: UI) {
-        ui.reportShotSelf()
-        gameResult.lose()
-    }
-
-    private fun wumpusHitByArrow(ui: UI) {
-        ui.reportShotWumpus()
-        gameResult.win()
     }
 
     fun nextArrowRoom(start: Room, destination: Int) = if (destination in start) {
