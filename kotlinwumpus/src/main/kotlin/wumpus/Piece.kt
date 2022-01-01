@@ -5,59 +5,59 @@ internal abstract class Piece(var room: Room = Room(0, 0, 0, 0)) {
 
 internal abstract class Hazard() : Piece() {
     abstract fun nearby(ui: UI)
-    fun checkForEncounter(ui: UI, gameState: GameState) {
-        if (gameState.playerRoom == room)
-            encountered(ui, gameState)
+    fun checkForEncounter(ui: UI, player: Player) {
+        if (player.room == room)
+            encountered(ui, player)
     }
-    protected abstract fun encountered(ui: UI, gameState: GameState)
+    protected abstract fun encountered(ui: UI, player: Player)
 }
 
-internal class Player() : Piece() {
-    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI, gameState: GameState) {
-        room = gameState.map.room(newPlayerRoom)
-        val hazardIterator = gameState.hazardIterator()
-        while (hazardIterator.hasNext() && gameState.gameResult.stillPlaying()) {
-            hazardIterator.next().checkForEncounter(ui, gameState)
+internal class Player(private val hazards: List<Hazard>, private val map: GameMap, private val gameResult: GameResult) : Piece() {
+    fun movePlayerToRoom(newPlayerRoom: Int, ui: UI) {
+        room = map.room(newPlayerRoom)
+        val hazardIterator = hazards.iterator()
+        while (hazardIterator.hasNext() && gameResult.stillPlaying()) {
+            hazardIterator.next().checkForEncounter(ui, this)
         }
     }
 }
 
-internal class Wumpus() : Hazard() {
+internal class Wumpus(private val chaos: Chaos, private val map: GameMap, private val gameResult: GameResult) : Hazard() {
     override fun nearby(ui: UI) = ui.reportWumpusNearby()
 
-    override fun encountered(ui: UI, gameState: GameState) {
+    override fun encountered(ui: UI, player: Player) {
         ui.reportWumpusBump()
-        wumpusMove(ui, gameState)
+        wumpusMove(ui, player)
     }
 
-    fun wumpusMove(ui: UI, gameState: GameState) {
-        val k2 = gameState.chaos.pickWumpusMovement()
+    fun wumpusMove(ui: UI, player: Player) {
+        val k2 = chaos.pickWumpusMovement()
         if (k2 != 4)
-            room = gameState.map.room(room[k2])
-        if (room == gameState.playerRoom)
-            wumpusWin(ui, gameState)
+            room = map.room(room[k2])
+        if (room == player.room)
+            wumpusWin(ui)
     }
 
-    fun wumpusWin(ui: UI, gameState: GameState) {
+    private fun wumpusWin(ui: UI) {
         ui.reportWumpusAtePlayer()
-        gameState.gameResult.lose()
+        gameResult.lose()
     }
 }
 
-internal class Pit() : Hazard() {
+internal class Pit(private val gameResult: GameResult) : Hazard() {
     override fun nearby(ui: UI) = ui.reportPitNearby()
 
-    override fun encountered(ui: UI, gameState: GameState) {
+    override fun encountered(ui: UI, player: Player) {
         ui.reportFall()
-        gameState.gameResult.lose()
+        gameResult.lose()
     }
 }
 
-internal class Bat() : Hazard() {
+internal class Bat(private val chaos: Chaos) : Hazard() {
     override fun nearby(ui: UI) = ui.reportBatNearby()
 
-    override fun encountered(ui: UI, gameState: GameState) {
+    override fun encountered(ui: UI, player: Player) {
         ui.reportBatEncounter()
-        gameState.player.movePlayerToRoom(gameState.chaos.pickRoom(), ui, gameState)
+        player.movePlayerToRoom(chaos.pickRoom(), ui)
     }
 }

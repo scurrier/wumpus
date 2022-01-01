@@ -200,7 +200,8 @@ internal class UITest {
     @Test
     fun printRoomDescription() {
         val playerRoom = Room(3,2,4,12)
-        val nearbyHazards = listOf(Wumpus(), Pit(), Pit(), Bat())
+        val gameResult = GameResult()
+        val nearbyHazards = listOf(Wumpus(mockk(), GameMap(), gameResult), Pit(gameResult), Pit(gameResult), Bat(mockk()))
         testObj.printRoomDescription(playerRoom, nearbyHazards)
         verifySequence {
             console.println("")

@@ -9,14 +9,13 @@ internal class GameState(
 ) {
     val map: GameMap = GameMap()
     private var arrows: Arrows = Arrows()
-    val player: Player = Player()
+    private val wumpus: Wumpus = Wumpus(chaos, map, gameResult)
+    private val hazards = listOf(wumpus, Pit(gameResult), Pit(gameResult), Bat(chaos), Bat(chaos))
+    val player: Player = Player(hazards, map, gameResult)
     val playerRoom: Room get() = player.room
-    private val wumpus: Wumpus = Wumpus()
     val wumpusRoom: Room get() = wumpus.room
-    private val hazards = arrayOf(wumpus, Pit(), Pit(), Bat(), Bat())
-    private var locations = arrayOf(player, *hazards)
+    private var locations = listOf(player, *hazards.toTypedArray())
     private var initialLocations = locations.map { it.room }.toMutableList()
-    fun hazardIterator(): Iterator<Hazard> = hazards.iterator()
 
     fun initializeLocations() {
         var newLocations: List<Int>
@@ -78,7 +77,7 @@ internal class GameState(
         arrows.consumeArrow()
         if (!arrows.hasArrows())
             return gameResult.lose()
-        return wumpus.wumpusMove(ui, this)
+        return wumpus.wumpusMove(ui, player)
     }
 
     private fun playerHitByArrow(ui: UI) {
